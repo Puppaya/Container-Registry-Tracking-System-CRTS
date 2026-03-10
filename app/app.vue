@@ -10,10 +10,13 @@ useHead({
     { key: 'theme-color', name: 'theme-color', content: color }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', href: '/favicon.ico' },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Public+Sans:wght@400;500;600&family=Noto+Sans+Lao:wght@400;700&display=swap' }
   ],
   htmlAttrs: {
-    lang: 'en'
+    lang: 'lo'
   }
 })
 
@@ -34,9 +37,15 @@ useSeoMeta({
 <template>
   <UApp>
     <NuxtLoadingIndicator />
+    <ClientOnly>
+      <AppLoading />
+    </ClientOnly>
 
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+
+    <UNotifications />
+    <UModals />
   </UApp>
 </template>

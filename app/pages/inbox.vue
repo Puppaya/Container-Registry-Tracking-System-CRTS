@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
 import { computed, ref, watch } from 'vue'
 import { breakpointsTailwind } from '@vueuse/core'
 import type { Mail } from '~/types'

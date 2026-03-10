@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'default'
+})
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 const links = [[{
