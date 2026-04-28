@@ -1,43 +1,39 @@
 import { z } from 'zod'
-import type { H3Event } from 'h3'
+import { H3Event } from 'h3'
 
 /**
- * Helper to validate request body/query using Zod
+ * Validates request body against a Zod schema.
+ * Throws 400 Bad Request if validation fails.
  */
-export async function validateRequest<T extends z.ZodTypeAny>(
-    event: H3Event,
-    schema: T,
-    type: 'body' | 'query' = 'body'
-): Promise<z.infer<T>> {
-    try {
-        const data = type === 'body' ? await readBody(event) : getQuery(event)
-        return await schema.parseAsync(data)
-    } catch (error: any) {
-        if (error instanceof z.ZodError) {
-            return sendApiError('Validation Error', 422, error.flatten().fieldErrors)
-        }
-        throw error
-    }
+export const validateBody = async <T extends z.ZodTypeAny>(event: H3Event, schema: T): Promise<z.infer<T>> => {
+  const body = await readBody(event)
+  const result = schema.safeParse(body)
+  
+  if (!result.success) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Validation Failed',
+      data: result.error.flatten()
+    })
+  }
+  
+  return result.data
 }
-// User Validation Schemas
-export const UserSchema = z.object({
-    username: z.string().min(3),
-    email: z.string().email(),
-    password: z.string().min(6),
-    name: z.string().min(2),
-    role: z.enum(['ADMIN', 'EDITOR', 'USER']).default('USER'),
-    avatar: z.string().url().optional().nullable()
-})
 
-export const UserUpdateSchema = UserSchema.partial()
-
-// Customer Validation Schemas
-export const CustomerSchema = z.object({
-    name: z.string().min(2),
-    email: z.string().email(),
-    status: z.enum(['subscribed', 'unsubscribed', 'bounced']).default('subscribed'),
-    location: z.string().optional().nullable(),
-    avatar: z.string().url().optional().nullable()
-})
-
-export const CustomerUpdateSchema = CustomerSchema.partial()
+/**
+ * Validates request query against a Zod schema.
+ */
+export const validateQuery = <T extends z.ZodTypeAny>(event: H3Event, schema: T): Promise<z.infer<T>> => {
+  const query = getQuery(event)
+  const result = schema.safeParse(query)
+  
+  if (!result.success) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Invalid Query Parameters',
+      data: result.error.flatten()
+    })
+  }
+  
+  return result.data
+}

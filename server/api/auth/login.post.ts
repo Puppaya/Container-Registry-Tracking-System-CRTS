@@ -1,22 +1,32 @@
+import { z } from 'zod'
 import { userService } from '../../services/user.service'
 import { decryptPassword } from '../../utils/crypto'
+import { validateBody } from '../../utils/validation'
+
+const loginSchema = z.object({
+  username: z.string().min(1, 'Username is required'),
+  password: z.string().min(1, 'Password is required')
+})
 
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
-    const { username, password: encryptedPassword } = body
-
-    if (!username || !encryptedPassword) {
-        return sendApiError('Username and password are required', 400)
-    }
+    const { username, password: encryptedPassword } = await validateBody(event, loginSchema)
 
     // 1. Decrypt password received from frontend
-    const password = decryptPassword(encryptedPassword)
+    let password = encryptedPassword
+    try {
+        password = decryptPassword(encryptedPassword)
+    } catch (e) {
+        // Fallback or handle error
+    }
 
     // 2. Authenticate via Service
     const user = await userService.authenticate(username, password)
 
     if (!user) {
-        return sendApiError('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ', 401)
+        throw createError({
+            statusCode: 401,
+            statusMessage: 'ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ถูกຕ້ອງ'
+        })
     }
 
     // 3. Set Session
@@ -26,7 +36,6 @@ export default defineEventHandler(async (event) => {
             email: user.email,
             username: user.username || '',
             name: user.name,
-            avatar: user.avatar || '',
             role: (user as any).role || 'USER'
         },
         loggedInAt: new Date()
@@ -34,3 +43,4 @@ export default defineEventHandler(async (event) => {
 
     return { success: true, message: 'ເຂົ້າສູ່ລະບົບສຳເລັດ' }
 })
+
