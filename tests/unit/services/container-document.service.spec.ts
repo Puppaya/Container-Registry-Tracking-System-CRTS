@@ -36,6 +36,18 @@ vi.mock('../../../server/utils/storage', () => ({
   }))
 }))
 
+vi.mock('../../../server/utils/storage/config', () => ({
+  getStorageConfig: vi.fn(() => ({
+    provider: 'local',
+    localPath: '/tmp/storage'
+  }))
+}))
+
+vi.mock('../../../server/utils/storage/public-url', () => ({
+  buildPublicStorageUrl: vi.fn(() => 'http://localhost/test.pdf'),
+  withDocumentPublicUrl: vi.fn((doc) => doc)
+}))
+
 describe('ContainerDocumentService', () => {
   beforeEach(() => {
     vi.clearAllMocks()
