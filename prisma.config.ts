@@ -13,7 +13,9 @@ function buildDatabaseUrl(): string {
   const password = process.env.DB_PASSWORD
 
   if (!server || !database || !user || !password) {
-    throw new Error('Missing DB_SERVER, DB_DATABASE, DB_USER, or DB_PASSWORD in environment')
+    // Return a placeholder URL so that Prisma CLI operations like 'generate'
+    // can run without throwing errors in environments where DB variables are not set (e.g. CI/CD)
+    return 'sqlserver://localhost:1433;database=dummy;user=dummy;password=dummy;trustServerCertificate=true;encrypt=false'
   }
 
   return `sqlserver://${server}:${port};database=${database};user=${user};password=${password};trustServerCertificate=true;encrypt=false`
