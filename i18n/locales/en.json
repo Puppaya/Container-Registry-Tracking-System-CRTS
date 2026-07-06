@@ -1,0 +1,763 @@
+{
+  "app": {
+    "name": "CRTS",
+    "subtitle": "Container Registry & Tracking System",
+    "description": "Centralized container asset registration, lifecycle tracking, survey integration, and operational monitoring for complete fleet visibility.",
+    "copyright": "All rights reserved."
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "lo": "ລາວ"
+  },
+  "nav": {
+    "goTo": "Go to",
+    "modules": "Modules",
+    "groups": {
+      "overview": "Overview",
+      "registry": "Container Registry",
+      "operations": "Lifecycle & Operations",
+      "search": "Search & Tracking",
+      "reporting": "Dashboard & Reporting",
+      "admin": "Administration"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "registryList": "Registry List",
+      "registerContainer": "Register Container",
+      "lifecycleTracking": "Lifecycle Tracking",
+      "movementLog": "Movement Log",
+      "surveyInspections": "Survey Inspections",
+      "advancedSearch": "Advanced Search",
+      "qrScan": "QR Scan",
+      "analytics": "Analytics",
+      "reports": "Reports",
+      "users": "Users",
+      "masterData": "Master Data",
+      "auditLogs": "Audit Logs"
+    },
+    "profileTabs": {
+      "overview": "Overview",
+      "lifecycle": "Lifecycle",
+      "movements": "Movements",
+      "surveys": "Surveys",
+      "documents": "Documents"
+    },
+    "settings": {
+      "general": "General",
+      "security": "Security",
+      "documentation": "Documentation"
+    },
+    "modules": {
+      "dashboard": {
+        "title": "Operational Dashboard",
+        "description": "Fleet health, recent activities, and containers requiring attention."
+      },
+      "containers": {
+        "title": "Container Registry",
+        "description": "Master data for all registered containers — register, edit, activate, and deactivate."
+      },
+      "register": {
+        "title": "Register Container",
+        "description": "Register a new container with ISO validation and QR code generation."
+      },
+      "lifecycle": {
+        "title": "Lifecycle Tracking",
+        "description": "Track registration, survey, repair, maintenance, relocation, and gate events."
+      },
+      "movements": {
+        "title": "Movement Log",
+        "description": "Gate in, gate out, and relocation records across the fleet."
+      },
+      "survey": {
+        "title": "Survey Inspections",
+        "description": "Survey results synced from the external inspection system."
+      },
+      "search": {
+        "title": "Advanced Search",
+        "description": "Filter by container number, owner, type, status, survey status, and registration date."
+      },
+      "scan": {
+        "title": "QR Scan",
+        "description": "Look up a container by QR code content or container number."
+      },
+      "analytics": {
+        "title": "Analytics Center",
+        "description": "Fleet KPIs, registration trends, and operational breakdowns."
+      },
+      "reports": {
+        "title": "Report Workspace",
+        "description": "Registry, lifecycle, survey coverage, and status summary reports with export."
+      },
+      "masterData": {
+        "title": "Master Data",
+        "description": "Manage reference data for ISO types, sizes, categories, owners, manufacturers, and locations."
+      }
+    }
+  },
+  "auth": {
+    "login": "Sign In",
+    "loginSubtitle": "Enter your username and password",
+    "username": "Username",
+    "usernameHelp": "Use username only (e.g. admin)",
+    "password": "Password",
+    "logout": "Log out",
+    "logoutSuccess": "Signed out successfully",
+    "loginSuccess": "Signed in successfully",
+    "loginWelcome": "Welcome to CRTS",
+    "loginError": "Sign in failed",
+    "somethingWrong": "Something went wrong",
+    "validation": {
+      "usernameMin": "Username must be at least 3 characters",
+      "passwordMin": "Password must be at least 6 characters"
+    }
+  },
+  "userMenu": {
+    "appearance": "Appearance",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "common": {
+    "save": "Save",
+    "saveChanges": "Save changes",
+    "saveDraft": "Save Draft",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "deleteSelected": "Delete Selected",
+    "edit": "Edit",
+    "add": "Add",
+    "register": "Register",
+    "upload": "Upload",
+    "search": "Search",
+    "clear": "Clear",
+    "clearFilters": "Clear Filters",
+    "exportCsv": "Export CSV",
+    "exportExcel": "Excel",
+    "exportPdf": "PDF",
+    "refresh": "Refresh",
+    "update": "Update",
+    "validate": "Validate",
+    "track": "Track",
+    "choose": "Choose",
+    "viewProfile": "View Profile",
+    "goHome": "Go Home",
+    "goBack": "Go Back",
+    "home": "Back to Home",
+    "loading": "Loading...",
+    "loaded": "{percent}% Loaded",
+    "pleaseWait": "Please wait",
+    "loadingSystem": "Loading system...",
+    "success": "Success",
+    "error": "Error",
+    "actionFailed": "Action failed",
+    "noData": "No data",
+    "all": "All",
+    "allStatuses": "All Statuses",
+    "allOwners": "All Owners",
+    "allResults": "All results",
+    "active": "Active",
+    "inactive": "Inactive",
+    "display": "Display",
+    "viewOnly": "View only",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageOf": "Page {page} of {total}",
+    "showing": "Showing {n} of {total} total containers",
+    "records": "{n} record(s)",
+    "systemStatus": "System Status:",
+    "documentation": "Documentation",
+    "support": "Support",
+    "notFound": "Not found",
+    "registry": "Registry",
+    "profile": "Profile",
+    "containers": "Containers",
+    "quickEntry": "Quick Entry",
+    "scanUnit": "Scan Unit",
+    "syncSurvey": "Sync Survey",
+    "syncSurveys": "Sync Surveys",
+    "recordMovement": "Record Movement",
+    "viewMovements": "View Movements",
+    "viewFullLifecycle": "View Full Lifecycle",
+    "viewAll": "View all",
+    "preview": "Preview",
+    "openReport": "Open Report"
+  },
+  "emptyState": {
+    "noData": "No data available",
+    "noResults": "No results match your filters",
+    "registry": {
+      "title": "No containers in the registry",
+      "description": "Register a container to start tracking your fleet.",
+      "action": "Register Container"
+    },
+    "search": {
+      "title": "No containers found",
+      "description": "Try adjusting your search filters."
+    },
+    "users": {
+      "title": "No users found",
+      "description": "Add a user to grant system access.",
+      "action": "Add User"
+    },
+    "masterData": {
+      "title": "No master data found",
+      "description": "Add reference data for this category.",
+      "action": "Add Item"
+    },
+    "audit": {
+      "title": "No audit logs found",
+      "description": "Activity will appear here as users perform actions."
+    },
+    "movements": {
+      "title": "No movements recorded",
+      "description": "Gate in, gate out, and relocation events will appear here."
+    },
+    "lifecycle": {
+      "title": "No lifecycle events",
+      "description": "Registration, survey, and operational events will appear here."
+    },
+    "surveyRecords": {
+      "title": "No inspection records",
+      "description": "Sync from the Survey System to populate records."
+    },
+    "reports": {
+      "title": "No data for this report",
+      "description": "Adjust filters or select a different report type."
+    },
+    "charts": {
+      "noData": "No data available"
+    }
+  },
+  "confirm": {
+    "title": "Confirm Action",
+    "description": "Are you sure you want to proceed with this action?"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loadError": "Unable to load dashboard",
+    "pageTitle": "Operational Dashboard",
+    "pageDescription": "Real-time fleet health, containers requiring attention, and recent lifecycle activities.",
+    "containerRegistry": "Container Registry",
+    "logMovement": "Log Movement",
+    "analytics": "Analytics",
+    "kpis": {
+      "totalContainers": "Total Containers",
+      "active": "Active",
+      "inactive": "Inactive",
+      "surveyed": "Surveyed",
+      "inTransit": "In Transit / Operational",
+      "compliance": "Compliance coverage"
+    },
+    "inventoryTrends": {
+      "title": "Inventory Trends",
+      "volume": "Volume",
+      "throughput": "Throughput",
+      "volumeDesc": "Registration volume — last 6 months",
+      "throughputDesc": "Fleet status throughput",
+      "empty": "No trend data available"
+    },
+    "attention": {
+      "title": "Requires Attention",
+      "subtitle": "Priority operational alerts",
+      "healthy": "No alerts — fleet is healthy",
+      "viewAll": "View All Alerts ({count})",
+      "reviewStatus": "Review Status",
+      "scheduleSurvey": "Schedule Survey",
+      "inactiveDesc": "Container is inactive and may require status review or reactivation.",
+      "unsurveyedDesc": "No survey record on file — compliance verification pending."
+    },
+    "activity": {
+      "title": "Recent Activities",
+      "subtitle": "Operational event timeline",
+      "viewLifecycle": "View Lifecycle",
+      "empty": "No recent activities recorded",
+      "emptyActivities": "No activities yet",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "operator": "Operator: {name}",
+      "eventType": "Event Type",
+      "description": "Description",
+      "date": "Date"
+    }
+  },
+  "containers": {
+    "title": "Container Registry",
+    "register": "Register Container",
+    "registerNew": "Register New Container",
+    "quickAdd": "Quick Add Container",
+    "edit": "Edit Container",
+    "profile": "Container Profile",
+    "lifecycle": "Container Lifecycle",
+    "movements": "Container Movements",
+    "surveys": "Survey History",
+    "documents": "Documents",
+    "addEvent": "Add Event",
+    "recordMovement": "Record Movement",
+    "uploadDocument": "Upload Document",
+    "qrTracking": "QR Tracking",
+    "advancedSearch": "Advanced Search",
+    "notFound": "Container not found",
+    "notFoundDesc": "Invalid container ID or it has been deleted.",
+    "registryDesc": "Manage and monitor global container fleet inventory.",
+    "quickAddDesc": "Quick container registration form.",
+    "registerDesc": "Ensure all technical specifications match the ISO BIC certification plate.",
+    "editDesc": "Update technical specifications and ownership details for this registered unit.",
+    "deleteTitle": "Delete Container",
+    "deleteDesc": "Are you sure you want to delete {containerNumber}?",
+    "activated": "Container activated successfully",
+    "deactivated": "Container deactivated successfully",
+    "deleted": "Container deleted successfully",
+    "syncSuccess": "Survey sync completed",
+    "searchPlaceholder": "Quick search container registry...",
+    "columns": {
+      "containerNumber": "Container Number",
+      "isoType": "ISO Type",
+      "size": "Size",
+      "category": "Category",
+      "owner": "Owner",
+      "status": "Status"
+    },
+    "filters": {
+      "status": "Status",
+      "owner": "Owner",
+      "isoSize": "ISO Size",
+      "survey": "Survey",
+      "regFrom": "Registration date (from)",
+      "regTo": "Registration date (to)",
+      "surveyed": "Surveyed",
+      "notSurveyed": "Not surveyed"
+    },
+    "rowActions": {
+      "profile": "Profile",
+      "edit": "Edit",
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "delete": "Delete"
+    },
+    "scan": {
+      "title": "Scan / Enter QR Code",
+      "instructions": "Enter QR content (CRTS:MSCU1234566) or container number directly",
+      "field": "QR / Container Number",
+      "latestResult": "Latest result"
+    },
+    "lifecyclePage": {
+      "desc": "Track registration, surveys, repairs, maintenance, relocations, and gate movements across all containers.",
+      "placeholder": "Container no., description, actor...",
+      "allEventTypes": "All event types",
+      "totalEvents": "Total Events",
+      "eventCount": "{n} event(s)"
+    },
+    "timeline": {
+      "title": "Lifecycle Timeline",
+      "empty": "No lifecycle events recorded yet",
+      "recordedBy": "Recorded by {name}"
+    },
+    "events": {
+      "eventType": "Event Type",
+      "description": "Description",
+      "eventDate": "Event Date",
+      "placeholder": "Describe the event...",
+      "success": "Event saved successfully"
+    },
+    "documents": {
+      "fileName": "File Name",
+      "type": "Type",
+      "uploadedBy": "Uploaded By",
+      "date": "Date",
+      "documentType": "Document Type",
+      "file": "File",
+      "help": "PDF, Image, Word, Excel — max 10MB",
+      "empty": "No documents yet",
+      "deleteTitle": "Delete Document",
+      "deleteDesc": "Are you sure you want to delete {fileName}?",
+      "uploadSuccess": "Document uploaded successfully",
+      "deleteSuccess": "Document deleted successfully"
+    },
+    "profileSections": {
+      "general": "General Information",
+      "status": "Current Status",
+      "survey": "Survey Summary",
+      "movement": "Movement Summary",
+      "documents": "Documents",
+      "timeline": "Lifecycle Timeline"
+    },
+    "statusCard": {
+      "currentLocation": "Current Location",
+      "fromMovement": "From latest movement",
+      "fromRegistry": "From registry location",
+      "noLocation": "No location recorded",
+      "lifecycleEvents": "{n} lifecycle event(s)",
+      "activeHint": "Ready for normal operations",
+      "inactiveHint": "Deactivated / not in use",
+      "inYard": "In yard / facility",
+      "departed": "Departed facility",
+      "relocated": "Relocated",
+      "noMovement": "No movement recorded"
+    },
+    "registration": {
+      "steps": {
+        "identification": "Identification",
+        "specifications": "Specifications",
+        "ownership": "Ownership",
+        "registration": "Registration"
+      },
+      "helpTitle": "Need Help?",
+      "helpDesc": "The check digit is the 7th digit of the container number, calculated per ISO 6346 using the first 10 characters.",
+      "certify": "I certify that the information provided is accurate and corresponds to the official BIC registration plate affixed to the physical unit."
+    },
+    "form": {
+      "containerNumber": "Container Number",
+      "containerNumberHelp": "Enter 4 letters + 6 digits — check digit is calculated automatically",
+      "isoType": "ISO Type",
+      "size": "Size",
+      "category": "Category",
+      "manufacturer": "Manufacturer",
+      "yearBuilt": "Year Built",
+      "registrationDate": "Registration Date",
+      "createSuccess": "Container registered successfully",
+      "updateSuccess": "Container updated successfully",
+      "validation": {
+        "required": "Please enter container number",
+        "invalid": "Invalid container number",
+        "isoFormat": "Invalid format: 4 letters + 7 digits (ISO 6346)",
+        "checkDigit": "Invalid check digit — expected {expected}, not {provided}"
+      }
+    },
+    "movementsEmpty": "No movements recorded yet (Gate In/Out, Relocation)",
+    "quickSearch": {
+      "placeholder": "Quick search container...",
+      "searching": "Searching...",
+      "noResults": "No results",
+      "advanced": "Advanced search..."
+    }
+  },
+  "users": {
+    "title": "User Management",
+    "addUser": "Add User",
+    "addNew": "Add New User",
+    "editUser": "Edit User: {name}",
+    "createTitle": "Add New User",
+    "createDesc": "Create a new user account for system access.",
+    "editTitle": "Edit User Information",
+    "editDesc": "Update profile or change password for this user.",
+    "notFound": "Error: user not found",
+    "searchPlaceholder": "Search by name or email...",
+    "allRoles": "All Roles",
+    "columns": {
+      "id": "ID",
+      "username": "Username",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role"
+    },
+    "roles": {
+      "administrator": "Administrator",
+      "registryOfficer": "Registry Officer",
+      "surveyTeam": "Survey Team",
+      "management": "Management"
+    },
+    "form": {
+      "username": "Username",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "passwordOptional": "New Password (optional)",
+      "passwordHelpEdit": "Leave blank to keep current password",
+      "passwordHelpCreate": "At least 6 characters",
+      "role": "Role",
+      "submitCreate": "Add User"
+    },
+    "success": {
+      "create": "User created successfully",
+      "update": "User updated successfully",
+      "delete": "User deleted successfully",
+      "bulkDelete": "Deleted {count} selected item(s)"
+    },
+    "deleteConfirm": {
+      "singleTitle": "Delete User",
+      "bulkTitle": "Delete Selected",
+      "bulkDesc": "Are you sure you want to delete all {count} selected items?",
+      "singleDesc": "Are you sure you want to delete this user?"
+    }
+  },
+  "masterData": {
+    "title": "Master Data",
+    "addItem": "Add Item",
+    "editItem": "Edit Item",
+    "recordCount": "record(s)",
+    "searchPlaceholder": "Search code or name...",
+    "columns": {
+      "code": "Code",
+      "name": "Name",
+      "description": "Description",
+      "sortOrder": "Sort",
+      "status": "Status"
+    },
+    "categories": {
+      "IsoType": "ISO Type",
+      "ContainerSize": "Container Size",
+      "ContainerCategory": "Category",
+      "Owner": "Owner / Carrier",
+      "Manufacturer": "Manufacturer",
+      "Location": "Location / Yard",
+      "DocumentType": "Document Type"
+    },
+    "filters": {
+      "allStatus": "All status",
+      "active": "Active only",
+      "inactive": "Inactive only"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "form": {
+      "code": "Code",
+      "name": "Display Name",
+      "description": "Description",
+      "sortOrder": "Sort Order",
+      "isActive": "Status",
+      "activeLabel": "Active"
+    },
+    "validation": {
+      "code": "Code is required",
+      "name": "Name is required"
+    },
+    "success": {
+      "create": "Master data created successfully",
+      "update": "Master data updated successfully",
+      "delete": "Master data deleted successfully"
+    },
+    "deleteConfirm": {
+      "title": "Delete Master Data",
+      "description": "Are you sure you want to delete \"{name}\"?"
+    }
+  },
+  "audit": {
+    "title": "Audit Logs",
+    "detail": "Audit Log Detail",
+    "searchPlaceholder": "Search actor, action, entity ID...",
+    "allActions": "All actions",
+    "allEntities": "All entities",
+    "notFound": "Audit log not found",
+    "columns": {
+      "date": "Date",
+      "action": "Action",
+      "actor": "Actor",
+      "entity": "Entity",
+      "entityId": "Entity ID"
+    },
+    "detailFields": {
+      "id": "ID",
+      "date": "Date",
+      "action": "Action",
+      "actor": "Actor",
+      "entityType": "Entity Type",
+      "entityId": "Entity ID",
+      "details": "Details"
+    }
+  },
+  "survey": {
+    "title": "Survey Inspection Records",
+    "detail": "Survey Inspection Record",
+    "mockAlertTitle": "Showing mock inspection records",
+    "mockAlertDesc": "No survey data in the database yet. Sample records are displayed until sync from the Survey System or manual import.",
+    "mockPreviewTitle": "Mock survey preview",
+    "mockPreviewDesc": "Sample inspection data shown until real surveys are synced into CRTS.",
+    "mockBadge": "Mock",
+    "mockData": "Mock Data",
+    "empty": "No survey inspection data",
+    "emptyHint": "Sync from Survey System or open Survey Inspection Records",
+    "notFound": "Inspection record not found",
+    "syncSuccess": "Survey sync completed",
+    "syncSuccessTitle": "Survey sync completed",
+    "syncSuccessDesc": "Imported {created} record(s). Skipped {skipped}.",
+    "syncNoRecordsTitle": "No survey records found",
+    "syncNoRecordsDesc": "Survey System API returned no records. Ensure the survey is completed (has EIR Doc No.) and the Survey server is running.",
+    "syncNoRecordsForContainerDesc": "Survey API returned 0 records for {containerNumber}. Check that the container number matches exactly and the survey is completed in the Survey System.",
+    "syncNoApiTitle": "Survey API not connected",
+    "syncNoApiDesc": "CRTS could not reach Survey System (SURVEY_API_URL). Restart the dev server after updating .env, then try again.",
+    "syncAlreadyTitle": "Already up to date",
+    "syncAlreadyDesc": "All {skipped} record(s) were already synced.",
+    "syncPartialTitle": "Sync completed with errors",
+    "syncPartialDesc": "Created {created}, skipped {skipped}, failed {failed}.",
+    "viewSurveyReport": "View Survey Report",
+    "containerSurveyHistory": "Container Survey History",
+    "allInspectionRecords": "All Inspection Records",
+    "viewInspectionRecords": "View Inspection Records",
+    "containerSurveys": "Container Surveys",
+    "summary": {
+      "total": "Total Inspections",
+      "last30": "Last 30 Days",
+      "pass": "Pass",
+      "conditional": "Conditional",
+      "fail": "Fail"
+    },
+    "filters": {
+      "placeholder": "Reference, container, inspector...",
+      "pass": "Pass",
+      "conditional": "Conditional",
+      "fail": "Fail"
+    },
+    "columns": {
+      "reference": "Reference No.",
+      "container": "Container",
+      "inspectionDate": "Inspection Date",
+      "inspector": "Inspector",
+      "result": "Result",
+      "damage": "Damage"
+    },
+    "fields": {
+      "reference": "Reference No.",
+      "surveyDate": "Survey Date",
+      "inspector": "Inspector",
+      "result": "Result",
+      "damageSummary": "Damage Summary",
+      "owner": "Owner",
+      "containerStatus": "Container Status"
+    },
+    "containerMockAlert": "Showing mock inspection records",
+    "containerMockAlertDesc": "No synced survey data for this container yet."
+  },
+  "movements": {
+    "title": "Movement Tracking",
+    "desc": "Global search and tracking for Gate In, Gate Out, and Relocation events across all containers.",
+    "trackContainer": "Track Container",
+    "trackPlaceholder": "Container number or prefix...",
+    "notFound": "Container not found",
+    "notFoundDesc": "Try a full container number or a unique prefix.",
+    "trackingResult": "Tracking Result",
+    "latestMovement": "Latest Movement",
+    "recentMovements": "Recent Movements",
+    "movementHistory": "Movement History",
+    "summary": {
+      "total": "Total Movements",
+      "last7": "Last 7 Days",
+      "gateIn": "Gate In",
+      "gateOut": "Gate Out",
+      "relocation": "Relocation"
+    },
+    "types": {
+      "gateIn": "Gate In",
+      "gateOut": "Gate Out",
+      "relocation": "Relocation",
+      "all": "All movements"
+    },
+    "filters": {
+      "placeholder": "Container no., location, actor...",
+      "ownerPlaceholder": "Owner"
+    },
+    "form": {
+      "type": "Movement Type",
+      "location": "Location / Details",
+      "date": "Movement Date",
+      "placeholder": "Yard A, Port gate, relocation destination..."
+    },
+    "columns": {
+      "date": "Date",
+      "container": "Container",
+      "movement": "Movement",
+      "location": "Location / Details",
+      "owner": "Owner",
+      "recordedBy": "Recorded By"
+    }
+  },
+  "reports": {
+    "title": "Report Workspace",
+    "desc": "Registry, lifecycle, survey coverage, and status summary reports with Excel and PDF export.",
+    "previewNote": "Preview and export — generated {date}",
+    "catalogTitle": "Report Catalog",
+    "openWorkspace": "Open Report Workspace",
+    "registry": {
+      "title": "Container Registry Report",
+      "desc": "Master data of all registered containers"
+    },
+    "lifecycle": {
+      "title": "Container Lifecycle Report",
+      "desc": "Timeline events across containers"
+    },
+    "surveyCoverage": {
+      "title": "Survey Coverage Report",
+      "desc": "Survey status and latest results per container"
+    },
+    "statusSummary": {
+      "title": "Status Summary Report",
+      "desc": "Aggregated counts by status, size, and category"
+    },
+    "filters": {
+      "status": "Status",
+      "dateFrom": "Date from",
+      "dateTo": "Date to"
+    }
+  },
+  "analytics": {
+    "title": "Analytics Center",
+    "desc": "Fleet KPIs, registration trends, operational breakdowns, and report catalog.",
+    "lastUpdated": "Last updated: {date}",
+    "loadError": "Unable to load analytics",
+    "reportWorkspace": "Report Workspace",
+    "kpis": {
+      "totalContainers": "Total Containers",
+      "active": "Active",
+      "notSurveyed": "Not Surveyed",
+      "requiringAttention": "Requiring Attention",
+      "recentRegistrations": "Recent Registrations (30d)",
+      "lifecycleEvents": "Lifecycle Events",
+      "movements": "Movements",
+      "surveyRecords": "Survey Records"
+    },
+    "charts": {
+      "registrationTrend": "Registration Trend (6 months)",
+      "statusDistribution": "Status Distribution",
+      "sizeDistribution": "Container Size Distribution",
+      "categoryDistribution": "Category Distribution",
+      "surveyResults": "Survey Results",
+      "lifecycleByType": "Lifecycle Events by Type"
+    },
+    "empty": {
+      "noRegistration": "No registration data",
+      "noLifecycle": "No lifecycle events recorded"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": {
+      "title": "Profile",
+      "desc": "These informations will be displayed publicly.",
+      "name": "Name",
+      "nameDesc": "Will appear on receipts, invoices, and other communication.",
+      "email": "Email",
+      "emailDesc": "Used to sign in, for email receipts and product updates.",
+      "username": "Username",
+      "usernameDesc": "Your unique username for logging in and your profile URL.",
+      "avatar": "Avatar",
+      "avatarDesc": "JPG, GIF or PNG. 1MB Max.",
+      "bio": "Bio",
+      "bioDesc": "Brief description for your profile. URLs are hyperlinked.",
+      "successTitle": "Success",
+      "successDesc": "Your settings have been updated."
+    },
+    "security": {
+      "passwordTitle": "Password",
+      "passwordDesc": "Confirm your current password before setting a new one.",
+      "accountTitle": "Account",
+      "accountDesc": "No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "deleteAccount": "Delete account",
+      "validationMin": "Must be at least 8 characters",
+      "validationDifferent": "Passwords must be different"
+    }
+  },
+  "errors": {
+    "404Title": "Page Not Found",
+    "genericTitle": "An Error Occurred",
+    "404Desc": "Sorry, the page you are looking for does not exist.",
+    "genericDesc": "Sorry for the inconvenience. Something went wrong.",
+    "errorCode": "Error Code: {code}",
+    "devError": "Dev Error",
+    "devOnlyNote": "This detailed view is only visible in development mode.",
+    "previewProd": "PREVIEW PROD UI (Alt + E to exit)"
+  }
+}

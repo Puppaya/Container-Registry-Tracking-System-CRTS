@@ -6,12 +6,16 @@ const TestSchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-    const query = getQuery(event)
+  if (process.env.NODE_ENV === 'production') {
+    return sendApiError('Not found', 404)
+  }
+
+  const query = getQuery(event)
 
     // Test 5: RBAC - Require Admin
     if (query.rbac === 'true') {
         await requireAdmin(event)
-        return sendSuccess({ role: 'ADMIN' }, 'RBAC Check Passed: You are an Admin')
+        return sendSuccess({ role: 'Administrator' }, 'RBAC Check Passed: You are an Administrator')
     }
 
     // Test 1: Forced error

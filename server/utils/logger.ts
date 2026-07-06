@@ -12,5 +12,6 @@ export const logger = createConsola({
 export const apiLogger = logger.withTag('API')
 export const dbLogger = logger.withTag('DB')
 export const authLogger = logger.withTag('AUTH')
+export const auditLogger = logger.withTag('AUDIT')
 
 export default logger

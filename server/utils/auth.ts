@@ -16,7 +16,7 @@ export const ensureAuthenticated = async (event: H3Event) => {
 
 /**
  * Ensures the user has one of the required roles.
- * Example roles: 'ADMIN', 'USER'
+ * Example roles: 'Administrator', 'RegistryOfficer'
  */
 export const ensureRole = async (event: H3Event, allowedRoles: string[]) => {
   const session = await ensureAuthenticated(event)
@@ -38,7 +38,7 @@ export const ensureResourceOwner = async (event: H3Event, resourceOwnerId: strin
   const session = await ensureAuthenticated(event)
   const user = session.user as any
   
-  if (user.role === 'ADMIN') return true
+  if (user.role === 'Administrator') return true
   
   if (String(user.id) !== String(resourceOwnerId)) {
     throw createError({

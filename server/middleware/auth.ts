@@ -8,8 +8,10 @@ export default defineEventHandler(async (event) => {
     '/api/health'
   ]
 
+  const isIntegrationRoute = path.startsWith('/api/integrations/')
+
   // Only protect /api routes
-  if (path.startsWith('/api/') && !publicRoutes.includes(path)) {
+  if (path.startsWith('/api/') && !publicRoutes.includes(path) && !isIntegrationRoute) {
     const session = await getUserSession(event)
     
     if (!session.user) {
@@ -20,7 +22,7 @@ export default defineEventHandler(async (event) => {
     }
     
     // Optional: Role-based path protection example
-    if (path.startsWith('/api/admin/') && (session.user as any)?.role !== 'ADMIN') {
+    if (path.startsWith('/api/admin/') && (session.user as { role?: string })?.role !== 'Administrator') {
       throw createError({
         statusCode: 403,
         statusMessage: 'Forbidden: Admin access required'

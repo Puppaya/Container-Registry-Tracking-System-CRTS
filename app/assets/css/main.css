@@ -1,89 +1,17 @@
 @import "tailwindcss";
+@import "./design-tokens.css";
 @import "@nuxt/ui";
 
-@theme {
-  --font-sans: 'Public Sans', 'Noto Sans Lao', sans-serif;
-  --font-display: 'Outfit', sans-serif;
-
-  /* Refined radius for more modern feel */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-}
-
-@layer base {
-  :root {
-    /* Custom light/dark background tones for premium look */
-    --ui-bg: #f8fafc;
-    --ui-border: #e2e8f0;
-    --ui-surface: #ffffff;
-
-    /* Elegant background texture */
-    background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0, transparent 50%),
-      radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.03) 0, transparent 50%);
-    background-attachment: fixed;
-  }
-
-  .dark {
-    --ui-bg: #030712;
-    /* Slate-950 */
-    --ui-border: #1e293b;
-    --ui-surface: #0f172a;
-
-    background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0, transparent 50%),
-      radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.08) 0, transparent 50%);
-    background-attachment: fixed;
-  }
-
-  html,
-  body {
-    @apply antialiased text-slate-700 dark:text-slate-300 bg-[var(--ui-bg)];
-    font-family: var(--font-sans) !important;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold tracking-tight text-slate-900 dark:text-white normal-case;
-    font-family: var(--font-display) !important;
-  }
-}
-
 @layer components {
-
-  /* Premium Glass Cards */
-  .u-card {
-    @apply backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border-slate-200/50 dark:border-slate-800/50 shadow-sm transition-all duration-300;
+  .page-module-header {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between;
   }
 
-  .u-card:hover {
-    @apply shadow-md border-primary-500/20;
-  }
-
-  /* Smooth transitions for all interactive elements */
-  button,
-  a,
-  input,
-  select {
-    @apply transition-all duration-200;
-  }
-
-  /* Refined Sidebar Look */
-  .u-dashboard-sidebar {
-    @apply border-r border-slate-200/50 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50;
-  }
-
-  /* Vibrant Navigation Items */
-  .u-navigation-menu li a.active {
-    @apply bg-primary-500/10 text-primary-600 dark:text-primary-400 font-semibold;
+  .crts-sidebar [data-slot="label"] {
+    @apply text-[10px] font-semibold uppercase tracking-wider text-on-surface-variant px-2 pt-3 pb-1;
   }
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -94,9 +22,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  @apply bg-on-surface-variant/30 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400 dark:bg-slate-600;
+  @apply bg-on-surface-variant/50;
 }

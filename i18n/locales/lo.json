@@ -1,0 +1,763 @@
+{
+  "app": {
+    "name": "CRTS",
+    "subtitle": "ລະບົບລົງທະບຽນ ແລະ ຕິດຕາມຕູ້ຄອນເທນເນີ",
+    "description": "ລະບົບລົງທະບຽນ ແລະ ຕິດຕາມວົງຈອນຊີວິດຕູ້ຄອນເທນເນີ ລວມການສຳຫຼວດ ແລະ ການຕິດຕາມການດຳເນີນງານ",
+    "copyright": "ສະຫງວນລິຂະສິດ."
+  },
+  "language": {
+    "label": "ພາສາ",
+    "en": "English",
+    "lo": "ລາວ"
+  },
+  "nav": {
+    "goTo": "ໄປຫາ",
+    "modules": "ໂມດູນ",
+    "groups": {
+      "overview": "ພາບລວມ",
+      "registry": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+      "operations": "ວົງຈອນຊີວິດ ແລະ ການດຳເນີນງານ",
+      "search": "ຄົ້ນຫາ ແລະ ຕິດຕາມ",
+      "reporting": "ແຜງຄວບຄຸມ ແລະ ລາຍງານ",
+      "admin": "ການບໍລິຫານ"
+    },
+    "items": {
+      "dashboard": "ແຜງຄວບຄຸມ",
+      "registryList": "ລາຍການລົງທະບຽນ",
+      "registerContainer": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+      "lifecycleTracking": "ຕິດຕາມວົງຈອນຊີວິດ",
+      "movementLog": "ບັນທຶກການເຄື່ອນໄຫວ",
+      "surveyInspections": "ການກວດສອບ Survey",
+      "advancedSearch": "ຄົ້ນຫາຂັ້ນສູງ",
+      "qrScan": "ສະແກນ QR",
+      "analytics": "ວິເຄາະຂໍ້ມູນ",
+      "reports": "ລາຍງານ",
+      "users": "ຜູ້ໃຊ້",
+      "masterData": "ຂໍ້ມູນຫຼັກ",
+      "auditLogs": "ບັນທຶກກວດກາ"
+    },
+    "profileTabs": {
+      "overview": "ພາບລວມ",
+      "lifecycle": "ວົງຈອນຊີວິດ",
+      "movements": "ການເຄື່ອນໄຫວ",
+      "surveys": "Survey",
+      "documents": "ເອກະສານ"
+    },
+    "settings": {
+      "general": "ທົ່ວໄປ",
+      "security": "ຄວາມປອດໄພ",
+      "documentation": "ເອກະສານ"
+    },
+    "modules": {
+      "dashboard": {
+        "title": "ແຜງຄວບຄຸມການດຳເນີນງານ",
+        "description": "ສຸຂະພາບກອງຕູ້, ກິດຈະກຳຫຼ້າສຸດ, ແລະ ຕູ້ຄອນເທນເນີທີ່ຕ້ອງການຄວາມສົນໃຈ."
+      },
+      "containers": {
+        "title": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+        "description": "ຂໍ້ມູນຫຼັກຂອງຕູ້ຄອນເທນເນີທັງໝົດ — ລົງທະບຽນ, ແກ້ໄຂ, ເປີດ/ປິດໃຊ້ງານ."
+      },
+      "register": {
+        "title": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+        "description": "ລົງທະບຽນຕູ້ຄອນເທນເນີໃໝ່ ພ້ອມກວດ ISO ແລະ ສ້າງ QR code."
+      },
+      "lifecycle": {
+        "title": "ຕິດຕາມວົງຈອນຊີວິດ",
+        "description": "ຕິດຕາມການລົງທະບຽນ, survey, ສ້ອມແປງ, ບຳລຸງຮັກສາ, ຍ້າຍ, ແລະ gate events."
+      },
+      "movements": {
+        "title": "ບັນທຶກການເຄື່ອນໄຫວ",
+        "description": "ບັນທຶກ Gate In, Gate Out, ແລະ ການຍ້າຍທົ່ວກອງຕູ້."
+      },
+      "survey": {
+        "title": "ການກວດສອບ Survey",
+        "description": "ຜົນ survey ຈາກລະບົບກວດສອບພາຍນອກ."
+      },
+      "search": {
+        "title": "ຄົ້ນຫາຂັ້ນສູງ",
+        "description": "ກອງຕາມເລກຕູ້, ເຈົ້າຂອງ, ປະເພດ, ສະຖານະ, ສະຖານະ survey, ແລະ ວັນລົງທະບຽນ."
+      },
+      "scan": {
+        "title": "ສະແກນ QR",
+        "description": "ຄົ້ນຫາຕູ້ຄອນເທນເນີດ້ວຍ QR code ຫຼື ເລກຕູ້."
+      },
+      "analytics": {
+        "title": "ສູນວິເຄາະຂໍ້ມູນ",
+        "description": "KPI ກອງຕູ້, ແນວໂນ້ມການລົງທະບຽນ, ແລະ ການແຍກວິເຄາະການດຳເນີນງານ."
+      },
+      "reports": {
+        "title": "ພື້ນທີ່ລາຍງານ",
+        "description": "ລາຍງານລົງທະບຽນ, ວົງຈອນຊີວິດ, survey coverage, ແລະ ສະຖານະ — ພ້ອມ export."
+      },
+      "masterData": {
+        "title": "ຂໍ້ມູນຫຼັກ",
+        "description": "ຈັດການ ISO type, ຂະໜາດ, ປະເພດ, ເຈົ້າຂອງ, ຜູ້ຜະລິດ ແລະ ສະຖານທີ່."
+      }
+    }
+  },
+  "auth": {
+    "login": "ເຂົ້າສູ່ລະບົບ",
+    "loginSubtitle": "ປ້ອນ Username ແລະ ລະຫັດຜ່ານ",
+    "username": "ຊື່ຜູ້ໃຊ້",
+    "usernameHelp": "ໃຊ້ Username ເທົ່ານັ້ນ (ຕົວຢ່າງ: admin)",
+    "password": "ລະຫັດຜ່ານ",
+    "logout": "ອອກຈາກລະບົບ",
+    "logoutSuccess": "ອອກຈາກລະບົບສຳເລັດ",
+    "loginSuccess": "ເຂົ້າສຳເລັດ",
+    "loginWelcome": "ຍິນດີຕ້ອນຮັບກັບເຂົ້າສູ່ລະບົບ CRTS",
+    "loginError": "ເຂົ້າບ່ອນຜິດພາດ",
+    "somethingWrong": "ເກີດຂໍ້ຜິດພາດບາງຢ່າງ",
+    "validation": {
+      "usernameMin": "ຊື່ຜູ້ໃຊ້ຕ້ອງມີຢ່າງໜ້ອຍ 3 ຕົວອັກສອນ",
+      "passwordMin": "ລະຫັດຜ່ານຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ"
+    }
+  },
+  "userMenu": {
+    "appearance": "ຮູບແບບ",
+    "light": "ສະຫວ່າງ",
+    "dark": "ມືດ"
+  },
+  "common": {
+    "save": "ບັນທຶກ",
+    "saveChanges": "ບັນທຶກການປ່ຽນແປງ",
+    "saveDraft": "ບັນທຶກແບບຮ່າງ",
+    "cancel": "ຍົກເລີກ",
+    "confirm": "ຢືນຢັນ",
+    "delete": "ລົບ",
+    "deleteSelected": "ລົບທີ່ເລືອກ",
+    "edit": "ແກ້ໄຂ",
+    "add": "ເພີ່ມ",
+    "register": "ລົງທະບຽນ",
+    "upload": "ອັບໂຫລດ",
+    "search": "ຄົ້ນຫາ",
+    "clear": "ລ້າງ",
+    "clearFilters": "ລ້າງຕົວກອງ",
+    "exportCsv": "Export CSV",
+    "exportExcel": "Excel",
+    "exportPdf": "PDF",
+    "refresh": "ໂຫຼດໃໝ່",
+    "update": "ອັບເດດ",
+    "validate": "ກວດສອບ",
+    "track": "ຕິດຕາມ",
+    "choose": "ເລືອກ",
+    "viewProfile": "ເບິ່ງໂປຣໄຟລ์",
+    "goHome": "ໄປໜ້າຫຼັກ",
+    "goBack": "ຍ້ອນໄປກ່ອນໜ້າ",
+    "home": "ກັບສູ່ໜ້າຫຼັກ",
+    "loading": "ກຳລັງໂຫຼດ...",
+    "loaded": "ໂຫຼດແລ້ວ {percent}%",
+    "pleaseWait": "ກະລຸນາລໍຖ້າ",
+    "loadingSystem": "ກຳລັງໂຫຼດລະບົບ...",
+    "success": "ສຳເລັດ",
+    "error": "ຜິດພາດ",
+    "actionFailed": "ດຳເນີນການບໍ່ສຳເລັດ",
+    "noData": "ບໍ່ມີຂໍ້ມູນ",
+    "all": "ທັງໝົດ",
+    "allStatuses": "ທຸກສະຖານະ",
+    "allOwners": "ເຈົ້າຂອງທັງໝົດ",
+    "allResults": "ຜົນທັງໝົດ",
+    "active": "ໃຊ້ງານ",
+    "inactive": "ບໍ່ໃຊ້ງານ",
+    "display": "ສະແດງ",
+    "viewOnly": "ເບິ່ງເທົ່ານັ້ນ",
+    "previousPage": "ໜ້າກ່ອນໜ້າ",
+    "nextPage": "ໜ້າຖັດໄປ",
+    "pageOf": "ໜ້າ {page} ຈາກ {total}",
+    "showing": "ສະແດງ {n} ຈາກ {total} ຕູ້ທັງໝົດ",
+    "records": "{n} ລາຍການ",
+    "systemStatus": "ສະຖານະລະບົບ:",
+    "documentation": "ເອກະສານ",
+    "support": "ຊ່ວຍເຫຼືອ",
+    "notFound": "ບໍ່ພົບ",
+    "registry": "ລົງທະບຽນ",
+    "profile": "ໂປຣໄຟລ์",
+    "containers": "ຕູ້ຄອນເທນເນີ",
+    "quickEntry": "ປ້ອນແບບໄວ",
+    "scanUnit": "ສະແກນຕູ້",
+    "syncSurvey": "Sync Survey",
+    "syncSurveys": "Sync Surveys",
+    "recordMovement": "ບັນທຶກການເຄື່ອນໄຫວ",
+    "viewMovements": "ເບິ່ງການເຄື່ອນໄຫວ",
+    "viewFullLifecycle": "ເບິ່ງວົງຈອນຊີວິດທັງໝົດ",
+    "viewAll": "ເບິ່ງທັງໝົດ",
+    "preview": "ຕົວຢ່າງ",
+    "openReport": "ເປີດລາຍງານ"
+  },
+  "emptyState": {
+    "noData": "ບໍ່ມີຂໍ້ມູນ",
+    "noResults": "ບໍ່ພົບຜົນຕາມຕົວກອງ",
+    "registry": {
+      "title": "ຍັງບໍ່ມີຕູ້ໃນລົງທະບຽນ",
+      "description": "ລົງທະບຽນຕູ້ເພື່ອເລີ່ມຕິດຕາມກອງຕູ້.",
+      "action": "ລົງທະບຽນຕູ້"
+    },
+    "search": {
+      "title": "ບໍ່ພົບຕູ້ຄອນເທນເນີ",
+      "description": "ລອງປັບຕົວກອງການຄົ້ນຫາ."
+    },
+    "users": {
+      "title": "ບໍ່ພົບຜູ້ໃຊ້",
+      "description": "ເພີ່ມຜູ້ໃຊ້ເພື່ອໃຫ້ສິດເຂົ້າໃຊ້ລະບົບ.",
+      "action": "ເພີ່ມຜູ້ໃຊ້"
+    },
+    "masterData": {
+      "title": "ບໍ່ມີຂໍ້ມູນຫຼັກ",
+      "description": "ເພີ່ມຂໍ້ມູນອ້າງອີງສຳລັບປະເພດນີ້.",
+      "action": "ເພີ່ມລາຍການ"
+    },
+    "audit": {
+      "title": "ບໍ່ພົບ audit logs",
+      "description": "ກິດຈະກຳຈະສະແດງທີ່ນີ້ເມື່ອມີການດຳເນີນການ."
+    },
+    "movements": {
+      "title": "ຍັງບໍ່ມີການເຄື່ອນໄຫວ",
+      "description": "Gate In, Gate Out ແລະ Relocation ຈະສະແດງທີ່ນີ້."
+    },
+    "lifecycle": {
+      "title": "ຍັງບໍ່ມີ lifecycle events",
+      "description": "ການລົງທະບຽນ, survey ແລະ events ດຳເນີນງານຈະສະແດງທີ່ນີ້."
+    },
+    "surveyRecords": {
+      "title": "ບໍ່ມີບັນທຶກ inspection",
+      "description": "Sync ຈາກລະບົບ Survey ເພື່ອເພີ່ມຂໍ້ມູນ."
+    },
+    "reports": {
+      "title": "ບໍ່ມີຂໍ້ມູນສຳລັບ report ນີ້",
+      "description": "ປັບຕົວກອງ ຫຼື ເລືອກປະເພດ report ອື່ນ."
+    },
+    "charts": {
+      "noData": "ບໍ່ມີຂໍ້ມູນ"
+    }
+  },
+  "confirm": {
+    "title": "ຢືນຢັນການດຳເນີນການ",
+    "description": "ທ່ານແນ່ໃຈຫຼືບໍ່ທີ່ຈະດຳເນີນການນີ້?"
+  },
+  "dashboard": {
+    "title": "ແຜງຄວບຄຸມ",
+    "loadError": "ບໍ່ສາມາດໂຫຼດແຜງຄວບຄຸມໄດ້",
+    "pageTitle": "ແຜງຄວບຄຸມການດຳເນີນງານ",
+    "pageDescription": "ສຸຂະພາບກອງຕູ້ແບບ real-time, ຕູ້ທີ່ຕ້ອງການຄວາມສົນໃຈ, ແລະ ກິດຈະກຳວົງຈອນຊີວິດຫຼ້າສຸດ.",
+    "containerRegistry": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+    "logMovement": "ບັນທຶກການເຄື່ອນໄຫວ",
+    "analytics": "ວິເຄາະຂໍ້ມູນ",
+    "kpis": {
+      "totalContainers": "ຕູ້ຄອນເທນເນີທັງໝົດ",
+      "active": "ໃຊ້ງານ",
+      "inactive": "ບໍ່ໃຊ້ງານ",
+      "surveyed": "Survey ແລ້ວ",
+      "inTransit": "ກຳລັງດຳເນີນງານ",
+      "compliance": "ຄວາມຄຸ້ມຄອງ compliance"
+    },
+    "inventoryTrends": {
+      "title": "ແນວໂນ້ມສິນຄ້າຄົງຄັງ",
+      "volume": "ປະລິມານ",
+      "throughput": "Throughput",
+      "volumeDesc": "ປະລິມານການລົງທະບຽນ — 6 ເດືອນຜ່ານມາ",
+      "throughputDesc": "Throughput ສະຖານະກອງຕູ້",
+      "empty": "ບໍ່ມີຂໍ້ມູນແນວໂນ້ມ"
+    },
+    "attention": {
+      "title": "ຕ້ອງການຄວາມສົນໃຈ",
+      "subtitle": "ການແຈ້ງເຕືອນດ້ານດຳເນີນງານ",
+      "healthy": "ບໍ່ມີການແຈ້ງເຕືອນ — ກອງຕູ້ສຸຂະພາບດີ",
+      "viewAll": "ເບິ່ງການແຈ້ງເຕືອນທັງໝົດ ({count})",
+      "reviewStatus": "ກວດສະຖານະ",
+      "scheduleSurvey": "ຈັດ Survey",
+      "inactiveDesc": "ຕູ້ຄອນເທນເນີບໍ່ໃຊ້ງານ — ອາດຕ້ອງກວດສະຖານະ ຫຼື ເປີດໃຊ້ງານໃໝ່.",
+      "unsurveyedDesc": "ບໍ່ມີບັນທຶກ survey — ລໍຖ້າການກວດ compliance."
+    },
+    "activity": {
+      "title": "ກິດຈະກຳຫຼ້າສຸດ",
+      "subtitle": "ໄທມ໌ໄລນການດຳເນີນງານ",
+      "viewLifecycle": "ເບິ່ງວົງຈອນຊີວິດ",
+      "empty": "ຍັງບໍ່ມີກິດຈະກຳ",
+      "emptyActivities": "ຍັງບໍ່ມີ activity",
+      "today": "ມື້ນີ້",
+      "yesterday": "ມື້ວານ",
+      "operator": "ຜູ້ດຳເນີນການ: {name}",
+      "eventType": "ປະເພດ Event",
+      "description": "ລາຍລະອຽດ",
+      "date": "ວັນທີ"
+    }
+  },
+  "containers": {
+    "title": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+    "register": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
+    "registerNew": "ລົງທະບຽນຕູ້ຄອນເທນເນີໃໝ່",
+    "quickAdd": "ເພີ່ມຕູ້ແບບໄວ",
+    "edit": "ແກ້ໄຂຕູ້ຄອນເທນເນີ",
+    "profile": "ໂປຣໄຟລ์ຕູ້ຄອນເທນເນີ",
+    "lifecycle": "ວົງຈອນຊີວິດຕູ້ຄອນເທນເນີ",
+    "movements": "ການເຄື່ອນໄຫວຕູ້ຄອນເທນເນີ",
+    "surveys": "ປະຫວັດ Survey",
+    "documents": "ເອກະສານ",
+    "addEvent": "ເພີ່ມ Event",
+    "recordMovement": "ບັນທຶກການເຄື່ອນໄຫວ",
+    "uploadDocument": "ອັບໂຫລດເອກະສານ",
+    "qrTracking": "ຕິດຕາມ QR",
+    "advancedSearch": "ຄົ້ນຫາຂັ້ນສູງ",
+    "notFound": "ບໍ່ພົບຕູ້ຄອນເທນເນີ",
+    "notFoundDesc": "Container ID ບໍ່ຖືກຕ້ອງ ຫຼື ຖືກລົບແລ້ວ",
+    "registryDesc": "ຈັດການ ແລະ ຕິດຕາມສິນຄ້າຄົງຄັງຕູ້ຄອນເທນເນີທົ່ວໂລກ.",
+    "quickAddDesc": "ລົງທະບຽນຕູ້ຄອນເທນເນີແບບຟອມສັ້ນ.",
+    "registerDesc": "ໃຫ້ແນ່ໃຈວ່າຂໍ້ມູນທາງເຕັກນິກກົງກັບປ້າຍ BIC ISO.",
+    "editDesc": "ອັບເດດຂໍ້ມູນທາງເຕັກນິກ ແລະ ເຈົ້າຂອງຂອງຕູ້ນີ້.",
+    "deleteTitle": "ລົບຕູ້ຄອນເທນເນີ",
+    "deleteDesc": "ທ່ານແນ່ໃຈຫຼືບໍ່ທີ່ຈະລົບ {containerNumber}?",
+    "activated": "ເປີດໃຊ້ງານຕູ້ສຳເລັດ",
+    "deactivated": "ປິດໃຊ້ງານຕູ້ສຳເລັດ",
+    "deleted": "ລົບຕູ້ສຳເລັດ",
+    "syncSuccess": "Sync Survey ສຳເລັດ",
+    "searchPlaceholder": "ຄົ້ນຫາລົງທະບຽນຕູ້...",
+    "columns": {
+      "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
+      "isoType": "ISO Type",
+      "size": "ຂະໜາດ",
+      "category": "ປະເພດ",
+      "owner": "ເຈົ້າຂອງ",
+      "status": "ສະຖານະ"
+    },
+    "filters": {
+      "status": "ສະຖານະ",
+      "owner": "ເຈົ້າຂອງ",
+      "isoSize": "ISO Size",
+      "survey": "Survey",
+      "regFrom": "ວັນລົງທະບຽນ (ຈາກ)",
+      "regTo": "ວັນລົງທະບຽນ (ຮອດ)",
+      "surveyed": "Survey ແລ້ວ",
+      "notSurveyed": "ຍັງບໍ່ Survey"
+    },
+    "rowActions": {
+      "profile": "ໂປຣໄຟລ์",
+      "edit": "ແກ້ໄຂ",
+      "activate": "ເປີດໃຊ້ງານ",
+      "deactivate": "ປິດໃຊ້ງານ",
+      "delete": "ລົບ"
+    },
+    "scan": {
+      "title": "ສະແກນ / ປ້ອນ QR Code",
+      "instructions": "ປ້ອນ QR content (CRTS:MSCU1234566) ຫຼື ເລກຕູ້ຄອນເທນເນີໂດຍກົງ",
+      "field": "QR / ເລກຕູ້ຄອນເທນເນີ",
+      "latestResult": "ຜົນລ່າສຸດ"
+    },
+    "lifecyclePage": {
+      "desc": "ຕິດຕາມການລົງທະບຽນ, survey, ສ້ອມແປງ, ບຳລຸງ, ຍ້າຍ, ແລະ gate ທົ່ວກອງຕູ້.",
+      "placeholder": "ເລກຕູ້, ລາຍລະອຽດ, ຜູ້ບັນທຶກ...",
+      "allEventTypes": "ທຸກປະເພດ event",
+      "totalEvents": "Events ທັງໝົດ",
+      "eventCount": "{n} event(s)"
+    },
+    "timeline": {
+      "title": "ໄທມ໌ໄລນວົງຈອນຊີວິດ",
+      "empty": "ຍັງບໍ່ມີ lifecycle events",
+      "recordedBy": "ບັນທຶກໂດຍ {name}"
+    },
+    "events": {
+      "eventType": "ປະເພດ Event",
+      "description": "ລາຍລະອຽດ",
+      "eventDate": "ວັນທີ Event",
+      "placeholder": "ອະທິບາຍ event...",
+      "success": "ບັນທຶກ event ສຳເລັດ"
+    },
+    "documents": {
+      "fileName": "ຊື່ໄຟລ์",
+      "type": "ປະເພດ",
+      "uploadedBy": "ອັບໂຫລດໂດຍ",
+      "date": "ວັນທີ",
+      "documentType": "ປະເພດເອກະສານ",
+      "file": "ໄຟລ์",
+      "help": "PDF, Image, Word, Excel — ສູງສຸດ 10MB",
+      "empty": "ຍັງບໍ່ມີເອກະສານ",
+      "deleteTitle": "ລົບເອກະສານ",
+      "deleteDesc": "ທ່ານແນ່ໃຈຫຼືບໍ່ທີ່ຈະລົບ {fileName}?",
+      "uploadSuccess": "ອັບໂຫລດເອກະສານສຳເລັດ",
+      "deleteSuccess": "ລົບເອກະສານສຳເລັດ"
+    },
+    "profileSections": {
+      "general": "ຂໍ້ມູນທົ່ວໄປ",
+      "status": "ສະຖານະປັດຈຸບັນ",
+      "survey": "ສະຫຼຸບ Survey",
+      "movement": "ສະຫຼຸບການເຄື່ອນໄຫວ",
+      "documents": "ເອກະສານ",
+      "timeline": "ໄທມ໌ໄລນວົງຈອນຊີວິດ"
+    },
+    "statusCard": {
+      "currentLocation": "ສະຖານທີ່ປັດຈຸບັນ",
+      "fromMovement": "ຈາກການເຄື່ອນໄຫວຫຼ້າສຸດ",
+      "fromRegistry": "ຈາກສະຖານທີ່ລົງທະບຽນ",
+      "noLocation": "ບໍ່ມີສະຖານທີ່ບັນທຶກ",
+      "lifecycleEvents": "{n} lifecycle event(s)",
+      "activeHint": "ພ້ອມໃຊ້ງານປົກກະຕິ",
+      "inactiveHint": "ຢຸດໃຊ້ງານ / ບໍ່ເຄື່ອນໄຫວ",
+      "inYard": "ຢູ່ໃນ yard / ສະຖານທີ່",
+      "departed": "ອອກຈາກສະຖານທີ່ແລ້ວ",
+      "relocated": "ຍ້າຍແລ້ວ",
+      "noMovement": "ບໍ່ມີການເຄື່ອນໄຫວບັນທຶກ"
+    },
+    "registration": {
+      "steps": {
+        "identification": "ການລະບຸ",
+        "specifications": "ຂໍ້ມູນທາງເຕັກນິກ",
+        "ownership": "ຄວາມເປັນເຈົ້າຂອງ",
+        "registration": "ການລົງທະບຽນ"
+      },
+      "helpTitle": "ຕ້ອງການຄວາມຊ່ວຍເຫຼືອ?",
+      "helpDesc": "Check digit ແມ່ນຕົວເລກທີ 7 ຂອງເລກຕູ້ — ຄິດໄລ່ຕາມ ISO 6346 ຈາກ 10 ຕົວອັກສອນທຳອິດ.",
+      "certify": "ຂ້າພະເຈົ້າຮັບຮອງວ່າຂໍ້ມູນທີ່ໃຫ້ຖືກຕ້ອງ ແລະ ກົງກັບປ້າຍ BIC ທີ່ຕິດຢູ່ຕູ້ຈິງ."
+    },
+    "form": {
+      "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
+      "containerNumberHelp": "ປ້ອນ 4 ຕົວອັກສອນ + 6 ຕົວເລກ — ລະບົບຈະຄິດ check digit ໃຫ້ອັດຕະໂນມັດ",
+      "isoType": "ISO Type",
+      "size": "ຂະໜາດ",
+      "category": "ປະເພດ",
+      "manufacturer": "ຜູ້ຜະລິດ",
+      "yearBuilt": "ປີຜະລິດ",
+      "registrationDate": "ວັນລົງທະບຽນ",
+      "createSuccess": "ລົງທະບຽນຕູ້ຄອນເທນເນີສຳເລັດ",
+      "updateSuccess": "ແກ້ໄຂຂໍ້ມູນຕູ້ຄອນເທນເນີສຳເລັດ",
+      "validation": {
+        "required": "ກະລຸນາປ້ອນເລກຕູ້ຄອນເທນເນີ",
+        "invalid": "ເລກຕູ້ຄອນເທນເນີບໍ່ຖືກຕ້ອງ",
+        "isoFormat": "ຮູບແບບບໍ່ຖືກຕ້ອງ: 4 ຕົວອັກສອນ + 7 ຕົວເລກ (ISO 6346)",
+        "checkDigit": "Check digit ບໍ່ຖືກຕ້ອງ — ຄວນເປັນ {expected} (ບໍ່ແມ່ນ {provided})"
+      }
+    },
+    "movementsEmpty": "ຍັງບໍ່ມີການເຄື່ອນໄຫວ (Gate In/Out, Relocation)",
+    "quickSearch": {
+      "placeholder": "ຄົ້ນຫາຕູ້ແບບໄວ...",
+      "searching": "ກຳລັງຄົ້ນຫາ...",
+      "noResults": "ບໍ່ພົບຜົນ",
+      "advanced": "ຄົ້ນຫາຂັ້ນສູງ..."
+    }
+  },
+  "users": {
+    "title": "ຈັດການຜູ້ໃຊ້",
+    "addUser": "ເພີ່ມຜູ້ໃຊ້",
+    "addNew": "ເພີ່ມຜູ້ໃຊ້ໃໝ່",
+    "editUser": "ແກ້ໄຂຜູ້ໃຊ້: {name}",
+    "createTitle": "ເພີ່ມຜູ້ໃຊ້ໃໝ່",
+    "createDesc": "ສ້າງບັນຊີຜູ້ໃຊ້ໃໝ່ເພື່ອເຂົ້າໃຊ້ງານລະບົບ.",
+    "editTitle": "ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້",
+    "editDesc": "ອັບເດດຂໍ້ມູນ ຫຼື ປ່ຽນລະຫັດຜ່ານໃໝ່ສຳລັບຜູ້ໃຊ້ນີ້.",
+    "notFound": "ເກີດຂໍ້ຜິດພາດ: ບໍ່ພົບຂໍ້ມູນຜູ້ໃຊ້",
+    "searchPlaceholder": "ຄົ້ນຫາຊື່ ຫຼື ອີເມວ...",
+    "allRoles": "ທຸກບົດບາດ",
+    "columns": {
+      "id": "ID",
+      "username": "Username",
+      "name": "ຊື່",
+      "email": "ອີເມວ",
+      "role": "ບົດບາດ"
+    },
+    "roles": {
+      "administrator": "Administrator",
+      "registryOfficer": "Registry Officer",
+      "surveyTeam": "Survey Team",
+      "management": "Management"
+    },
+    "form": {
+      "username": "Username",
+      "name": "ຊື່-ນາມສະກຸນ",
+      "email": "ອີເມວ",
+      "password": "ລະຫັດຜ່ານ",
+      "passwordOptional": "ລະຫັດຜ່ານໃໝ່ (ບໍ່ບັງຄັບ)",
+      "passwordHelpEdit": "ປ່ອຍວ່າງຖ້າບໍ່ຕ້ອງການປ່ຽນ",
+      "passwordHelpCreate": "ຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ",
+      "role": "ບົດບາດ",
+      "submitCreate": "ເພີ່ມຜູ້ໃຊ້"
+    },
+    "success": {
+      "create": "ສ້າງ User ສຳເລັດ",
+      "update": "ແກ້ໄຂຂໍ້ມູນສຳເລັດ",
+      "delete": "ລົບຂໍ້ມູນສຳເລັດ",
+      "bulkDelete": "ລົບຂໍ້ມູນ {count} ລາຍການແລ້ວ"
+    },
+    "deleteConfirm": {
+      "singleTitle": "ລົບຂໍ້ມູນຜູ້ໃຊ້",
+      "bulkTitle": "ລົບຂໍ້ມູນທີ່ເລືອກ",
+      "bulkDesc": "ທ່ານແນ່ໃຈຫຼືບໍ່ທີ່ຈະລົບຂໍ້ມູນທີ່ເລືອກທັງໝົດ {count} ລາຍການ?",
+      "singleDesc": "ທ່ານແນ່ໃຈຫຼືບໍ່ທີ່ຈະລົບຂໍ້ມູນຜູ້ໃຊ້ນີ້?"
+    }
+  },
+  "masterData": {
+    "title": "ຂໍ້ມູນຫຼັກ",
+    "addItem": "ເພີ່ມລາຍການ",
+    "editItem": "ແກ້ໄຂລາຍການ",
+    "recordCount": "ລາຍການ",
+    "searchPlaceholder": "ຄົ້ນຫາ code ຫຼື ຊື່...",
+    "columns": {
+      "code": "Code",
+      "name": "ຊື່",
+      "description": "ລາຍລະອຽດ",
+      "sortOrder": "ລຳດັບ",
+      "status": "ສະຖານະ"
+    },
+    "categories": {
+      "IsoType": "ISO Type",
+      "ContainerSize": "ຂະໜາດຕູ້",
+      "ContainerCategory": "ປະເພດ",
+      "Owner": "ເຈົ້າຂອງ / Carrier",
+      "Manufacturer": "ຜູ້ຜະລິດ",
+      "Location": "ສະຖານທີ່ / ລານ",
+      "DocumentType": "ປະເພດເອກະສານ"
+    },
+    "filters": {
+      "allStatus": "ທຸກສະຖານະ",
+      "active": "ໃຊ້ງານຢູ່",
+      "inactive": "ປິດໃຊ້ງານ"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "form": {
+      "code": "Code",
+      "name": "ຊື່ສະແດງ",
+      "description": "ລາຍລະອຽດ",
+      "sortOrder": "ລຳດັບ",
+      "isActive": "ສະຖານະ",
+      "activeLabel": "ໃຊ້ງານ"
+    },
+    "validation": {
+      "code": "ກະລຸນາປ້ອນ code",
+      "name": "ກະລຸນາປ້ອນຊື່"
+    },
+    "success": {
+      "create": "ເພີ່ມຂໍ້ມູນຫຼັກສຳເລັດ",
+      "update": "ອັບເດດຂໍ້ມູນຫຼັກສຳເລັດ",
+      "delete": "ລົບຂໍ້ມູນຫຼັກສຳເລັດ"
+    },
+    "deleteConfirm": {
+      "title": "ລົບຂໍ້ມູນຫຼັກ",
+      "description": "ທ່ານແນ່ໃຈຫຼືບໍ່ທີ່ຈະລົບ \"{name}\"?"
+    }
+  },
+  "audit": {
+    "title": "ບັນທຶກກວດກາ",
+    "detail": "ລາຍລະອຽດ Audit Log",
+    "searchPlaceholder": "ຄົ້ນຫາ actor, action, entity ID...",
+    "allActions": "ທຸກ action",
+    "allEntities": "ທຸກ entity",
+    "notFound": "ບໍ່ພົບ audit log",
+    "columns": {
+      "date": "ວັນທີ",
+      "action": "Action",
+      "actor": "Actor",
+      "entity": "Entity",
+      "entityId": "Entity ID"
+    },
+    "detailFields": {
+      "id": "ID",
+      "date": "ວັນທີ",
+      "action": "Action",
+      "actor": "Actor",
+      "entityType": "Entity Type",
+      "entityId": "Entity ID",
+      "details": "ລາຍລະອຽດ"
+    }
+  },
+  "survey": {
+    "title": "ບັນທຶກການກວດ Survey",
+    "detail": "ລາຍລະອຽດການກວດ Survey",
+    "mockAlertTitle": "ກຳລັງສະແດງຂໍ້ມູນ mock",
+    "mockAlertDesc": "ຍັງບໍ່ມີຂໍ້ມູນ survey ໃນຖານຂໍ້ມູນ — ສະແດງຕົວຢ່າງຈົນກວ່າ sync ຈາກລະບົບ Survey.",
+    "mockPreviewTitle": "ຕົວຢ່າງ survey mock",
+    "mockPreviewDesc": "ຂໍ້ມູນຕົວຢ່າງຈົນກວ່າ survey ຈິງຈະ sync ເຂົ້າ CRTS.",
+    "mockBadge": "Mock",
+    "mockData": "Mock Data",
+    "empty": "ບໍ່ມີຂໍ້ມູນ survey",
+    "emptyHint": "Sync ຈາກລະບົບ Survey ຫຼື ເປີດ Survey Inspection Records",
+    "notFound": "ບໍ່ພົບບັນທຶກການກວດ",
+    "syncSuccess": "Sync survey ສຳເລັດ",
+    "syncSuccessTitle": "Sync survey ສຳເລັດ",
+    "syncSuccessDesc": "ນຳເຂົ້າ {created} ລາຍການ, ຂ້າມ {skipped} ລາຍການ",
+    "syncNoRecordsTitle": "ບໍ່ພົບຂໍ້ມູນ survey",
+    "syncNoRecordsDesc": "Survey API ບໍ່ສົ່ງຂໍ້ມູນກັບມາ — ກວດວ່າ survey ສຳເລັດແລ້ວ (ມີ EIR Doc No.) ແລະ Survey server ກຳລັງເປີດຢູ່",
+    "syncNoRecordsForContainerDesc": "Survey API ບໍ່ພົບຂໍ້ມູນສຳລັບ {containerNumber} — ກວດເລກຕູ້ໃຫ້ກົງກັນ ແລະ survey ສຳເລັດໃນລະບົບ Survey ແລ້ວ",
+    "syncNoApiTitle": "ຍັງບໍ່ເຊື່ອມ Survey API",
+    "syncNoApiDesc": "CRTS ເຊື່ອມ Survey System ບໍ່ໄດ້ (SURVEY_API_URL) — restart dev server ຫลังแก้ .env ແລ້ວລອງໃໝ່",
+    "syncAlreadyTitle": "ຂໍ້ມູນອັບເດດແລ້ວ",
+    "syncAlreadyDesc": "ຂໍ້ມູນ {skipped} ລາຍການ sync ແລ້ວກ່ອນໜ້ານີ້",
+    "syncPartialTitle": "Sync ສຳເລັດແຕ່ມີຂໍ້ຜິດພາດ",
+    "syncPartialDesc": "ສ້າງ {created}, ຂ້າມ {skipped}, ລົ້ມເຫຼວ {failed}",
+    "viewSurveyReport": "ເບິ່ງລາຍງານ Survey",
+    "containerSurveyHistory": "ປະຫວັດ Survey ຕູ້",
+    "allInspectionRecords": "ບັນທຶກການກວດທັງໝົດ",
+    "viewInspectionRecords": "ເບິ່ງບັນທຶກການກວດ",
+    "containerSurveys": "Survey ຕູ້",
+    "summary": {
+      "total": "ການກວດທັງໝົດ",
+      "last30": "30 ວັນຜ່ານມາ",
+      "pass": "Pass",
+      "conditional": "Conditional",
+      "fail": "Fail"
+    },
+    "filters": {
+      "placeholder": "Reference, ຕູ້, ຜູ້ກວດ...",
+      "pass": "Pass",
+      "conditional": "Conditional",
+      "fail": "Fail"
+    },
+    "columns": {
+      "reference": "Reference No.",
+      "container": "ຕູ້",
+      "inspectionDate": "ວັນກວດ",
+      "inspector": "ຜູ້ກວດ",
+      "result": "ຜົນ",
+      "damage": "ຄວາມເສຍຫາຍ"
+    },
+    "fields": {
+      "reference": "Reference No.",
+      "surveyDate": "ວັນ Survey",
+      "inspector": "ຜູ້ກວດ",
+      "result": "ຜົນ",
+      "damageSummary": "ສະຫຼຸບຄວາມເສຍຫາຍ",
+      "owner": "ເຈົ້າຂອງ",
+      "containerStatus": "ສະຖານະຕູ້"
+    },
+    "containerMockAlert": "ກຳລັງສະແດງບັນທຶກ mock",
+    "containerMockAlertDesc": "ຍັງບໍ່ມີຂໍ້ມູນ survey ທີ່ sync ສຳລັບຕູ້ນີ້."
+  },
+  "movements": {
+    "title": "ຕິດຕາມການເຄື່ອນໄຫວ",
+    "desc": "ຄົ້ນຫາ ແລະ ຕິດຕາມ Gate In, Gate Out, ແລະ Relocation ທົ່ວກອງຕູ້.",
+    "trackContainer": "ຕິດຕາມຕູ້",
+    "trackPlaceholder": "ເລກຕູ້ ຫຼື prefix...",
+    "notFound": "ບໍ່ພົບຕູ້",
+    "notFoundDesc": "ລອງເລກຕູ້ເຕັມ ຫຼື prefix ທີ່ບໍ່ຊ້ຳ.",
+    "trackingResult": "ຜົນການຕິດຕາມ",
+    "latestMovement": "ການເຄື່ອນໄຫວຫຼ້າສຸດ",
+    "recentMovements": "ການເຄື່ອນໄຫວຫຼ້າສຸດ",
+    "movementHistory": "ປະຫວັດການເຄື່ອນໄຫວ",
+    "summary": {
+      "total": "ການເຄື່ອນໄຫວທັງໝົດ",
+      "last7": "7 ວັນຜ່ານມາ",
+      "gateIn": "Gate In",
+      "gateOut": "Gate Out",
+      "relocation": "Relocation"
+    },
+    "types": {
+      "gateIn": "Gate In",
+      "gateOut": "Gate Out",
+      "relocation": "Relocation",
+      "all": "ການເຄື່ອນໄຫວທັງໝົດ"
+    },
+    "filters": {
+      "placeholder": "ເລກຕູ້, ສະຖານທີ່, ຜູ້ບັນທຶກ...",
+      "ownerPlaceholder": "ເຈົ້າຂອງ"
+    },
+    "form": {
+      "type": "ປະເພດການເຄື່ອນໄຫວ",
+      "location": "ສະຖານທີ່ / ລາຍລະອຽດ",
+      "date": "ວັນທີເຄື່ອນໄຫວ",
+      "placeholder": "Yard A, Port gate, ປາຍທາງຍ້າຍ..."
+    },
+    "columns": {
+      "date": "ວັນທີ",
+      "container": "ຕູ້",
+      "movement": "ການເຄື່ອນໄຫວ",
+      "location": "ສະຖານທີ່ / ລາຍລະອຽດ",
+      "owner": "ເຈົ້າຂອງ",
+      "recordedBy": "ບັນທຶກໂດຍ"
+    }
+  },
+  "reports": {
+    "title": "ພື້ນທີ່ລາຍງານ",
+    "desc": "ລາຍງານລົງທະບຽນ, ວົງຈອນຊີວິດ, survey coverage, ແລະ ສະຖານະ — ພ້ອມ export Excel/PDF.",
+    "previewNote": "ຕົວຢ່າງ ແລະ export — ສ້າງ {date}",
+    "catalogTitle": "ລາຍການລາຍງານ",
+    "openWorkspace": "ເປີດພື້ນທີ່ລາຍງານ",
+    "registry": {
+      "title": "ລາຍງານລົງທະບຽນຕູ້",
+      "desc": "ຂໍ້ມູນຫຼັກຂອງຕູ້ທີ່ລົງທະບຽນທັງໝົດ"
+    },
+    "lifecycle": {
+      "title": "ລາຍງານວົງຈອນຊີວິດ",
+      "desc": "Events ໄທມ໌ໄລນທົ່ວຕູ້"
+    },
+    "surveyCoverage": {
+      "title": "ລາຍງານ Survey Coverage",
+      "desc": "ສະຖານະ survey ແລະ ຜົນຫຼ້າສຸດຕໍ່ຕູ້"
+    },
+    "statusSummary": {
+      "title": "ລາຍງານສະຫຼຸບສະຖານະ",
+      "desc": "ຈຳນວນຕາມສະຖານະ, ຂະໜາດ, ແລະ ປະເພດ"
+    },
+    "filters": {
+      "status": "ສະຖານະ",
+      "dateFrom": "ວັນທີ (ຈາກ)",
+      "dateTo": "ວັນທີ (ຮອດ)"
+    }
+  },
+  "analytics": {
+    "title": "ສູນວິເຄາະຂໍ້ມູນ",
+    "desc": "KPI ກອງຕູ້, ແນວໂນ້ມການລົງທະບຽນ, ການແຍກວິເຄາະ, ແລະ ລາຍການລາຍງານ.",
+    "lastUpdated": "ອັບເດດຫຼ້າສຸດ: {date}",
+    "loadError": "ບໍ່ສາມາດໂຫຼດ analytics ໄດ້",
+    "reportWorkspace": "ພື້ນທີ່ລາຍງານ",
+    "kpis": {
+      "totalContainers": "ຕູ້ທັງໝົດ",
+      "active": "ໃຊ້ງານ",
+      "notSurveyed": "ຍັງບໍ່ Survey",
+      "requiringAttention": "ຕ້ອງການຄວາມສົນໃຈ",
+      "recentRegistrations": "ລົງທະບຽນໃໝ່ (30d)",
+      "lifecycleEvents": "Lifecycle Events",
+      "movements": "ການເຄື່ອນໄຫວ",
+      "surveyRecords": "ບັນທຶກ Survey"
+    },
+    "charts": {
+      "registrationTrend": "ແນວໂນ້ມການລົງທະບຽນ (6 ເດືອນ)",
+      "statusDistribution": "ການແຈກຢາຍສະຖານະ",
+      "sizeDistribution": "ການແຈກຢາຍຂະໜາດ",
+      "categoryDistribution": "ການແຈກຢາຍປະເພດ",
+      "surveyResults": "ຜົນ Survey",
+      "lifecycleByType": "Lifecycle Events ຕາມປະເພດ"
+    },
+    "empty": {
+      "noRegistration": "ບໍ່ມີຂໍ້ມູນການລົງທະບຽນ",
+      "noLifecycle": "ບໍ່ມີ lifecycle events"
+    }
+  },
+  "settings": {
+    "title": "ການຕັ້ງຄ່າ",
+    "profile": {
+      "title": "ໂປຣໄຟລ์",
+      "desc": "ຂໍ້ມູນນີ້ຈະສະແດງສາທາລະນະ.",
+      "name": "ຊື່",
+      "nameDesc": "ຈະປາກົດໃນໃບຮັບ, ໃບແຈ້ງໜີ້, ແລະ ການສື່ສານອື່ນ.",
+      "email": "ອີເມວ",
+      "emailDesc": "ໃຊ້ເຂົ້າສູ່ລະບົບ, ໃບຮັບອີເມວ, ແລະ ອັບເດດຜະລິດຕະພັນ.",
+      "username": "Username",
+      "usernameDesc": "Username ສຳລັບເຂົ້າສູ່ລະບົບ ແລະ URL ໂປຣໄຟລ์.",
+      "avatar": "ຮູບໂປຣໄຟລ์",
+      "avatarDesc": "JPG, GIF ຫຼື PNG. ສູງສຸດ 1MB.",
+      "bio": "Bio",
+      "bioDesc": "ຄຳອະທິບາຍສັ້ນໆ ສຳລັບໂປຣໄຟລ์.",
+      "successTitle": "ສຳເລັດ",
+      "successDesc": "ອັບເດດການຕັ້ງຄ່າຂອງທ່ານແລ້ວ."
+    },
+    "security": {
+      "passwordTitle": "ລະຫັດຜ່ານ",
+      "passwordDesc": "ຢືນຢັນລະຫັດຜ່ານປັດຈຸບັນກ່ອນຕັ້ງໃໝ່.",
+      "accountTitle": "ບັນຊີ",
+      "accountDesc": "ບໍ່ຕ້ອງການໃຊ້ບໍລິການອີກ? ລົບບັນຊີໄດ້ທີ່ນີ້ — ການກະທຳນີ້ບໍ່ສາມາດຍ້ອນຄືນ.",
+      "currentPassword": "ລະຫັດຜ່ານປັດຈຸບັນ",
+      "newPassword": "ລະຫັດຜ່ານໃໝ່",
+      "deleteAccount": "ລົບບັນຊີ",
+      "validationMin": "ຕ້ອງມີຢ່າງໜ້ອຍ 8 ຕົວອັກສອນ",
+      "validationDifferent": "ລະຫັດຜ່ານຕ້ອງແຕກຕ່າງກັນ"
+    }
+  },
+  "errors": {
+    "404Title": "ບໍ່ມີໜ້ານີ້",
+    "genericTitle": "ເກີດຂໍ້ຜິດພາດ",
+    "404Desc": "ຂໍອາໄພ ບໍ່ມີໜ້າທີ່ທ່ານຄົ້ນຫາ",
+    "genericDesc": "ຂໍອາໄພໃນຄວາມບໍ່ສະດວກ ມີຂໍ້ຜິດພາດບາງຢ່າງ",
+    "errorCode": "Error Code: {code}",
+    "devError": "Dev Error",
+    "devOnlyNote": "ມຸມມອງນີ້ເຫັນໄດ້ໃນ development mode ເທົ່ານັ້ນ.",
+    "previewProd": "PREVIEW PROD UI (Alt + E to exit)"
+  }
+}

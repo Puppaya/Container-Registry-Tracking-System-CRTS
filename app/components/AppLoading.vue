@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const indicator = useLoadingIndicator()
 const { isLoading, progress } = indicator
+const { t } = useI18n()
 </script>
 
 <template>
@@ -67,7 +68,7 @@ const { isLoading, progress } = indicator
 
       <div class="mt-12 text-center space-y-3">
         <h2 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
-           loading ...
+           {{ t('common.loading') }}
         </h2>
         
         <div class="flex items-center justify-center gap-2">
@@ -78,7 +79,7 @@ const { isLoading, progress } = indicator
         </div>
         
         <p class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-widest opacity-60">
-           {{ Math.round(progress) }}% Loaded
+           {{ t('common.loaded', { percent: Math.round(progress) }) }}
         </p>
       </div>
 

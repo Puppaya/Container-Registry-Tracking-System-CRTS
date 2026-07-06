@@ -12,12 +12,7 @@ export default defineEventHandler(async (event) => {
     const { username, password: encryptedPassword } = await validateBody(event, loginSchema)
 
     // 1. Decrypt password received from frontend
-    let password = encryptedPassword
-    try {
-        password = decryptPassword(encryptedPassword)
-    } catch (e) {
-        // Fallback or handle error
-    }
+    const password = decryptPassword(encryptedPassword)
 
     // 2. Authenticate via Service
     const user = await userService.authenticate(username, password)
@@ -36,7 +31,7 @@ export default defineEventHandler(async (event) => {
             email: user.email,
             username: user.username || '',
             name: user.name,
-            role: (user as any).role || 'USER'
+            role: (user as { role?: string }).role || 'SurveyTeam'
         },
         loggedInAt: new Date()
     })

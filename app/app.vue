@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const colorMode = useColorMode()
+import { en_gb } from '@nuxt/ui/locale'
 
-const color = computed(() => colorMode.value === 'dark' ? '#1b1718' : 'white')
+const colorMode = useColorMode()
+const { t, locale } = useI18n()
+
+const color = computed(() => colorMode.value === 'dark' ? '#1a1c24' : '#faf8ff')
 
 useHead({
   meta: [
@@ -13,30 +16,25 @@ useHead({
     { rel: 'icon', href: '/favicon.ico' },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Public+Sans:wght@400;500;600&family=Noto+Sans+Lao:wght@400;700&display=swap' }
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Lao:wght@400;500;600;700&display=swap' }
   ],
   htmlAttrs: {
-    lang: 'lo'
+    lang: locale
   }
 })
 
-const title = 'Nuxt Dashboard Template'
-const description = 'A professional dashboard template built with Nuxt UI, featuring multiple pages, data visualization, and comprehensive management capabilities for creating powerful admin interfaces.'
-
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png',
-  twitterCard: 'summary_large_image'
+  title: t('app.name'),
+  description: t('app.description'),
+  ogTitle: t('app.name'),
+  ogDescription: t('app.description'),
+  twitterCard: 'summary'
 })
 </script>
 
 <template>
-  <UApp>
-    <NuxtLoadingIndicator />
+  <UApp :locale="en_gb">
+    <NuxtLoadingIndicator color="var(--ui-primary)" />
     <ClientOnly>
       <AppLoading />
     </ClientOnly>
@@ -46,6 +44,5 @@ useSeoMeta({
     </NuxtLayout>
 
     <UNotifications />
-    <UModals />
   </UApp>
 </template>

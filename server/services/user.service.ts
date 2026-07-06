@@ -25,6 +25,10 @@ export class UserService {
         })
     }
 
+    async getUserById(id: number) {
+        return await userRepository.findById(id)
+    }
+
     async createUser(data: any) {
         // Check duplicates logic could be here or in controller
         // Encryption/Hashing is a service responsibility
@@ -46,7 +50,8 @@ export class UserService {
     }
 
     async authenticate(username: string, passwordFromClient: string) {
-        const user = await userRepository.findByUsername(username)
+        const normalizedUsername = username.trim()
+        const user = await userRepository.findByUsername(normalizedUsername)
         if (!user) return null
 
         let isMatch = false

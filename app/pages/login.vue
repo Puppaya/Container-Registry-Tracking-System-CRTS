@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { encryptPassword } from '~/utils/crypto'
 
 definePageMeta({
   layout: 'auth'
 })
 
-const schema = z.object({
-  username: z.string().min(3, 'ຊື່ຜູ້ໃຊ້ຕ້ອງມີຢ່າງໜ້ອຍ 3 ຕົວອັກສອນ'),
-  password: z.string().min(6, 'ລະຫັດຜ່ານຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ')
-})
+const { t } = useI18n()
+const { encryptPassword } = useCrypto()
 
-type Schema = z.output<typeof schema>
+const schema = computed(() => z.object({
+  username: z.string().min(3, t('auth.validation.usernameMin')),
+  password: z.string().min(6, t('auth.validation.passwordMin'))
+}))
+
+type Schema = z.output<typeof schema.value>
 
 const state = reactive({
   username: '',
@@ -25,7 +27,7 @@ const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = true
-  
+
   try {
     const encryptedBody = {
       ...event.data,
@@ -37,21 +39,20 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       body: encryptedBody
     })
 
-    // Sync session state before navigation
     const { fetch } = useUserSession()
     await fetch()
 
     toast.add({
-      title: 'ເຂົ້າສຳເລັດ',
-      description: 'ຍິນດີຕ້ອນຮັບກັບເຂົ້າສູ່ລະບົບ',
+      title: t('auth.loginSuccess'),
+      description: t('auth.loginWelcome'),
       color: 'success'
     })
-    
+
     await navigateTo('/dashboard')
   } catch (err: any) {
     toast.add({
-      title: 'ເຂົ້າບ່ອນຜິດພາດ',
-      description: err.data?.message || 'ເກີດຂໍ້ຜິດພາດບາງຢ່າງ',
+      title: t('auth.loginError'),
+      description: err.data?.message || t('auth.somethingWrong'),
       color: 'error'
     })
   } finally {
@@ -62,47 +63,38 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <div class="w-full max-w-sm">
-    <div class="mb-8 flex justify-center">
-       <div class="size-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 rotate-3">
-         <UIcon name="i-lucide-layout-dashboard" class="size-10 text-white" />
-       </div>
-    </div>
-
-    <UCard class="w-full shadow-xl border-neutral-200/50 dark:border-neutral-800/50 backdrop-blur-sm bg-white/80 dark:bg-neutral-900/80">
+    <UCard class="w-full shadow-xl border-slate-200/60 dark:border-slate-800/60 backdrop-blur-md bg-white/90 dark:bg-slate-900/90">
       <template #header>
-        <div class="flex flex-col items-center gap-2 text-center">
-          <h1 class="text-2xl font-bold tracking-tight">ເຂົ້າສູ່ລະບົບ</h1>
-          <p class="text-sm text-neutral-500 dark:text-neutral-400">
-            ປ້ອນຂໍ້ມູນເພື່ອເຂົ້າສູ່ລະບົບ
+        <div class="flex flex-col items-center gap-2 text-center pt-1">
+          <h1 class="text-xl font-bold tracking-tight">
+            {{ t('auth.login') }}
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            {{ t('auth.loginSubtitle') }}
           </p>
         </div>
       </template>
 
       <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-        <UFormField label="Username" name="username">
-          <UInput 
-            v-model="state.username" 
-            placeholder="Username" 
+        <UFormField :label="t('auth.username')" name="username" :help="t('auth.usernameHelp')">
+          <UInput
+            v-model="state.username"
+            placeholder="admin"
             icon="i-lucide-user"
+            autocomplete="username"
             size="lg"
-            class="w-full" 
+            class="w-full"
           />
         </UFormField>
 
-        <UFormField label="Password" name="password">
-          <template #label>
-            <div class="flex items-center justify-between w-full">
-              <span>Password</span>
-              <NuxtLink to="#" class="text-xs text-primary hover:underline">ລືມລະຫັດຜ່ານ?</NuxtLink>
-            </div>
-          </template>
-          <UInput 
-            v-model="state.password" 
-            :type="showPassword ? 'text' : 'password'" 
-            placeholder="••••••••" 
+        <UFormField :label="t('auth.password')" name="password">
+          <UInput
+            v-model="state.password"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="••••••••"
             icon="i-lucide-lock"
             size="lg"
-            class="w-full" 
+            class="w-full"
           >
             <template #trailing>
               <UButton
@@ -116,23 +108,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           </UInput>
         </UFormField>
 
-        <UButton type="submit" block :loading="loading" size="lg" class="mt-6 font-semibold">
-          ເຂົ້າສູ່ລະບົບ
+        <UButton type="submit" block :loading="loading" size="lg" class="mt-2 font-semibold">
+          {{ t('auth.login') }}
         </UButton>
       </UForm>
-
-      <template #footer>
-        <p class="text-center text-sm text-neutral-500">
-          ຍັງບໍ່ມີບັນຊີ? 
-          <NuxtLink to="#" class="text-primary font-medium hover:underline">ສະໝັກສະມາຊິກ</NuxtLink>
-        </p>
-      </template>
     </UCard>
-    
-    <div class="mt-8 text-center">
-      <p class="text-xs text-neutral-400">
-        &copy; 2024 Admin Portal. All rights reserved.
-      </p>
-    </div>
   </div>
 </template>

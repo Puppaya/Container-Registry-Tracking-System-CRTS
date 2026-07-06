@@ -4,8 +4,25 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@vueuse/nuxt',
-    'nuxt-auth-utils'
+    '@pinia/nuxt',
+    'nuxt-auth-utils',
+    '@nuxtjs/i18n'
   ],
+
+  i18n: {
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'lo', language: 'lo-LA', name: 'ລາວ', file: 'lo.json' }
+    ],
+    defaultLocale: 'lo',
+    langDir: 'locales',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'crts_locale',
+      fallbackLocale: 'lo'
+    }
+  },
 
   devtools: {
     enabled: process.env.NODE_ENV === 'development'
@@ -38,6 +55,17 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Server-only private keys
     SECRET_KEY: process.env.SECRET_KEY || 'default-secret-key-change-this',
+    surveyApiUrl: process.env.SURVEY_API_URL || '',
+    surveyApiKey: process.env.SURVEY_API_KEY || '',
+    surveyApiTlsInsecure: process.env.SURVEY_API_TLS_INSECURE === 'true',
+    surveySyncEnabled: process.env.SURVEY_SYNC_ENABLED !== 'false',
+    s3Endpoint: process.env.S3_ENDPOINT || '',
+    s3AccessKey: process.env.S3_ACCESS_KEY || '',
+    s3SecretKey: process.env.S3_SECRET_KEY || '',
+    s3Bucket: process.env.S3_BUCKET || 'crts-documents',
+    s3Region: process.env.S3_REGION || 'us-east-1',
+    s3PublicUrl: process.env.S3_PUBLIC_URL || process.env.MINIO_RETURN_PATH || '',
+    storageLocalPath: process.env.STORAGE_LOCAL_PATH || '',
     session: {
       password: process.env.NUXT_SESSION_PASSWORD || '',
       cookie: {
@@ -47,7 +75,7 @@ export default defineNuxtConfig({
       }
     },
     public: {
-      // Client-accessible variables
+      secretKey: process.env.SECRET_KEY || 'default-secret-key-change-this'
     }
   },
 

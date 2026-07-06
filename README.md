@@ -128,9 +128,14 @@ bunx prisma db push
 bun prisma/seed.ts
 ```
 
-ข้อมูล Admin ค่าเริ่มต้น:
-- **Username**: `admin`
-- **Password**: `password123`
+ข้อมูลผู้ใช้เริ่มต้น (Login ด้วย **Username** ไม่ใช่ Email):
+
+| Username | Role | Password |
+|---|---|---|
+| `admin` | Administrator | `password123` |
+| `registry` | RegistryOfficer | `password123` |
+| `survey` | SurveyTeam | `password123` |
+| `management` | Management | `password123` |
 
 > 💡 แนะนำให้เปลี่ยนรหัสผ่านทันทีหลังจาก Login ครั้งแรก
 

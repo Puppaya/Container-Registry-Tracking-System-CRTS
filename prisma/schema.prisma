@@ -13,16 +13,129 @@ model User {
   password String
   name     String?
   avatar   String?
-  role     String  @default("USER")
+  role     String  @default("SurveyTeam")
 }
 
-model Customer {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  avatar    String?
-  status    String   @default("subscribed")
-  location  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Container {
+  containerId       Int      @id @default(autoincrement()) @map("containerId")
+  containerNumber   String   @unique
+  isoType           String
+  containerSize     String
+  containerCategory String
+  owner             String
+  manufacturer      String?
+  yearBuilt         Int?
+  tareWeight        Decimal? @db.Decimal(10, 2)
+  maxPayload        Decimal? @db.Decimal(10, 2)
+  internalVolume    Decimal? @db.Decimal(10, 3)
+  leaseProvider     String?
+  registryLocation  String?
+  cscExpiryDate     DateTime?
+  registrationDate  DateTime
+  status            String   @default("Active")
+  qrCode            String?
+  createdBy         String
+  createdDate       DateTime @default(now())
+  updatedBy         String?
+  updatedDate       DateTime @updatedAt
+
+  events    ContainerEvent[]
+  surveys   ContainerSurvey[]
+  documents ContainerDocument[]
+
+  @@index([status])
+  @@index([owner])
+  @@index([registrationDate])
+  @@index([qrCode])
+  @@index([isoType])
+  @@index([containerCategory])
+  @@index([containerSize])
+  @@index([status, registrationDate])
+  @@map("tb_container")
+}
+
+model ContainerEvent {
+  eventId             Int      @id @default(autoincrement()) @map("eventId")
+  containerId         Int
+  eventType           String
+  eventDescription    String?
+  eventDate           DateTime
+  externalReferenceNo String?
+  createdBy           String
+  createdDate         DateTime @default(now())
+
+  container Container @relation(fields: [containerId], references: [containerId], onDelete: Cascade)
+
+  @@index([containerId])
+  @@index([eventDate])
+  @@index([externalReferenceNo])
+  @@map("tb_container_event")
+}
+
+model ContainerSurvey {
+  surveyId          Int      @id @default(autoincrement()) @map("surveyId")
+  containerId       Int
+  surveyReferenceNo String   @unique
+  surveyDate        DateTime
+  inspector         String?
+  result            String
+  damageSummary     String?
+  reportUrl         String?
+  createdDate       DateTime @default(now())
+
+  container Container @relation(fields: [containerId], references: [containerId], onDelete: Cascade)
+
+  @@index([containerId])
+  @@index([surveyDate])
+  @@map("tb_container_survey")
+}
+
+model ContainerDocument {
+  documentId   Int      @id @default(autoincrement()) @map("documentId")
+  containerId  Int
+  documentType String
+  fileName     String
+  fileUrl      String
+  uploadedBy   String
+  uploadedDate DateTime @default(now())
+
+  container Container @relation(fields: [containerId], references: [containerId], onDelete: Cascade)
+
+  @@index([containerId])
+  @@map("tb_container_document")
+}
+
+model AuditLog {
+  auditLogId  Int      @id @default(autoincrement()) @map("auditLogId")
+  action      String
+  actor       String
+  entityType  String
+  entityId    String?
+  details     String?  @db.NVarChar(Max)
+  createdDate DateTime @default(now())
+
+  @@index([action])
+  @@index([actor])
+  @@index([entityType])
+  @@index([createdDate])
+  @@map("tb_audit_log")
+}
+
+model MasterData {
+  masterDataId Int      @id @default(autoincrement()) @map("masterDataId")
+  category     String
+  code         String
+  name         String
+  description  String?
+  sortOrder    Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdBy    String
+  createdDate  DateTime @default(now())
+  updatedBy    String?
+  updatedDate  DateTime @updatedAt
+
+  @@unique([category, code])
+  @@index([category])
+  @@index([isActive])
+  @@map("tb_master_data")
 }
