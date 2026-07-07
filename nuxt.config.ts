@@ -69,7 +69,7 @@ export default defineNuxtConfig({
     session: {
       password: process.env.NUXT_SESSION_PASSWORD || '',
       cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NUXT_SESSION_COOKIE_SECURE === 'true',
         sameSite: 'lax',
         maxAge: 60 * 60 * 24 * 7 // 1 week
       }
