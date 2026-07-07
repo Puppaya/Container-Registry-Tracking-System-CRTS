@@ -48,15 +48,25 @@ jobs:
       - name: build Nuxt app
         run: bun run build
       - name: Copy build to IIS folder
-        shell: cmd
+        shell: powershell
         run: |
-          mkdir C:\empty_temp
-          robocopy C:\empty_temp "${{ env.DEPLOY_DIR }}" /PURGE /MIR /256 /SL
-          rmdir /s /q C:\empty_temp
-          rmdir /s /q "${{ env.DEPLOY_DIR }}"
-          robocopy "%GITHUB_WORKSPACE%\.output" "${{ env.DEPLOY_DIR }}" /E /IS /IT /NFL /NDL /NJH /NJS /256 /SL
-          if %errorlevel% leq 7 exit /b 0
-          exit /b 1
+          $dest = "${{ env.DEPLOY_DIR }}"
+          $longDest = "\\?\$dest"
+
+          # Use .NET to delete destination (supports long paths > 260 chars)
+          if (Test-Path $dest) {
+            try {
+              [System.IO.Directory]::Delete($longDest, $true)
+            } catch {
+              Write-Warning "Delete failed: $_"
+              exit 1
+            }
+          }
+
+          # Copy new build output
+          $src = "$env:GITHUB_WORKSPACE\.output"
+          robocopy $src $dest /E /IS /IT /NFL /NDL /NJH /NJS /256 /SL
+          if ($LASTEXITCODE -le 7) { exit 0 } else { exit 1 }
 
   pm2_restart:
     needs: call-deploy
