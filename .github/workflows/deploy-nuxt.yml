@@ -45,9 +45,15 @@ jobs:
           bun install
       - name: prisma generate
         run: bunx prisma generate
+      - name: Load SECRET_KEY from ecosystem.config.cjs
+        shell: powershell
+        run: |
+          $secret = bun -e "console.log(require('C:/inetpub/wwwroot/CRTS/ecosystem.config.cjs').apps[0].env_production.SECRET_KEY)"
+          Add-Content -Path $env:GITHUB_ENV -Value "SECRET_KEY=$secret"
       - name: build Nuxt app
         env:
           NITRO_OUTPUT_DIR: ${{ env.DEPLOY_DIR }}
+          SECRET_KEY: ${{ env.SECRET_KEY }}
         run: bun run build
 
   pm2_restart:
