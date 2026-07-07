@@ -50,6 +50,13 @@ jobs:
         run: |
           $secret = bun -e "console.log(require('C:/inetpub/wwwroot/CRTS/ecosystem.config.cjs').apps[0].env_production.SECRET_KEY)"
           Add-Content -Path $env:GITHUB_ENV -Value "SECRET_KEY=$secret"
+      - name: Stop PM2 (Production)
+        if: github.ref_name == 'Deploy'
+        shell: cmd
+        run: |
+          cd C:\inetpub\wwwroot\CRTS
+          pm2 stop CRTS
+          exit /b 0
       - name: build Nuxt app
         env:
           NITRO_OUTPUT_DIR: ${{ env.DEPLOY_DIR }}
