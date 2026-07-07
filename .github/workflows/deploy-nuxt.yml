@@ -46,27 +46,9 @@ jobs:
       - name: prisma generate
         run: bunx prisma generate
       - name: build Nuxt app
+        env:
+          NITRO_OUTPUT_DIR: ${{ env.DEPLOY_DIR }}
         run: bun run build
-      - name: Copy build to IIS folder
-        shell: powershell
-        run: |
-          $dest = "${{ env.DEPLOY_DIR }}"
-          $longDest = "\\?\$dest"
-
-          # Use .NET to delete destination (supports long paths > 260 chars)
-          if (Test-Path $dest) {
-            try {
-              [System.IO.Directory]::Delete($longDest, $true)
-            } catch {
-              Write-Warning "Delete failed: $_"
-              exit 1
-            }
-          }
-
-          # Copy new build output
-          $src = "$env:GITHUB_WORKSPACE\.output"
-          robocopy $src $dest /E /IS /IT /NFL /NDL /NJH /NJS /256 /SL
-          if ($LASTEXITCODE -le 7) { exit 0 } else { exit 1 }
 
   pm2_restart:
     needs: call-deploy

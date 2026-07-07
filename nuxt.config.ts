@@ -86,6 +86,11 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2024-07-11',
 
+  nitro: {
+    output: {
+      dir: process.env.NITRO_OUTPUT_DIR || '.output'
+    }
+  },
 
   eslint: {
     config: {
