@@ -43,6 +43,7 @@ useSeoMeta({
       <NuxtPage />
     </NuxtLayout>
 
-    <UNotifications />
+    <UToaster />
+    <UOverlayProvider />
   </UApp>
 </template>
