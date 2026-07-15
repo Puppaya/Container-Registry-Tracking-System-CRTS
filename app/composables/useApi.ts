@@ -11,10 +11,13 @@ export const useApi = <T>(
     const toast = useToast()
 
     return useFetch(url, {
-        retry: 3,             // Retry 3 times on failure
-        retryDelay: 1000,     // Wait 1 second between retries
+        lazy: true,
+        server: false,
+        retry: 1,
+        retryDelay: 1000,
+        retryStatusCodes: [408, 425, 429, 500, 502, 503, 504],
+        timeout: 30_000,
         ...options,
-        // Add default behavior for error handling
         onResponseError({ response }) {
             const errorMsg = response._data?.message || 'Something went wrong'
             toast.add({

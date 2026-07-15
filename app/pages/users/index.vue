@@ -3,7 +3,7 @@ import type { RowSelectionState } from '@tanstack/table-core'
 
 definePageMeta({
   layout: 'default',
-  roles: ['Administrator', 'RegistryOfficer', 'SurveyTeam', 'Management']
+  roles: ['Administrator']
 })
 
 const { t } = useI18n()
