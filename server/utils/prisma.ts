@@ -13,13 +13,15 @@ const adapter = new PrismaMssql({
     user: process.env.DB_USER!,
     password: process.env.DB_PASSWORD!,
     options: {
-        trustServerCertificate: true
+        trustServerCertificate: true,
+        requestTimeout: 15000,      // Query timeout 15s — ไม่ค้างตลอดกาล
+        connectionTimeout: 10000    // Connect timeout 10s
     },
-    // Connection Pool Configuration
     pool: {
-        max: 10,             // Maximum number of connections in the pool
-        min: 0,              // Minimum number of connections in the pool
-        idleTimeoutMillis: 30000 // How long a connection can be idle before being closed
+        max: 10,
+        min: 0,
+        idleTimeoutMillis: 30000,
+        acquireTimeoutMillis: 15000  // รอ connection จาก pool ไม่เกิน 15s
     }
 })
 
