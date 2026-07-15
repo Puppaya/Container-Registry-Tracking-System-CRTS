@@ -7,75 +7,47 @@ definePageMeta({
 })
 
 const { t } = useI18n()
-const { user } = useUserSession()
-const isAdmin = computed(() => (user.value as { role?: string })?.role === 'Administrator')
 
 const UCheckbox = resolveComponent('UCheckbox')
 
-const columns = computed(() => {
-  const cols = [
-    {
-      accessorKey: 'id',
-      header: 'ID'
-    },
-    {
-      accessorKey: 'username',
-      header: 'Username'
-    },
-    {
-      accessorKey: 'name',
-      header: 'Name'
-    },
-    {
-      accessorKey: 'email',
-      header: 'Email'
-    },
-    {
-      accessorKey: 'role',
-      header: 'Role'
-    },
-    {
-      id: 'actions',
-      header: ''
-    }
-  ]
-
-  if (isAdmin.value) {
-    cols.unshift({
-      id: 'select',
-      header: ({ table }: any) =>
-        h(UCheckbox as any, {
-          'modelValue': table.getIsSomePageRowsSelected()
-            ? 'indeterminate'
-            : table.getIsAllPageRowsSelected(),
-          'onUpdate:modelValue': (value: boolean | 'indeterminate') =>
-            table.toggleAllPageRowsSelected(!!value),
-          'ariaLabel': 'Select all'
-        }),
-      cell: ({ row }: any) =>
-        h(UCheckbox as any, {
-          'modelValue': row.getIsSelected(),
-          'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
-          'ariaLabel': 'Select row'
-        })
-    } as any)
-  }
-
-  return cols
-})
+const columns = [
+  {
+    id: 'select',
+    header: ({ table }: any) =>
+      h(UCheckbox as any, {
+        'modelValue': table.getIsSomePageRowsSelected()
+          ? 'indeterminate'
+          : table.getIsAllPageRowsSelected(),
+        'onUpdate:modelValue': (value: boolean | 'indeterminate') =>
+          table.toggleAllPageRowsSelected(!!value),
+        'ariaLabel': 'Select all'
+      }),
+    cell: ({ row }: any) =>
+      h(UCheckbox as any, {
+        'modelValue': row.getIsSelected(),
+        'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
+        'ariaLabel': 'Select row'
+      })
+  },
+  { accessorKey: 'id', header: 'ID' },
+  { accessorKey: 'username', header: 'Username' },
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+  { accessorKey: 'role', header: 'Role' },
+  { id: 'actions', header: '' }
+]
 
 const page = ref(1)
 const pageSize = ref(10)
 const search = ref('')
 const roleFilter = ref('all')
-const columnVisibility = ref({})
+const rowSelection = ref<RowSelectionState>({})
 
 watch([pageSize, roleFilter], () => {
   page.value = 1
 })
-const rowSelection = ref<RowSelectionState>({})
 
-const { data: users, refresh, pending } = useApi<any>(() => {
+const { data: users, refresh, pending, error } = useApi<any>(() => {
   const params = new URLSearchParams({
     page: page.value.toString(),
     pageSize: pageSize.value.toString(),
@@ -85,38 +57,39 @@ const { data: users, refresh, pending } = useApi<any>(() => {
 
   return `/api/users?${params.toString()}`
 })
+
 const { execute: deleteUser, loading: deleting } = useApiAction()
 
 const table = useTemplateRef<any>('table')
+const tableRows = computed(() => users.value?.data?.data || [])
+const totalCount = computed(() => users.value?.data?.meta?.total || 0)
 const selectedRows = computed(() => table.value?.tableApi?.getFilteredSelectedRowModel().rows || [])
 
 const isConfirmOpen = ref(false)
-const confirmTarget = ref<{ id?: any, type: 'single' | 'bulk' } | null>(null)
+const confirmTarget = ref<{ id?: number, type: 'single' | 'bulk' } | null>(null)
 
 function openCreate() {
   navigateTo('/users/create')
 }
 
-function openEdit(user: any) {
+function openEdit(user: { id: number }) {
   navigateTo(`/users/${user.id}`)
 }
 
-function getRowItems(user: any) {
-  return [
-    [{
-      label: t('common.edit'),
-      icon: 'i-lucide-pencil',
-      onSelect: () => openEdit(user)
-    }, {
-      label: t('common.delete'),
-      icon: 'i-lucide-trash',
-      color: 'error' as const,
-      onSelect: () => startDelete(user.id)
-    }]
-  ]
+function getRowItems(user: { id: number }) {
+  return [[{
+    label: t('common.edit'),
+    icon: 'i-lucide-pencil',
+    onSelect: () => openEdit(user)
+  }, {
+    label: t('common.delete'),
+    icon: 'i-lucide-trash',
+    color: 'error' as const,
+    onSelect: () => startDelete(user.id)
+  }]]
 }
 
-function startDelete(id: any) {
+function startDelete(id: number) {
   confirmTarget.value = { id, type: 'single' }
   isConfirmOpen.value = true
 }
@@ -129,12 +102,12 @@ function startBulkDelete() {
 async function onConfirmDelete() {
   if (!confirmTarget.value) return
 
-  if (confirmTarget.value.type === 'single') {
-    const { error } = await deleteUser(
+  if (confirmTarget.value.type === 'single' && confirmTarget.value.id) {
+    const { error: deleteError } = await deleteUser(
       () => $fetch(`/api/users/${confirmTarget.value?.id}`, { method: 'DELETE' }) as any,
       { successMessage: 'ລົບຂໍ້ມູນສຳເລັດ' }
     )
-    if (!error) refresh()
+    if (!deleteError) refresh()
   } else {
     const count = selectedRows.value.length
     for (const row of selectedRows.value) {
@@ -158,7 +131,6 @@ async function onConfirmDelete() {
 
         <template #right>
           <UButton
-            v-if="isAdmin"
             :label="t('users.addUser')"
             icon="i-lucide-plus"
             @click="openCreate"
@@ -193,39 +165,12 @@ async function onConfirmDelete() {
               :items="[5, 10, 20, 50, 100]"
               class="w-20"
             />
-
-            <UDropdownMenu
-              :items="
-                table?.tableApi
-                  ?.getAllColumns()
-                  .filter((column: any) => column.getCanHide())
-                  .map((column: any) => ({
-                    label: column.id,
-                    type: 'checkbox' as const,
-                    checked: column.getIsVisible(),
-                    onUpdateChecked(checked: boolean) {
-                      table?.tableApi?.getColumn(column.id)?.toggleVisibility(!!checked)
-                    },
-                    onSelect(e?: Event) {
-                      e?.preventDefault()
-                    }
-                  }))
-              "
-              :content="{ align: 'end' }"
-            >
-              <UButton
-                :label="t('common.display')"
-                color="neutral"
-                variant="outline"
-                trailing-icon="i-lucide-settings-2"
-              />
-            </UDropdownMenu>
           </div>
         </template>
 
         <template #right>
           <UButton
-            v-if="isAdmin && selectedRows.length > 0"
+            v-if="selectedRows.length > 0"
             :label="t('common.deleteSelected')"
             color="error"
             variant="subtle"
@@ -251,71 +196,77 @@ async function onConfirmDelete() {
       />
 
       <UDashboardPanelContent scrollable class="p-0">
+        <UAlert
+          v-if="error"
+          color="error"
+          variant="subtle"
+          icon="i-lucide-alert-circle"
+          :title="t('common.error')"
+          :description="(error as any)?.data?.message || (error as any)?.message || t('auth.somethingWrong')"
+          class="m-4"
+        />
+
         <AppEmptyState
-          v-if="!pending && !(users?.data?.data?.length)"
+          v-else-if="!pending && tableRows.length === 0"
           variant="inline"
           icon="i-lucide-users"
           :title="t('emptyState.users.title')"
           :description="t('emptyState.users.description')"
-          :action-label="isAdmin ? t('emptyState.users.action') : undefined"
+          :action-label="t('emptyState.users.action')"
           action-to="/users/create"
           action-icon="i-lucide-plus"
         />
-        <UTable
-          v-else
-          ref="table"
-          v-model:row-selection="rowSelection"
-          v-model:column-visibility="columnVisibility"
-          :data="users?.data?.data || []"
-          :columns="columns"
-          :loading="pending"
-          :ui="{
-            base: 'table-fixed border-separate border-spacing-0',
-            thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
-            tbody: '[&>tr]:last:[&>td]:border-b-0',
-            th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
-            td: 'border-b border-default',
-            separator: 'h-0'
-          }"
-        >
-          <template #name-cell="{ row }">
-            <div class="flex items-center gap-3 text-sm">
-              <UAvatar :src="(row.original.avatar as string | undefined)" :alt="(row.original.name as string)" size="sm" />
-              <div class="flex flex-col">
+
+        <template v-else>
+          <UTable
+            ref="table"
+            v-model:row-selection="rowSelection"
+            :data="tableRows"
+            :columns="columns"
+            :loading="pending"
+            :ui="{
+              base: 'table-fixed border-separate border-spacing-0',
+              thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
+              tbody: '[&>tr]:last:[&>td]:border-b-0',
+              th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
+              td: 'border-b border-default',
+              separator: 'h-0'
+            }"
+          >
+            <template #name-cell="{ row }">
+              <div class="flex items-center gap-3 text-sm">
+                <UAvatar :src="row.original.avatar" :alt="row.original.name" size="sm" />
                 <span class="font-medium text-highlighted">{{ row.original.name }}</span>
               </div>
+            </template>
+
+            <template #role-cell="{ row }">
+              <UBadge :color="row.original.role === 'Administrator' ? 'primary' : 'neutral'" variant="subtle" size="sm">
+                {{ row.original.role }}
+              </UBadge>
+            </template>
+
+            <template #actions-cell="{ row }">
+              <div class="flex items-center justify-end">
+                <UDropdownMenu :items="getRowItems(row.original)" :content="{ align: 'end' }">
+                  <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" />
+                </UDropdownMenu>
+              </div>
+            </template>
+          </UTable>
+
+          <div class="flex items-center justify-between gap-3 border-t border-default p-4 bg-white dark:bg-neutral-900 text-sm sticky bottom-0 z-10">
+            <div class="text-neutral-500">
+              {{ selectedRows.length }} of {{ totalCount }} row(s) selected.
             </div>
-          </template>
 
-          <template #role-cell="{ row }">
-            <UBadge :color="row.original.role === 'Administrator' ? 'primary' : 'neutral'" variant="subtle" size="sm">
-              {{ row.original.role }}
-            </UBadge>
-          </template>
-
-          <template #actions-cell="{ row }">
-            <div class="flex items-center justify-end">
-              <UDropdownMenu v-if="isAdmin" :items="getRowItems(row.original)" :content="{ align: 'end' }">
-                <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" />
-              </UDropdownMenu>
-              <span v-else class="text-xs text-neutral-400">{{ t('common.viewOnly') }}</span>
-            </div>
-          </template>
-        </UTable>
-
-        <div class="flex items-center justify-between gap-3 border-t border-default p-4 bg-white dark:bg-neutral-900 text-sm sticky bottom-0 z-10">
-          <div class="text-neutral-500">
-            {{ selectedRows.length }} of {{ users?.data?.meta?.total || 0 }} row(s) selected.
-          </div>
-
-          <div class="flex items-center gap-1.5">
             <UPagination
               v-model:page="page"
-              :total="users?.data?.meta?.total || 0"
+              :total="totalCount"
               :items-per-page="pageSize"
             />
           </div>
-        </div>
+        </template>
       </UDashboardPanelContent>
     </template>
   </UDashboardPanel>
