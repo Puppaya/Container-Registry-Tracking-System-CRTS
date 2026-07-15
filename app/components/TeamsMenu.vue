@@ -12,9 +12,11 @@ const { t } = useI18n()
     class="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-elevated/50 transition-colors"
     :class="collapsed ? 'justify-center' : ''"
   >
-    <div class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary shadow-sm shadow-primary/20">
-      <UIcon name="i-lucide-container" class="size-4.5 text-white" />
-    </div>
+    <img
+      src="/favicon.svg"
+      alt="CRTS"
+      class="size-8 shrink-0 rounded-lg shadow-sm shadow-primary/20"
+    >
 
     <div v-if="!collapsed" class="min-w-0 flex-1">
       <p class="text-sm font-bold tracking-tight text-slate-900 dark:text-white truncate">

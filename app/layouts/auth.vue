@@ -15,9 +15,11 @@
       </div>
 
       <div class="mb-8 flex flex-col items-center gap-3 text-center">
-        <div class="flex size-14 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/25">
-          <UIcon name="i-lucide-container" class="size-8 text-white" />
-        </div>
+        <img
+          src="/favicon.svg"
+          alt="CRTS"
+          class="size-14 rounded-2xl shadow-lg shadow-primary/25"
+        >
         <div>
           <p class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
             {{ $t('app.name') }}
