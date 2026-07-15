@@ -21,7 +21,15 @@ export class UserService {
             page,
             pageSize,
             where,
-            orderBy: { id: 'desc' }
+            orderBy: { id: 'desc' },
+            select: {
+                id: true,
+                username: true,
+                email: true,
+                name: true,
+                avatar: true,
+                role: true
+            }
         })
     }
 
