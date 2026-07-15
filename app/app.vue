@@ -6,7 +6,7 @@ const { t, locale } = useI18n()
 
 const color = computed(() => colorMode.value === 'dark' ? '#1a1c24' : '#faf8ff')
 
-const siteUrl = useRequestURL().origin
+const ogImageUrl = 'https://sdp-server-file.sdplao.com:4430/crts/og-image.png'
 
 useHead({
   meta: [
@@ -33,14 +33,14 @@ useSeoMeta({
   ogTitle: t('app.name'),
   ogDescription: t('app.description'),
   ogType: 'website',
-  ogImage: `${siteUrl}/og-image.png`,
-  ogImageWidth: 1536,
-  ogImageHeight: 1024,
+  ogImage: ogImageUrl,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   ogImageAlt: t('app.name'),
   twitterCard: 'summary_large_image',
   twitterTitle: t('app.name'),
   twitterDescription: t('app.description'),
-  twitterImage: `${siteUrl}/og-image.png`
+  twitterImage: ogImageUrl
 })
 </script>
 
