@@ -112,7 +112,7 @@ function openDetail(record: SurveyInspectionRecord) {
 
         <div class="flex flex-wrap items-center justify-between gap-3">
           <p class="text-sm text-muted">
-            {{ recordsRes?.data?.meta?.total || 0 }} inspection record(s)
+            {{ t('survey.recordCount', { n: recordsRes?.data?.meta?.total || 0 }) }}
           </p>
           <UPagination
             v-model:page="page"

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 const statusFilter = defineModel<string>('statusFilter', { default: 'all' })
 const ownerFilter = defineModel<string>('ownerFilter', { default: 'all' })
 const sizeFilter = defineModel<string>('sizeFilter', { default: 'all' })
@@ -14,9 +16,9 @@ const emit = defineEmits<{
 }>()
 
 const statusOptions = [
-  { label: 'All Statuses', value: 'all' },
-  { label: 'Active', value: 'Active' },
-  { label: 'Inactive', value: 'Inactive' }
+  { label: t('common.allStatuses'), value: 'all' },
+  { label: t('common.active'), value: 'Active' },
+  { label: t('common.inactive'), value: 'Inactive' }
 ]
 
 const sizeOptions = [
@@ -30,7 +32,7 @@ const sizeOptions = [
   <div class="registry-filter-bar">
     <div class="registry-filter-fields">
       <div class="registry-filter-field">
-        <label class="ds-field-label">Status</label>
+        <label class="ds-field-label">{{ t('containers.filters.status') }}</label>
         <USelect
           v-model="statusFilter"
           :items="statusOptions"
@@ -39,16 +41,16 @@ const sizeOptions = [
       </div>
 
       <div class="registry-filter-field">
-        <label class="ds-field-label">Owner</label>
+        <label class="ds-field-label">{{ t('containers.filters.owner') }}</label>
         <USelect
           v-model="ownerFilter"
-          :items="ownerOptions || [{ label: 'All Owners', value: 'all' }]"
+          :items="ownerOptions || [{ label: t('common.allOwners'), value: 'all' }]"
           class="min-w-44"
         />
       </div>
 
       <div class="registry-filter-field">
-        <label class="ds-field-label">ISO Size</label>
+        <label class="ds-field-label">{{ t('containers.filters.isoSize') }}</label>
         <div class="registry-size-toggle">
           <button
             v-for="option in sizeOptions"
@@ -70,10 +72,10 @@ const sizeOptions = [
         class="registry-filter-clear"
         @click="emit('clear')"
       >
-        Clear Filters
+        {{ t('common.clearFilters') }}
       </button>
       <UButton
-        label="Export CSV"
+        :label="$t('common.exportCsv')"
         icon="i-lucide-download"
         color="neutral"
         variant="outline"

@@ -84,6 +84,7 @@ watch(page, () => {
         </template>
 
         <template #right>
+          <LocaleSwitcher />
           <UButton
             :label="t('nav.items.qrScan')"
             icon="i-lucide-qr-code"
@@ -191,12 +192,12 @@ watch(page, () => {
             :data="containers?.data?.data || []"
             :loading="pending"
             :columns="[
-              { accessorKey: 'containerNumber', header: 'Container No.' },
-              { accessorKey: 'isoType', header: 'ISO' },
-              { accessorKey: 'containerSize', header: 'Size' },
-              { accessorKey: 'owner', header: 'Owner' },
-              { accessorKey: 'status', header: 'Status' },
-              { accessorKey: 'registrationDate', header: 'Registered' }
+              { accessorKey: 'containerNumber', header: () => t('containers.columns.containerNumber') },
+              { accessorKey: 'isoType', header: () => t('containers.columns.isoType') },
+              { accessorKey: 'containerSize', header: () => t('containers.columns.size') },
+              { accessorKey: 'owner', header: () => t('containers.columns.owner') },
+              { accessorKey: 'status', header: () => t('containers.columns.status') },
+              { accessorKey: 'registrationDate', header: () => t('containers.columns.registrationDate') }
             ]"
             :ui="{
               base: 'table-fixed border-separate border-spacing-0',

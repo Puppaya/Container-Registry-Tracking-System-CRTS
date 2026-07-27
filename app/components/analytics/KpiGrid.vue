@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { AnalyticsOverview } from '~/types'
 
+const { t } = useI18n()
+
 const props = defineProps<{
   overview?: AnalyticsOverview | null
   loading?: boolean
@@ -27,55 +29,55 @@ const kpis = computed<KpiItem[]>(() => {
 
   return [
     {
-      title: 'Total Containers',
+      title: t('analytics.kpis.totalContainers'),
       value: data?.totalContainers ?? 0,
       icon: 'i-lucide-container',
       accent: 'primary',
       to: '/containers'
     },
     {
-      title: 'Active',
+      title: t('analytics.kpis.active'),
       value: data?.activeContainers ?? 0,
       icon: 'i-lucide-circle-check',
       accent: 'success',
       to: '/containers?status=Active'
     },
     {
-      title: 'Not Surveyed',
+      title: t('analytics.kpis.notSurveyed'),
       value: data?.notSurveyedContainers ?? 0,
       icon: 'i-lucide-clipboard-x',
       accent: 'warning',
       to: '/containers/search?surveyStatus=not_surveyed'
     },
     {
-      title: 'Requiring Attention',
+      title: t('analytics.kpis.requiringAttention'),
       value: data?.requiringAttention ?? 0,
       icon: 'i-lucide-triangle-alert',
       accent: 'danger',
       to: '/containers/search?status=Inactive'
     },
     {
-      title: 'Recent Registrations (30d)',
+      title: t('analytics.kpis.recentRegistrations'),
       value: data?.recentRegistrations ?? 0,
       icon: 'i-lucide-calendar-plus',
       accent: 'primary'
     },
     {
-      title: 'Lifecycle Events',
+      title: t('analytics.kpis.lifecycleEvents'),
       value: data?.totalEvents ?? 0,
       icon: 'i-lucide-history',
       accent: 'primary',
       to: '/containers/lifecycle'
     },
     {
-      title: 'Movements',
+      title: t('analytics.kpis.movements'),
       value: data?.totalMovements ?? 0,
       icon: 'i-lucide-truck',
       accent: 'neutral',
       to: '/containers/movements'
     },
     {
-      title: 'Survey Records',
+      title: t('analytics.kpis.surveyRecords'),
       value: data?.totalSurveys ?? 0,
       icon: 'i-lucide-clipboard-list',
       accent: 'primary',

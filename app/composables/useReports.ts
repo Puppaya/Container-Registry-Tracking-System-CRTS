@@ -8,6 +8,7 @@ export interface ReportFilters {
 }
 
 export function useReports() {
+  const { t } = useI18n()
   const toast = useToast()
 
   const filters = reactive<ReportFilters>({
@@ -71,10 +72,31 @@ export function useReports() {
     })
   })
 
+  const headerI18nMap: Record<string, string> = {
+    'Container No.': 'reports.headers.containerNo',
+    'ISO': 'reports.headers.iso',
+    'Size': 'reports.headers.size',
+    'Category': 'reports.headers.category',
+    'Owner': 'reports.headers.owner',
+    'Status': 'reports.headers.status',
+    'Registered': 'reports.headers.registered',
+    'Event Type': 'reports.headers.eventType',
+    'Description': 'reports.headers.description',
+    'Event Date': 'reports.headers.eventDate',
+    'Created By': 'reports.headers.createdBy',
+    'Surveyed': 'reports.headers.surveyed',
+    'Latest Result': 'reports.headers.latestResult',
+    'Survey Date': 'reports.headers.surveyDate',
+    'Reference No.': 'reports.headers.referenceNo',
+    'Group': 'reports.headers.group',
+    'Label': 'reports.headers.label',
+    'Count': 'reports.headers.count'
+  }
+
   const previewColumns = computed(() =>
     (preview.value?.headers || []).map((header, index) => ({
       accessorKey: `col${index}`,
-      header
+      header: t(headerI18nMap[header] || header)
     }))
   )
 
