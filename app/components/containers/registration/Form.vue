@@ -30,6 +30,7 @@ const emit = defineEmits<{
   attemptSubmit: []
   saveDraft: []
   bicDocuments: [files: File | File[] | null | undefined]
+  validationError: [field: string]
 }>()
 
 const sectionIds = {
@@ -76,6 +77,7 @@ function updateDecimalField(value: string) {
     :state="state"
     class="space-y-6"
     @submit="emit('submit', $event)"
+    @error="emit('validationError', $event.errors?.[0]?.name ?? 'identification')"
   >
     <!-- Identification -->
     <UCard
@@ -387,11 +389,10 @@ function updateDecimalField(value: string) {
         @click="emit('saveDraft')"
       />
       <UButton
-        type="button"
+        type="submit"
         :label="submitLabel"
         :icon="isEditMode ? 'i-lucide-save' : 'i-lucide-arrow-right'"
         :loading="submitting"
-        @click="emit('attemptSubmit')"
       />
     </div>
   </UForm>

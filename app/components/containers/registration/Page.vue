@@ -290,6 +290,7 @@ onBeforeUnmount(() => {
                   @bic-documents="onBicDocumentsChange"
                   @attempt-submit="handleAttemptRegistration"
                   @submit="handleAttemptRegistration"
+                  @validation-error="scrollToSection(getRegistrationStepForField($event))"
                 />
               </div>
             </div>
