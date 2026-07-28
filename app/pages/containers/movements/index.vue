@@ -107,7 +107,7 @@ async function runTrack() {
     <template #body>
       <UDashboardPanelContent class="space-y-6 p-4 md:p-6">
         <p class="text-sm text-muted">
-          Global search and tracking for Gate In, Gate Out, and Relocation events across all containers.
+          {{ t('movements.desc') }}
         </p>
 
         <MovementsMovementTrackPanel
@@ -131,7 +131,7 @@ async function runTrack() {
 
         <div class="flex flex-wrap items-center justify-between gap-3">
           <p class="text-sm text-muted">
-            {{ movementsRes?.data?.meta?.total || 0 }} movement(s)
+            {{ t('movements.total', { n: movementsRes?.data?.meta?.total || 0 }) }}
           </p>
           <UPagination
             v-model:page="page"

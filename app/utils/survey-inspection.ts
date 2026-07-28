@@ -13,6 +13,15 @@ export const SURVEY_RESULT_OPTIONS = [
   { label: 'Fail', value: 'fail' }
 ]
 
+export function surveyResultLabel(result: string, t: (key: string) => string): string {
+  const map: Record<string, string> = {
+    pass: t('survey.filters.pass'),
+    conditional: t('survey.filters.conditional'),
+    fail: t('survey.filters.fail')
+  }
+  return map[result.toLowerCase()] || result
+}
+
 export { formatDisplayDate as formatSurveyDate } from '~/utils/date-format'
 
 export function describeSurveySyncResult(

@@ -36,6 +36,10 @@ function onCancel() {
             />
           </div>
         </template>
+
+        <template #right>
+          <LocaleSwitcher />
+        </template>
       </UDashboardNavbar>
     </template>
 

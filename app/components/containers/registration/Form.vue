@@ -5,8 +5,7 @@ import {
   BIC_DOCUMENT_ACCEPT,
   formatDecimalInput,
   formatIntegerInput,
-  MAX_BIC_DOCUMENT_SIZE_BYTES,
-  UNIT_STATUS_OPTIONS
+  MAX_BIC_DOCUMENT_SIZE_BYTES
 } from '~/utils/container-registration'
 
 const props = withDefaults(defineProps<{
@@ -42,8 +41,16 @@ const sectionIds = {
 
 defineExpose({ sectionIds })
 
+const { t } = useI18n()
+
 const isEditMode = computed(() => props.mode === 'edit')
-const submitLabel = computed(() => isEditMode.value ? 'Save Changes' : 'Register Container')
+const submitLabel = computed(() => isEditMode.value ? t('common.saveChanges') : t('containers.register'))
+
+const unitStatusOptions = computed(() => [
+  { label: t('containers.form.unitStatusOptions.new'), value: 'New' },
+  { label: t('containers.form.unitStatusOptions.active'), value: 'Active' },
+  { label: t('containers.form.unitStatusOptions.inactive'), value: 'Inactive' }
+])
 
 const { getOptions } = useMasterDataOptions()
 
@@ -81,11 +88,11 @@ function updateDecimalField(value: string) {
           <div class="flex items-center gap-2">
             <UIcon name="i-lucide-fingerprint" class="size-5 text-primary" />
             <h2 class="text-base font-semibold font-mono tracking-tight">
-              Identification
+              {{ t('containers.registration.steps.identification') }}
             </h2>
           </div>
           <UButton
-            label="Scan Unit"
+            :label="t('common.scanUnit')"
             icon="i-lucide-qr-code"
             color="neutral"
             variant="ghost"
@@ -100,25 +107,25 @@ function updateDecimalField(value: string) {
         :class="isEditMode ? 'sm:grid-cols-2' : 'lg:grid-cols-[minmax(0,1fr)_80px_auto]'"
       >
         <UFormField
-          label="Container Number (BIC)"
+          :label="t('containers.form.containerNumber')"
           name="containerPrefix"
-          help="Standard format: 4 letters + 6 digits + 1 check digit (ISO 6346)"
+          :help="t('containers.form.containerNumberHelp')"
         >
           <UInput
             v-model="state.containerPrefix"
             class="w-full max-w-xs font-mono uppercase"
-            placeholder="MSCU123456"
+            :placeholder="t('containers.form.placeholders.containerNumber')"
             icon="i-lucide-hash"
             :disabled="isEditMode"
             @blur="emit('normalizePrefix')"
           />
         </UFormField>
 
-        <UFormField label="Check Digit" name="checkDigit">
+        <UFormField :label="t('containers.form.checkDigit')" name="checkDigit">
           <UInput
             v-model="state.checkDigit"
             class="w-full font-mono text-center"
-            placeholder="7"
+            :placeholder="t('containers.form.placeholders.checkDigit')"
             maxlength="1"
             inputmode="numeric"
             :disabled="isEditMode"
@@ -127,7 +134,7 @@ function updateDecimalField(value: string) {
 
         <UButton
           v-if="!isEditMode"
-          label="Validate"
+          :label="t('common.validate')"
           icon="i-lucide-shield-check"
           class="lg:mb-0.5"
           :loading="validating"
@@ -138,7 +145,7 @@ function updateDecimalField(value: string) {
 
       <div>
         <p v-if="checkDigitAuto && !state.checkDigit" class="text-xs text-muted font-mono">
-          Suggested check digit: {{ checkDigitAuto }}
+          {{ t('containers.form.suggestedCheckDigit', { digit: checkDigitAuto }) }}
         </p>
 
         <UAlert
@@ -160,10 +167,10 @@ function updateDecimalField(value: string) {
         />
       </div>
 
-      <UFormField label="Unit Status" name="unitStatus">
+      <UFormField :label="t('containers.form.unitStatus')" name="unitStatus">
         <USelect
           v-model="state.unitStatus"
-          :items="UNIT_STATUS_OPTIONS"
+          :items="unitStatusOptions"
           class="w-full sm:max-w-xs"
         />
       </UFormField>
@@ -179,13 +186,13 @@ function updateDecimalField(value: string) {
         <div class="flex items-center gap-2 px-5 py-4 sm:px-6">
           <UIcon name="i-lucide-settings-2" class="size-5 text-primary" />
           <h2 class="text-base font-semibold font-mono tracking-tight">
-            Specifications
+            {{ t('containers.registration.steps.specifications') }}
           </h2>
         </div>
       </template>
 
       <div class="grid gap-4 sm:grid-cols-2">
-        <UFormField label="ISO Type" name="isoType">
+        <UFormField :label="t('containers.form.isoType')" name="isoType">
           <USelect
             v-model="state.isoType"
             :items="isoTypeOptions"
@@ -193,7 +200,7 @@ function updateDecimalField(value: string) {
           />
         </UFormField>
 
-        <UFormField label="Category" name="containerCategory">
+        <UFormField :label="t('containers.form.category')" name="containerCategory">
           <USelect
             v-model="state.containerCategory"
             :items="categoryOptions"
@@ -202,7 +209,7 @@ function updateDecimalField(value: string) {
         </UFormField>
       </div>
 
-      <UFormField label="Size" name="containerSize">
+      <UFormField :label="t('containers.form.size')" name="containerSize">
         <URadioGroup
           v-model="state.containerSize"
           :items="sizeOptions"
@@ -212,35 +219,35 @@ function updateDecimalField(value: string) {
       </UFormField>
 
       <div class="grid gap-4 sm:grid-cols-3">
-        <UFormField label="Tare Weight (KG)" name="tareWeight">
+        <UFormField :label="t('containers.form.tareWeight')" name="tareWeight">
           <UInput
             :model-value="state.tareWeight"
             type="text"
             inputmode="numeric"
             class="w-full font-mono"
-            placeholder="3,750"
+            :placeholder="t('containers.form.placeholders.tareWeight')"
             @update:model-value="updateIntegerField('tareWeight', $event)"
           />
         </UFormField>
 
-        <UFormField label="Max Payload (KG)" name="maxPayload">
+        <UFormField :label="t('containers.form.maxPayload')" name="maxPayload">
           <UInput
             :model-value="state.maxPayload"
             type="text"
             inputmode="numeric"
             class="w-full font-mono"
-            placeholder="28,750"
+            :placeholder="t('containers.form.placeholders.maxPayload')"
             @update:model-value="updateIntegerField('maxPayload', $event)"
           />
         </UFormField>
 
-        <UFormField label="Internal Volume (M³)" name="internalVolume">
+        <UFormField :label="t('containers.form.internalVolume')" name="internalVolume">
           <UInput
             :model-value="state.internalVolume"
             type="text"
             inputmode="decimal"
             class="w-full font-mono"
-            placeholder="67.7"
+            :placeholder="t('containers.form.placeholders.internalVolume')"
             @update:model-value="updateDecimalField"
           />
         </UFormField>
@@ -257,47 +264,47 @@ function updateDecimalField(value: string) {
         <div class="flex items-center gap-2 px-5 py-4 sm:px-6">
           <UIcon name="i-lucide-building-2" class="size-5 text-primary" />
           <h2 class="text-base font-semibold font-mono tracking-tight">
-            Ownership &amp; Asset History
+            {{ t('containers.registration.sectionTitles.ownership') }}
           </h2>
         </div>
       </template>
 
-      <UFormField label="Legal Owner" name="owner" required>
+      <UFormField :label="t('containers.form.owner')" name="owner" required>
         <USelect
           v-model="state.owner"
           :items="ownerOptions"
           class="w-full"
           icon="i-lucide-building-2"
-          placeholder="Select owner"
+          :placeholder="t('containers.form.placeholders.owner')"
         />
       </UFormField>
 
-      <UFormField label="Lease Provider (If Applicable)" name="leaseProvider">
+      <UFormField :label="t('containers.form.leaseProvider')" name="leaseProvider">
         <UInput
           v-model="state.leaseProvider"
           class="w-full"
-          placeholder="Triton International"
+          :placeholder="t('containers.form.placeholders.leaseProvider')"
         />
       </UFormField>
 
       <div class="grid gap-4 sm:grid-cols-2">
-        <UFormField label="Manufacturer" name="manufacturer">
+        <UFormField :label="t('containers.form.manufacturer')" name="manufacturer">
           <USelect
             v-model="state.manufacturer"
             :items="manufacturerOptions"
             class="w-full"
-            placeholder="Select manufacturer"
+            :placeholder="t('containers.form.placeholders.manufacturer')"
           />
         </UFormField>
 
-        <UFormField label="Year Built" name="yearBuilt">
+        <UFormField :label="t('containers.form.yearBuilt')" name="yearBuilt">
           <UInput
             v-model="state.yearBuilt"
             type="number"
             min="1900"
             :max="new Date().getFullYear()"
             class="w-full font-mono"
-            placeholder="2024"
+            :placeholder="t('containers.form.placeholders.yearBuilt')"
           />
         </UFormField>
       </div>
@@ -313,38 +320,38 @@ function updateDecimalField(value: string) {
         <div class="flex items-center gap-2 px-5 py-4 sm:px-6">
           <UIcon name="i-lucide-clipboard-check" class="size-5 text-primary" />
           <h2 class="text-base font-semibold font-mono tracking-tight">
-            Registration Details
+            {{ t('containers.registration.sectionTitles.registrationDetails') }}
           </h2>
         </div>
       </template>
 
       <div class="grid gap-4 sm:grid-cols-2">
-        <UFormField label="Registry Location" name="registryLocation">
+        <UFormField :label="t('containers.form.registryLocation')" name="registryLocation">
           <USelect
             v-model="state.registryLocation"
             :items="locationOptions"
             class="w-full"
             icon="i-lucide-map-pin"
-            placeholder="Select location"
+            :placeholder="t('containers.form.placeholders.registryLocation')"
           />
         </UFormField>
 
-        <UFormField label="CSC Expiry Date" name="cscExpiryDate">
+        <UFormField :label="t('containers.form.cscExpiryDate')" name="cscExpiryDate">
           <AppDateInput v-model="state.cscExpiryDate" class="w-full" />
         </UFormField>
       </div>
 
-      <UFormField label="Registration Date" name="registrationDate">
+      <UFormField :label="t('containers.form.registrationDate')" name="registrationDate">
         <AppDateInput v-model="state.registrationDate" class="w-full sm:max-w-xs" />
       </UFormField>
 
-      <UFormField label="BIC Certification Documents">
+      <UFormField :label="t('containers.form.bicDocuments')">
         <UFileUpload
           :model-value="bicDocuments"
           variant="area"
           icon="i-lucide-cloud-upload"
-          label="Upload BIC Certification Documents"
-          :description="`PDF, JPEG, or PNG (Max ${MAX_BIC_DOCUMENT_SIZE_BYTES / (1024 * 1024)}MB)`"
+          :label="t('containers.form.bicDocumentsUpload')"
+          :description="t('containers.form.bicDocumentsDesc', { size: MAX_BIC_DOCUMENT_SIZE_BYTES / (1024 * 1024) })"
           :accept="BIC_DOCUMENT_ACCEPT"
           multiple
           @update:model-value="emit('bicDocuments', $event)"
@@ -363,7 +370,7 @@ function updateDecimalField(value: string) {
         >
           <UCheckbox
             v-model="state.certified"
-            label="I certify that the information provided is accurate and corresponds to the official BIC registration plate affixed to the physical unit."
+            :label="t('containers.registration.certify')"
           />
         </UFormField>
       </div>
@@ -372,7 +379,7 @@ function updateDecimalField(value: string) {
     <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end pb-2">
       <UButton
         v-if="!isEditMode"
-        label="Save Draft"
+        :label="t('common.saveDraft')"
         icon="i-lucide-save"
         color="neutral"
         variant="outline"

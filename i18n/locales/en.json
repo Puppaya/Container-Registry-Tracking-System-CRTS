@@ -155,6 +155,7 @@
     "all": "All",
     "allStatuses": "All Statuses",
     "allOwners": "All Owners",
+    "available": "Available",
     "allResults": "All results",
     "active": "Active",
     "inactive": "Inactive",
@@ -166,6 +167,10 @@
     "showing": "Showing {n} of {total} total containers",
     "records": "{n} record(s)",
     "systemStatus": "System Status:",
+    "operational": "Operational",
+    "notifications": "Notifications",
+    "selectAll": "Select all",
+    "selectRow": "Select row",
     "documentation": "Documentation",
     "support": "Support",
     "notFound": "Not found",
@@ -310,13 +315,22 @@
     "deleted": "Container deleted successfully",
     "syncSuccess": "Survey sync completed",
     "searchPlaceholder": "Quick search container registry...",
+    "searchPage": {
+      "placeholder": "Container no. / owner / QR...",
+      "ownerPlaceholder": "Owner name",
+      "isoTypePlaceholder": "22G1",
+      "categoryPlaceholder": "Dry, Reefer...",
+      "allSizes": "All sizes",
+      "resultCount": "{n} container(s)"
+    },
     "columns": {
       "containerNumber": "Container Number",
       "isoType": "ISO Type",
       "size": "Size",
       "category": "Category",
       "owner": "Owner",
-      "status": "Status"
+      "status": "Status",
+      "registrationDate": "Registration Date"
     },
     "filters": {
       "status": "Status",
@@ -402,19 +416,53 @@
         "ownership": "Ownership",
         "registration": "Registration"
       },
+      "sectionTitles": {
+        "ownership": "Ownership & Asset History",
+        "registrationDetails": "Registration Details"
+      },
       "helpTitle": "Need Help?",
       "helpDesc": "The check digit is the 7th digit of the container number, calculated per ISO 6346 using the first 10 characters.",
       "certify": "I certify that the information provided is accurate and corresponds to the official BIC registration plate affixed to the physical unit."
     },
     "form": {
-      "containerNumber": "Container Number",
-      "containerNumberHelp": "Enter 4 letters + 6 digits — check digit is calculated automatically",
+      "containerNumber": "Container Number (BIC)",
+      "containerNumberHelp": "Standard format: 4 letters + 6 digits + 1 check digit (ISO 6346)",
+      "checkDigit": "Check Digit",
+      "unitStatus": "Unit Status",
       "isoType": "ISO Type",
       "size": "Size",
       "category": "Category",
+      "owner": "Legal Owner",
+      "leaseProvider": "Lease Provider (If Applicable)",
       "manufacturer": "Manufacturer",
       "yearBuilt": "Year Built",
+      "tareWeight": "Tare Weight (KG)",
+      "maxPayload": "Max Payload (KG)",
+      "internalVolume": "Internal Volume (M³)",
+      "registryLocation": "Registry Location",
+      "cscExpiryDate": "CSC Expiry Date",
       "registrationDate": "Registration Date",
+      "bicDocuments": "BIC Certification Documents",
+      "bicDocumentsUpload": "Upload BIC Certification Documents",
+      "bicDocumentsDesc": "PDF, JPEG, or PNG (Max {size}MB)",
+      "suggestedCheckDigit": "Suggested check digit: {digit}",
+      "placeholders": {
+        "containerNumber": "MSCU123456",
+        "checkDigit": "7",
+        "tareWeight": "3,750",
+        "maxPayload": "28,750",
+        "internalVolume": "67.7",
+        "owner": "Select owner",
+        "manufacturer": "Select manufacturer",
+        "leaseProvider": "Triton International",
+        "yearBuilt": "2024",
+        "registryLocation": "Select location"
+      },
+      "unitStatusOptions": {
+        "new": "New / Factory Fresh",
+        "active": "Active",
+        "inactive": "Inactive"
+      },
       "createSuccess": "Container registered successfully",
       "updateSuccess": "Container updated successfully",
       "validation": {
@@ -466,7 +514,21 @@
       "passwordHelpEdit": "Leave blank to keep current password",
       "passwordHelpCreate": "At least 6 characters",
       "role": "Role",
-      "submitCreate": "Add User"
+      "submitCreate": "Add User",
+      "submitEdit": "Save",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "placeholders": {
+        "username": "username",
+        "name": "Full Name",
+        "email": "email{'@'}example.com"
+      },
+      "validation": {
+        "usernameMin": "Username must be at least 3 characters",
+        "nameMin": "Name is too short",
+        "emailInvalid": "Invalid email address",
+        "passwordMin": "Password must be at least 6 characters"
+      }
     },
     "success": {
       "create": "User created successfully",
@@ -596,10 +658,13 @@
     },
     "filters": {
       "placeholder": "Reference, container, inspector...",
+      "allResults": "All results",
       "pass": "Pass",
       "conditional": "Conditional",
       "fail": "Fail"
     },
+    "recordCount": "{n} inspection record(s)",
+    "noDamageReported": "No damage reported",
     "columns": {
       "reference": "Reference No.",
       "container": "Container",
@@ -642,6 +707,11 @@
       "gateIn": "Gate In",
       "gateOut": "Gate Out",
       "relocation": "Relocation",
+      "registration": "Registration",
+      "survey": "Survey",
+      "repair": "Repair",
+      "maintenance": "Maintenance",
+      "statusChange": "Status Change",
       "all": "All movements"
     },
     "filters": {
@@ -652,8 +722,14 @@
       "type": "Movement Type",
       "location": "Location / Details",
       "date": "Movement Date",
-      "placeholder": "Yard A, Port gate, relocation destination..."
+      "placeholder": "Yard A, Port gate, relocation destination...",
+      "validation": {
+        "locationRequired": "Location or details required",
+        "dateRequired": "Date required"
+      },
+      "success": "Movement recorded successfully"
     },
+    "total": "{n} movement(s)",
     "columns": {
       "date": "Date",
       "container": "Container",
@@ -669,6 +745,8 @@
     "previewNote": "Preview and export — generated {date}",
     "catalogTitle": "Report Catalog",
     "openWorkspace": "Open Report Workspace",
+    "exportExcel": "Excel",
+    "exportPdf": "PDF",
     "registry": {
       "title": "Container Registry Report",
       "desc": "Master data of all registered containers"
@@ -685,6 +763,26 @@
       "title": "Status Summary Report",
       "desc": "Aggregated counts by status, size, and category"
     },
+    "headers": {
+      "containerNo": "Container No.",
+      "iso": "ISO",
+      "size": "Size",
+      "category": "Category",
+      "owner": "Owner",
+      "status": "Status",
+      "registered": "Registered",
+      "eventType": "Event Type",
+      "description": "Description",
+      "eventDate": "Event Date",
+      "createdBy": "Created By",
+      "surveyed": "Surveyed",
+      "latestResult": "Latest Result",
+      "surveyDate": "Survey Date",
+      "referenceNo": "Reference No.",
+      "group": "Group",
+      "label": "Label",
+      "count": "Count"
+    },
     "filters": {
       "status": "Status",
       "dateFrom": "Date from",
@@ -697,6 +795,7 @@
     "lastUpdated": "Last updated: {date}",
     "loadError": "Unable to load analytics",
     "reportWorkspace": "Report Workspace",
+    "reportCatalog": "Report Catalog",
     "kpis": {
       "totalContainers": "Total Containers",
       "active": "Active",

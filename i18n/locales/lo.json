@@ -155,6 +155,7 @@
     "all": "ທັງໝົດ",
     "allStatuses": "ທຸກສະຖານະ",
     "allOwners": "ເຈົ້າຂອງທັງໝົດ",
+    "available": "ພ້ອມໃຊ້ງານ",
     "allResults": "ຜົນທັງໝົດ",
     "active": "ໃຊ້ງານ",
     "inactive": "ບໍ່ໃຊ້ງານ",
@@ -166,6 +167,10 @@
     "showing": "ສະແດງ {n} ຈາກ {total} ຕູ້ທັງໝົດ",
     "records": "{n} ລາຍການ",
     "systemStatus": "ສະຖານະລະບົບ:",
+    "operational": "ດຳເນີນງານ",
+    "notifications": "ແຈ້ງເຕືອນ",
+    "selectAll": "ເລືອກທັງໝົດ",
+    "selectRow": "ເລືອກແຖວ",
     "documentation": "ເອກະສານ",
     "support": "ຊ່ວຍເຫຼືອ",
     "notFound": "ບໍ່ພົບ",
@@ -310,13 +315,22 @@
     "deleted": "ລົບຕູ້ສຳເລັດ",
     "syncSuccess": "Sync Survey ສຳເລັດ",
     "searchPlaceholder": "ຄົ້ນຫາລົງທະບຽນຕູ້...",
+    "searchPage": {
+      "placeholder": "ເລກຕູ / ເຈົ້າຂອງ / QR...",
+      "ownerPlaceholder": "ຊື່ເຈົ້າຂອງ",
+      "isoTypePlaceholder": "22G1",
+      "categoryPlaceholder": "Dry, Reefer...",
+      "allSizes": "ທຸກຂະໜາດ",
+      "resultCount": "{n} ຕູ້ຄອນເທນເນີ"
+    },
     "columns": {
       "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
       "isoType": "ISO Type",
       "size": "ຂະໜາດ",
       "category": "ປະເພດ",
       "owner": "ເຈົ້າຂອງ",
-      "status": "ສະຖານະ"
+      "status": "ສະຖານະ",
+      "registrationDate": "ວັນທີລົງທະບຽນ"
     },
     "filters": {
       "status": "ສະຖານະ",
@@ -402,19 +416,53 @@
         "ownership": "ຄວາມເປັນເຈົ້າຂອງ",
         "registration": "ການລົງທະບຽນ"
       },
+      "sectionTitles": {
+        "ownership": "ຄວາມເປັນເຈົ້າຂອງ ແລະ ປະຫວັດຊັບສິນ",
+        "registrationDetails": "ລາຍລະອຽດການລົງທະບຽນ"
+      },
       "helpTitle": "ຕ້ອງການຄວາມຊ່ວຍເຫຼືອ?",
       "helpDesc": "Check digit ແມ່ນຕົວເລກທີ 7 ຂອງເລກຕູ້ — ຄິດໄລ່ຕາມ ISO 6346 ຈາກ 10 ຕົວອັກສອນທຳອິດ.",
       "certify": "ຂ້າພະເຈົ້າຮັບຮອງວ່າຂໍ້ມູນທີ່ໃຫ້ຖືກຕ້ອງ ແລະ ກົງກັບປ້າຍ BIC ທີ່ຕິດຢູ່ຕູ້ຈິງ."
     },
     "form": {
-      "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
-      "containerNumberHelp": "ປ້ອນ 4 ຕົວອັກສອນ + 6 ຕົວເລກ — ລະບົບຈະຄິດ check digit ໃຫ້ອັດຕະໂນມັດ",
+      "containerNumber": "ເລກຕູ້ຄອນເທນເນີ (BIC)",
+      "containerNumberHelp": "ຮູບແບບມາດຕະຖານ: 4 ຕົວອັກສອນ + 6 ຕົວເລກ + 1 check digit (ISO 6346)",
+      "checkDigit": "Check Digit",
+      "unitStatus": "ສະຖານະໜ່ວຍງານ",
       "isoType": "ISO Type",
       "size": "ຂະໜາດ",
       "category": "ປະເພດ",
+      "owner": "ເຈົ້າຂອງຕູ້",
+      "leaseProvider": "ຜູ້ໃຫ້ເຊົ່າ (ຖ້າມີ)",
       "manufacturer": "ຜູ້ຜະລິດ",
       "yearBuilt": "ປີຜະລິດ",
+      "tareWeight": "ນ້ຳໜັກຕູ້ເປົ່າ (KG)",
+      "maxPayload": "ນ້ຳໜັກບັນທຸກສູງສຸດ (KG)",
+      "internalVolume": "ປະລິມານພາຍໃນ (M³)",
+      "registryLocation": "ສະຖານທີ່ລົງທະບຽນ",
+      "cscExpiryDate": "ວັນໝົດອາຍຸ CSC",
       "registrationDate": "ວັນລົງທະບຽນ",
+      "bicDocuments": "ເອກະສານ BIC Certification",
+      "bicDocumentsUpload": "ອັບໂຫຼດເອກະສານ BIC Certification",
+      "bicDocumentsDesc": "PDF, JPEG, ຫຼື PNG (ສູງສຸດ {size}MB)",
+      "suggestedCheckDigit": "Check digit ທີ່ແນະນຳ: {digit}",
+      "placeholders": {
+        "containerNumber": "MSCU123456",
+        "checkDigit": "7",
+        "tareWeight": "3,750",
+        "maxPayload": "28,750",
+        "internalVolume": "67.7",
+        "owner": "ເລືອກເຈົ້າຂອງ",
+        "manufacturer": "ເລືອກຜູ້ຜະລິດ",
+        "leaseProvider": "ຕົວຢ່າງ: Triton International",
+        "yearBuilt": "2024",
+        "registryLocation": "ເລືອກສະຖານທີ່"
+      },
+      "unitStatusOptions": {
+        "new": "ໃໝ່ / ຍັງບໍ່ໄດ້ໃຊ້ງານ",
+        "active": "ໃຊ້ງານ",
+        "inactive": "ບໍ່ໃຊ້ງານ"
+      },
       "createSuccess": "ລົງທະບຽນຕູ້ຄອນເທນເນີສຳເລັດ",
       "updateSuccess": "ແກ້ໄຂຂໍ້ມູນຕູ້ຄອນເທນເນີສຳເລັດ",
       "validation": {
@@ -466,7 +514,21 @@
       "passwordHelpEdit": "ປ່ອຍວ່າງຖ້າບໍ່ຕ້ອງການປ່ຽນ",
       "passwordHelpCreate": "ຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ",
       "role": "ບົດບາດ",
-      "submitCreate": "ເພີ່ມຜູ້ໃຊ້"
+      "submitCreate": "ເພີ່ມຜູ້ໃຊ້",
+      "submitEdit": "ບັນທຶກ",
+      "showPassword": "ສະແດງລະຫັດຜ່ານ",
+      "hidePassword": "ເຊື່ອງລະຫັດຜ່ານ",
+      "placeholders": {
+        "username": "username",
+        "name": "ຊື່-ນາມສະກຸນ",
+        "email": "email{'@'}example.com"
+      },
+      "validation": {
+        "usernameMin": "Username ຕ້ອງມີຢ່າງໜ້ອຍ 3 ຕົວອັກສອນ",
+        "nameMin": "ຊື່ສັ້ນເກີນໄປ",
+        "emailInvalid": "ອີເມວບໍ່ຖືກຕ້ອງ",
+        "passwordMin": "Password ຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ"
+      }
     },
     "success": {
       "create": "ສ້າງ User ສຳເລັດ",
@@ -596,10 +658,13 @@
     },
     "filters": {
       "placeholder": "Reference, ຕູ້, ຜູ້ກວດ...",
+      "allResults": "ທຸກຜົນ",
       "pass": "Pass",
       "conditional": "Conditional",
       "fail": "Fail"
     },
+    "recordCount": "{n} ລາຍການ",
+    "noDamageReported": "ບໍ່ມີຄວາມເສຍຫາຍ",
     "columns": {
       "reference": "Reference No.",
       "container": "ຕູ້",
@@ -634,14 +699,19 @@
     "summary": {
       "total": "ການເຄື່ອນໄຫວທັງໝົດ",
       "last7": "7 ວັນຜ່ານມາ",
-      "gateIn": "Gate In",
-      "gateOut": "Gate Out",
-      "relocation": "Relocation"
+      "gateIn": "ຂາເຂົ້າ",
+      "gateOut": "ຂາອອກ",
+      "relocation": "ການເຄືອນຍ້າຍ"
     },
     "types": {
       "gateIn": "Gate In",
       "gateOut": "Gate Out",
       "relocation": "Relocation",
+      "registration": "ລົງທະບຽນ",
+      "survey": "ກວດກາ",
+      "repair": "ສ້ອມແປງ",
+      "maintenance": "ບຳລຸງຮັກສາ",
+      "statusChange": "ປ່ຽນສະຖານະ",
       "all": "ການເຄື່ອນໄຫວທັງໝົດ"
     },
     "filters": {
@@ -652,8 +722,14 @@
       "type": "ປະເພດການເຄື່ອນໄຫວ",
       "location": "ສະຖານທີ່ / ລາຍລະອຽດ",
       "date": "ວັນທີເຄື່ອນໄຫວ",
-      "placeholder": "Yard A, Port gate, ປາຍທາງຍ້າຍ..."
+      "placeholder": "Yard A, Port gate, ປາຍທາງຍ້າຍ...",
+      "validation": {
+        "locationRequired": "ກະລຸນາປ້ອນສະຖານທີ່ ຫຼື ລາຍລະອຽດ",
+        "dateRequired": "ກະລຸນາປ້ອນວັນທີ"
+      },
+      "success": "ບັນທຶກການເຄື່ອນໄຫວສຳເລັດ"
     },
+    "total": "{n} ການເຄື່ອນໄຫວ",
     "columns": {
       "date": "ວັນທີ",
       "container": "ຕູ້",
@@ -669,6 +745,8 @@
     "previewNote": "ຕົວຢ່າງ ແລະ export — ສ້າງ {date}",
     "catalogTitle": "ລາຍການລາຍງານ",
     "openWorkspace": "ເປີດພື້ນທີ່ລາຍງານ",
+    "exportExcel": "Excel",
+    "exportPdf": "PDF",
     "registry": {
       "title": "ລາຍງານລົງທະບຽນຕູ້",
       "desc": "ຂໍ້ມູນຫຼັກຂອງຕູ້ທີ່ລົງທະບຽນທັງໝົດ"
@@ -685,6 +763,26 @@
       "title": "ລາຍງານສະຫຼຸບສະຖານະ",
       "desc": "ຈຳນວນຕາມສະຖານະ, ຂະໜາດ, ແລະ ປະເພດ"
     },
+    "headers": {
+      "containerNo": "ເລກຕູ້",
+      "iso": "ISO",
+      "size": "ຂະໜາດ",
+      "category": "ປະເພດ",
+      "owner": "ເຈົ້າຂອງ",
+      "status": "ສະຖານະ",
+      "registered": "ວັນທີລົງທະບຽນ",
+      "eventType": "ປະເພດ Event",
+      "description": "ລາຍລະອຽດ",
+      "eventDate": "ວັນທີ Event",
+      "createdBy": "ສ້າງໂດຍ",
+      "surveyed": "Surveyed",
+      "latestResult": "ຜົນຫຼ້າສຸດ",
+      "surveyDate": "ວັນທີ Survey",
+      "referenceNo": "ເລກອ້າງອີງ",
+      "group": "ກຸ່ມ",
+      "label": "ປ້າຍກຳກັບ",
+      "count": "ຈຳນວນ"
+    },
     "filters": {
       "status": "ສະຖານະ",
       "dateFrom": "ວັນທີ (ຈາກ)",
@@ -697,6 +795,7 @@
     "lastUpdated": "ອັບເດດຫຼ້າສຸດ: {date}",
     "loadError": "ບໍ່ສາມາດໂຫຼດ analytics ໄດ້",
     "reportWorkspace": "ພື້ນທີ່ລາຍງານ",
+    "reportCatalog": "ລາຍການລາຍງານ",
     "kpis": {
       "totalContainers": "ຕູ້ທັງໝົດ",
       "active": "ໃຊ້ງານ",
