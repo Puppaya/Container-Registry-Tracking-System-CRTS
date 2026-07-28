@@ -315,6 +315,14 @@
     "deleted": "ລົບຕູ້ສຳເລັດ",
     "syncSuccess": "Sync Survey ສຳເລັດ",
     "searchPlaceholder": "ຄົ້ນຫາລົງທະບຽນຕູ້...",
+    "searchPage": {
+      "placeholder": "ເລກຕູ / ເຈົ້າຂອງ / QR...",
+      "ownerPlaceholder": "ຊື່ເຈົ້າຂອງ",
+      "isoTypePlaceholder": "22G1",
+      "categoryPlaceholder": "Dry, Reefer...",
+      "allSizes": "ທຸກຂະໜາດ",
+      "resultCount": "{n} ຕູ້ຄອນເທນເນີ"
+    },
     "columns": {
       "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
       "isoType": "ISO Type",
@@ -506,7 +514,21 @@
       "passwordHelpEdit": "ປ່ອຍວ່າງຖ້າບໍ່ຕ້ອງການປ່ຽນ",
       "passwordHelpCreate": "ຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ",
       "role": "ບົດບາດ",
-      "submitCreate": "ເພີ່ມຜູ້ໃຊ້"
+      "submitCreate": "ເພີ່ມຜູ້ໃຊ້",
+      "submitEdit": "ບັນທຶກ",
+      "showPassword": "ສະແດງລະຫັດຜ່ານ",
+      "hidePassword": "ເຊື່ອງລະຫັດຜ່ານ",
+      "placeholders": {
+        "username": "username",
+        "name": "ຊື່-ນາມສະກຸນ",
+        "email": "email{'@'}example.com"
+      },
+      "validation": {
+        "usernameMin": "Username ຕ້ອງມີຢ່າງໜ້ອຍ 3 ຕົວອັກສອນ",
+        "nameMin": "ຊື່ສັ້ນເກີນໄປ",
+        "emailInvalid": "ອີເມວບໍ່ຖືກຕ້ອງ",
+        "passwordMin": "Password ຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ"
+      }
     },
     "success": {
       "create": "ສ້າງ User ສຳເລັດ",

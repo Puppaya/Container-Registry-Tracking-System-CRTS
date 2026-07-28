@@ -315,6 +315,14 @@
     "deleted": "Container deleted successfully",
     "syncSuccess": "Survey sync completed",
     "searchPlaceholder": "Quick search container registry...",
+    "searchPage": {
+      "placeholder": "Container no. / owner / QR...",
+      "ownerPlaceholder": "Owner name",
+      "isoTypePlaceholder": "22G1",
+      "categoryPlaceholder": "Dry, Reefer...",
+      "allSizes": "All sizes",
+      "resultCount": "{n} container(s)"
+    },
     "columns": {
       "containerNumber": "Container Number",
       "isoType": "ISO Type",
@@ -506,7 +514,21 @@
       "passwordHelpEdit": "Leave blank to keep current password",
       "passwordHelpCreate": "At least 6 characters",
       "role": "Role",
-      "submitCreate": "Add User"
+      "submitCreate": "Add User",
+      "submitEdit": "Save",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "placeholders": {
+        "username": "username",
+        "name": "Full Name",
+        "email": "email{'@'}example.com"
+      },
+      "validation": {
+        "usernameMin": "Username must be at least 3 characters",
+        "nameMin": "Name is too short",
+        "emailInvalid": "Invalid email address",
+        "passwordMin": "Password must be at least 6 characters"
+      }
     },
     "success": {
       "create": "User created successfully",
