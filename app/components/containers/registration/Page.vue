@@ -41,7 +41,7 @@ const {
   containerId: computed(() => props.containerId)
 })
 
-const formRef = useTemplateRef<{ sectionIds: Record<string, string> }>('formRef')
+const formRef = useTemplateRef<{ sectionIds: Record<string, string>; scrollToField: (name: string) => void }>('formRef')
 const scrollContainer = useTemplateRef<HTMLElement>('scrollContainer')
 
 const breadcrumbItems = computed(() => {
@@ -98,10 +98,19 @@ function scrollToSection(sectionId: string) {
   })
 }
 
+function scrollToField(fieldName: string) {
+  nextTick(() => formRef.value?.scrollToField(fieldName))
+}
+
+function onValidationError(fieldName: string) {
+  scrollToSection(getRegistrationStepForField(fieldName))
+  scrollToField(fieldName)
+}
+
 async function handleAttemptRegistration() {
   const failedField = await attemptRegistration()
   if (failedField) {
-    scrollToSection(getRegistrationStepForField(String(failedField)))
+    onValidationError(String(failedField))
   }
 }
 
@@ -277,20 +286,20 @@ onBeforeUnmount(() => {
                   :mode="mode"
                   :state="state"
                   :schema="schema"
-                  :bic-documents="bicDocuments"
                   :container-validated="containerValidated"
                   :validation-message="validationMessage"
                   :validation-error="validationError"
                   :validating="validating"
                   :submitting="submitting"
                   :check-digit-auto="checkDigitAuto"
+                  :bic-documents="bicDocuments"
                   @validate="validateContainerNumberField"
                   @normalize-prefix="normalizePrefixInput"
                   @save-draft="saveDraft"
-                  @bic-documents="onBicDocumentsChange"
                   @attempt-submit="handleAttemptRegistration"
                   @submit="handleAttemptRegistration"
-                  @validation-error="scrollToSection(getRegistrationStepForField($event))"
+                  @validation-error="onValidationError($event)"
+                  @bic-documents-change="onBicDocumentsChange"
                 />
               </div>
             </div>

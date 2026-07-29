@@ -12,7 +12,7 @@
   },
   "nav": {
     "goTo": "ໄປຫາ",
-    "modules": "ໂມດູນ",
+    "modulesLabel": "ໂມດູນ",
     "groups": {
       "overview": "ພາບລວມ",
       "registry": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
@@ -138,6 +138,8 @@
     "refresh": "ໂຫຼດໃໝ່",
     "update": "ອັບເດດ",
     "validate": "ກວດສອບ",
+    "validated": "ກວດສອບແລ້ວ",
+    "autoMark": "ໝາຍອັດຕະໂນມັດ",
     "track": "ຕິດຕາມ",
     "choose": "ເລືອກ",
     "viewProfile": "ເບິ່ງໂປຣໄຟລ์",
@@ -315,6 +317,14 @@
     "deleted": "ລົບຕູ້ສຳເລັດ",
     "syncSuccess": "Sync Survey ສຳເລັດ",
     "searchPlaceholder": "ຄົ້ນຫາລົງທະບຽນຕູ້...",
+    "searchPage": {
+      "placeholder": "ເລກຕູ / ເຈົ້າຂອງ / QR...",
+      "ownerPlaceholder": "ຊື່ເຈົ້າຂອງ",
+      "isoTypePlaceholder": "22G1",
+      "categoryPlaceholder": "Dry, Reefer...",
+      "allSizes": "ທຸກຂະໜາດ",
+      "resultCount": "{n} ຕູ້ຄອນເທນເນີ"
+    },
     "columns": {
       "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
       "isoType": "ISO Type",
@@ -434,10 +444,12 @@
       "registryLocation": "ສະຖານທີ່ລົງທະບຽນ",
       "cscExpiryDate": "ວັນໝົດອາຍຸ CSC",
       "registrationDate": "ວັນລົງທະບຽນ",
+      "validationErrorTitle": "{count} ຊ່ອງຂໍ້ມູນຕ້ອງການກວດສອບ",
       "bicDocuments": "ເອກະສານ BIC Certification",
       "bicDocumentsUpload": "ອັບໂຫຼດເອກະສານ BIC Certification",
       "bicDocumentsDesc": "PDF, JPEG, ຫຼື PNG (ສູງສຸດ {size}MB)",
       "suggestedCheckDigit": "Check digit ທີ່ແນະນຳ: {digit}",
+      "autoMarkedCheckDigit": "Check digit ທີ່ໝາຍອັດຕະໂນມັດ: {digit}",
       "placeholders": {
         "containerNumber": "MSCU123456",
         "checkDigit": "7",
@@ -461,7 +473,18 @@
         "required": "ກະລຸນາປ້ອນເລກຕູ້ຄອນເທນເນີ",
         "invalid": "ເລກຕູ້ຄອນເທນເນີບໍ່ຖືກຕ້ອງ",
         "isoFormat": "ຮູບແບບບໍ່ຖືກຕ້ອງ: 4 ຕົວອັກສອນ + 7 ຕົວເລກ (ISO 6346)",
-        "checkDigit": "Check digit ບໍ່ຖືກຕ້ອງ — ຄວນເປັນ {expected} (ບໍ່ແມ່ນ {provided})"
+        "checkDigit": "Check digit ບໍ່ຖືກຕ້ອງ — ຄວນເປັນ {expected} (ບໍ່ແມ່ນ {provided})",
+        "prefixRequired": "ກະລຸນາປ້ອນຕົວເລກຕູ້ຄອນເທນເນີ (4 ຕົວອັກສອນ + 6 ຕົວເລກ)",
+        "checkDigitRequired": "Check digit ຕ້ອງເປັນຕົວເລກດຽວ",
+        "isoTypeRequired": "ກະລຸນາເລືອກ ISO type",
+        "sizeRequired": "ກະລຸນາເລືອກຂະໜາດ",
+        "categoryRequired": "ກະລຸນາເລືອກປະເພດ",
+        "ownerRequired": "ກະລຸນາປ້ອນເຈົ້າຂອງ",
+        "registrationDateRequired": "ກະລຸນາປ້ອນວັນທີລົງທະບຽນ",
+        "certificationRequired": "ກະລຸນາຢືນຢັນຂໍ້ມູນ",
+        "invalidContainerNumber": "ເລກຕູ້ບໍ່ຖືກຕ້ອງ",
+        "yearBuiltRange": "ປີຜະລິດຕ້ອງຢູ່ລະຫວ່າງ 1900 ຫາ {year}",
+        "positiveNumber": "{label} ຕ້ອງເປັນຕົວເລກທີ່ຫຼາຍກວ່າ 0"
       }
     },
     "movementsEmpty": "ຍັງບໍ່ມີການເຄື່ອນໄຫວ (Gate In/Out, Relocation)",
@@ -506,7 +529,21 @@
       "passwordHelpEdit": "ປ່ອຍວ່າງຖ້າບໍ່ຕ້ອງການປ່ຽນ",
       "passwordHelpCreate": "ຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ",
       "role": "ບົດບາດ",
-      "submitCreate": "ເພີ່ມຜູ້ໃຊ້"
+      "submitCreate": "ເພີ່ມຜູ້ໃຊ້",
+      "submitEdit": "ບັນທຶກ",
+      "showPassword": "ສະແດງລະຫັດຜ່ານ",
+      "hidePassword": "ເຊື່ອງລະຫັດຜ່ານ",
+      "placeholders": {
+        "username": "username",
+        "name": "ຊື່-ນາມສະກຸນ",
+        "email": "email{'@'}example.com"
+      },
+      "validation": {
+        "usernameMin": "Username ຕ້ອງມີຢ່າງໜ້ອຍ 3 ຕົວອັກສອນ",
+        "nameMin": "ຊື່ສັ້ນເກີນໄປ",
+        "emailInvalid": "ອີເມວບໍ່ຖືກຕ້ອງ",
+        "passwordMin": "Password ຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ"
+      }
     },
     "success": {
       "create": "ສ້າງ User ສຳເລັດ",
