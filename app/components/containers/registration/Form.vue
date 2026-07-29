@@ -406,7 +406,6 @@ function previewFile(file: File) {
           </div>
         </div>
       </template>
-
       <div class="grid gap-4 sm:grid-cols-2">
         <UFormField data-field="isoType" :label="t('containers.form.isoType')" name="isoType" required>
           <USelect
