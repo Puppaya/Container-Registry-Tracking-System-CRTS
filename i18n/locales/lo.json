@@ -12,7 +12,7 @@
   },
   "nav": {
     "goTo": "ໄປຫາ",
-    "modules": "ໂມດູນ",
+    "modulesLabel": "ໂມດູນ",
     "groups": {
       "overview": "ພາບລວມ",
       "registry": "ລົງທະບຽນຕູ້ຄອນເທນເນີ",
@@ -138,6 +138,8 @@
     "refresh": "ໂຫຼດໃໝ່",
     "update": "ອັບເດດ",
     "validate": "ກວດສອບ",
+    "validated": "ກວດສອບແລ້ວ",
+    "autoMark": "ໝາຍອັດຕະໂນມັດ",
     "track": "ຕິດຕາມ",
     "choose": "ເລືອກ",
     "viewProfile": "ເບິ່ງໂປຣໄຟລ์",
@@ -442,10 +444,12 @@
       "registryLocation": "ສະຖານທີ່ລົງທະບຽນ",
       "cscExpiryDate": "ວັນໝົດອາຍຸ CSC",
       "registrationDate": "ວັນລົງທະບຽນ",
+      "validationErrorTitle": "{count} ຊ່ອງຂໍ້ມູນຕ້ອງການກວດສອບ",
       "bicDocuments": "ເອກະສານ BIC Certification",
       "bicDocumentsUpload": "ອັບໂຫຼດເອກະສານ BIC Certification",
       "bicDocumentsDesc": "PDF, JPEG, ຫຼື PNG (ສູງສຸດ {size}MB)",
       "suggestedCheckDigit": "Check digit ທີ່ແນະນຳ: {digit}",
+      "autoMarkedCheckDigit": "Check digit ທີ່ໝາຍອັດຕະໂນມັດ: {digit}",
       "placeholders": {
         "containerNumber": "MSCU123456",
         "checkDigit": "7",
@@ -469,7 +473,18 @@
         "required": "ກະລຸນາປ້ອນເລກຕູ້ຄອນເທນເນີ",
         "invalid": "ເລກຕູ້ຄອນເທນເນີບໍ່ຖືກຕ້ອງ",
         "isoFormat": "ຮູບແບບບໍ່ຖືກຕ້ອງ: 4 ຕົວອັກສອນ + 7 ຕົວເລກ (ISO 6346)",
-        "checkDigit": "Check digit ບໍ່ຖືກຕ້ອງ — ຄວນເປັນ {expected} (ບໍ່ແມ່ນ {provided})"
+        "checkDigit": "Check digit ບໍ່ຖືກຕ້ອງ — ຄວນເປັນ {expected} (ບໍ່ແມ່ນ {provided})",
+        "prefixRequired": "ກະລຸນາປ້ອນຕົວເລກຕູ້ຄອນເທນເນີ (4 ຕົວອັກສອນ + 6 ຕົວເລກ)",
+        "checkDigitRequired": "Check digit ຕ້ອງເປັນຕົວເລກດຽວ",
+        "isoTypeRequired": "ກະລຸນາເລືອກ ISO type",
+        "sizeRequired": "ກະລຸນາເລືອກຂະໜາດ",
+        "categoryRequired": "ກະລຸນາເລືອກປະເພດ",
+        "ownerRequired": "ກະລຸນາປ້ອນເຈົ້າຂອງ",
+        "registrationDateRequired": "ກະລຸນາປ້ອນວັນທີລົງທະບຽນ",
+        "certificationRequired": "ກະລຸນາຢືນຢັນຂໍ້ມູນ",
+        "invalidContainerNumber": "ເລກຕູ້ບໍ່ຖືກຕ້ອງ",
+        "yearBuiltRange": "ປີຜະລິດຕ້ອງຢູ່ລະຫວ່າງ 1900 ຫາ {year}",
+        "positiveNumber": "{label} ຕ້ອງເປັນຕົວເລກທີ່ຫຼາຍກວ່າ 0"
       }
     },
     "movementsEmpty": "ຍັງບໍ່ມີການເຄື່ອນໄຫວ (Gate In/Out, Relocation)",

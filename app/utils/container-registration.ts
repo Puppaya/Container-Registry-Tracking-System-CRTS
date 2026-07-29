@@ -227,65 +227,91 @@ export function getRegistrationStepForField(field: string): RegistrationStepValu
   return REGISTRATION_FIELD_STEPS[field] ?? 'identification'
 }
 
-export const containerRegistrationSchema = z.object({
-  containerPrefix: z.string().min(10, 'Container number prefix is required (4 letters + 6 digits)'),
-  checkDigit: z.string().regex(/^\d$/, 'Check digit must be a single digit'),
-  unitStatus: z.string().min(1),
-  isoType: z.string().min(1, 'ISO type is required'),
-  containerSize: z.string().min(1, 'Size is required'),
-  containerCategory: z.string().min(1, 'Category is required'),
-  tareWeight: optionalNumericField,
-  maxPayload: optionalNumericField,
-  internalVolume: optionalNumericField,
-  owner: z.string().min(1, 'Legal owner is required'),
-  leaseProvider: z.string().optional().or(z.literal('')),
-  manufacturer: z.string().optional().or(z.literal('')),
-  yearBuilt: optionalNumericField,
-  registryLocation: z.string().optional().or(z.literal('')),
-  cscExpiryDate: z.string().optional().or(z.literal('')),
-  registrationDate: z.string().min(1, 'Registration date is required'),
-  certified: z.boolean().refine(value => value === true, { message: 'Certification confirmation is required' })
-}).superRefine((data, ctx) => {
-  const result = validateContainerPrefixAndDigit(data.containerPrefix, data.checkDigit)
-  if (!result.valid) {
-    ctx.addIssue({
-      code: 'custom',
-      path: ['containerPrefix'],
-      message: result.error || 'Invalid container number'
-    })
-  }
-
-  if (data.yearBuilt && data.yearBuilt !== '') {
-    const year = Number(data.yearBuilt)
-    if (Number.isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
+export function createContainerRegistrationSchema(
+  t: (key: string, params?: Record<string, unknown>) => string
+) {
+  return z.object({
+    containerPrefix: z.string().min(10, t('containers.form.validation.prefixRequired')),
+    checkDigit: z.string().regex(/^\d$/, t('containers.form.validation.checkDigitRequired')),
+    unitStatus: z.string().min(1),
+    isoType: z.string().min(1, t('containers.form.validation.isoTypeRequired')),
+    containerSize: z.string().min(1, t('containers.form.validation.sizeRequired')),
+    containerCategory: z.string().min(1, t('containers.form.validation.categoryRequired')),
+    tareWeight: optionalNumericField,
+    maxPayload: optionalNumericField,
+    internalVolume: optionalNumericField,
+    owner: z.string().min(1, t('containers.form.validation.ownerRequired')),
+    leaseProvider: z.string().optional().or(z.literal('')),
+    manufacturer: z.string().optional().or(z.literal('')),
+    yearBuilt: optionalNumericField,
+    registryLocation: z.string().optional().or(z.literal('')),
+    cscExpiryDate: z.string().optional().or(z.literal('')),
+    registrationDate: z.string().min(1, t('containers.form.validation.registrationDateRequired')),
+    certified: z.boolean().refine(value => value === true, { message: t('containers.form.validation.certificationRequired') })
+  }).superRefine((data, ctx) => {
+    const result = validateContainerPrefixAndDigit(data.containerPrefix, data.checkDigit)
+    if (!result.valid) {
       ctx.addIssue({
         code: 'custom',
-        path: ['yearBuilt'],
-        message: `Year built must be between 1900 and ${new Date().getFullYear()}`
+        path: ['containerPrefix'],
+        message: result.error || t('containers.form.validation.invalidContainerNumber')
       })
     }
-  }
 
-  for (const [field, label] of [
-    ['tareWeight', 'Tare weight'],
-    ['maxPayload', 'Max payload'],
-    ['internalVolume', 'Internal volume']
-  ] as const) {
-    const raw = data[field]
-    if (raw !== '' && raw != null) {
-      const num = Number(stripNumericFormatting(raw))
-      if (Number.isNaN(num) || num <= 0) {
+    if (data.yearBuilt && data.yearBuilt !== '') {
+      const year = Number(data.yearBuilt)
+      if (Number.isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
         ctx.addIssue({
           code: 'custom',
-          path: [field],
-          message: `${label} must be a positive number`
+          path: ['yearBuilt'],
+          message: t('containers.form.validation.yearBuiltRange', { year: String(new Date().getFullYear()) })
         })
       }
     }
-  }
-})
 
-export type ContainerRegistrationSchema = z.infer<typeof containerRegistrationSchema>
+    for (const [field, labelKey] of [
+      ['tareWeight', 'containers.form.tareWeight'],
+      ['maxPayload', 'containers.form.maxPayload'],
+      ['internalVolume', 'containers.form.internalVolume']
+    ] as const) {
+      const raw = data[field]
+      if (raw !== '' && raw != null) {
+        const num = Number(stripNumericFormatting(raw))
+        if (Number.isNaN(num) || num <= 0) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [field],
+            message: t('containers.form.validation.positiveNumber', { label: t(labelKey) })
+          })
+        }
+      }
+    }
+  })
+}
+
+export const containerRegistrationSchema = createContainerRegistrationSchema(
+  (key: string) => {
+    const messages: Record<string, string> = {
+      'containers.form.validation.prefixRequired': 'Container number prefix is required (4 letters + 6 digits)',
+      'containers.form.validation.checkDigitRequired': 'Check digit must be a single digit',
+      'containers.form.validation.isoTypeRequired': 'ISO type is required',
+      'containers.form.validation.sizeRequired': 'Size is required',
+      'containers.form.validation.categoryRequired': 'Category is required',
+      'containers.form.validation.ownerRequired': 'Legal owner is required',
+      'containers.form.validation.registrationDateRequired': 'Registration date is required',
+      'containers.form.validation.certificationRequired': 'Certification confirmation is required',
+      'containers.form.validation.invalidContainerNumber': 'Invalid container number',
+      'containers.form.validation.yearBuiltRange': 'Year built must be between 1900 and {year}',
+      'containers.form.validation.positiveNumber': '{label} must be a positive number',
+      'containers.form.tareWeight': 'Tare weight',
+      'containers.form.maxPayload': 'Max payload',
+      'containers.form.internalVolume': 'Internal volume'
+    }
+    return messages[key] ?? key
+  }
+)
+
+export type ContainerRegistrationSchema = z.infer<ReturnType<typeof createContainerRegistrationSchema>>
 
 export function containerToRegistrationState(container: {
   containerNumber: string

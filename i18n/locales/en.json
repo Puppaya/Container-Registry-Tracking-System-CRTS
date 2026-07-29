@@ -12,7 +12,7 @@
   },
   "nav": {
     "goTo": "Go to",
-    "modules": "Modules",
+    "modulesLabel": "Modules",
     "groups": {
       "overview": "Overview",
       "registry": "Container Registry",
@@ -138,6 +138,8 @@
     "refresh": "Refresh",
     "update": "Update",
     "validate": "Validate",
+    "validated": "Validated",
+    "autoMark": "Auto Mark",
     "track": "Track",
     "choose": "Choose",
     "viewProfile": "View Profile",
@@ -442,10 +444,12 @@
       "registryLocation": "Registry Location",
       "cscExpiryDate": "CSC Expiry Date",
       "registrationDate": "Registration Date",
+      "validationErrorTitle": "{count} field(s) need attention",
       "bicDocuments": "BIC Certification Documents",
       "bicDocumentsUpload": "Upload BIC Certification Documents",
       "bicDocumentsDesc": "PDF, JPEG, or PNG (Max {size}MB)",
       "suggestedCheckDigit": "Suggested check digit: {digit}",
+      "autoMarkedCheckDigit": "Auto-marked check digit: {digit}",
       "placeholders": {
         "containerNumber": "MSCU123456",
         "checkDigit": "7",
@@ -469,7 +473,18 @@
         "required": "Please enter container number",
         "invalid": "Invalid container number",
         "isoFormat": "Invalid format: 4 letters + 7 digits (ISO 6346)",
-        "checkDigit": "Invalid check digit — expected {expected}, not {provided}"
+        "checkDigit": "Invalid check digit — expected {expected}, not {provided}",
+        "prefixRequired": "Container number prefix is required (4 letters + 6 digits)",
+        "checkDigitRequired": "Check digit must be a single digit",
+        "isoTypeRequired": "ISO type is required",
+        "sizeRequired": "Size is required",
+        "categoryRequired": "Category is required",
+        "ownerRequired": "Legal owner is required",
+        "registrationDateRequired": "Registration date is required",
+        "certificationRequired": "Certification confirmation is required",
+        "invalidContainerNumber": "Invalid container number",
+        "yearBuiltRange": "Year built must be between 1900 and {year}",
+        "positiveNumber": "{label} must be a positive number"
       }
     },
     "movementsEmpty": "No movements recorded yet (Gate In/Out, Relocation)",
