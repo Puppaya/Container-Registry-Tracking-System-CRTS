@@ -706,6 +706,7 @@ function previewFile(file: File) {
         />
       </div>
       <div class="flex flex-col-reverse gap-3 sm:flex-row">
+        
         <UButton
           v-if="!isEditMode"
           :label="t('common.saveDraft')"
