@@ -394,7 +394,6 @@ function previewFile(file: File) {
       :ui="{ body: 'space-y-4 p-5 sm:p-6', header: 'px-5 py-4 sm:px-6' }"
     >
       <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-info via-info/60 to-info/10" />
-
       <template #header>
         <div class="flex items-center gap-3">
           <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-info/10 text-xs font-bold text-info font-mono">2</span>
