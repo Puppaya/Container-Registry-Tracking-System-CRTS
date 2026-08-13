@@ -23,7 +23,7 @@ const schema = z.object({
   manufacturer: z.string().optional().or(z.literal('')),
   yearBuilt: z.coerce.number().int().min(1900).max(new Date().getFullYear()).optional().or(z.literal('')),
   registrationDate: z.string().min(1, 'Registration date is required'),
-  status: z.enum(['Active', 'Inactive'])
+  status: z.enum(['Active', 'Inactive', 'Pending'])
 }).superRefine((data, ctx) => {
   const resolved = resolveContainerNumberInput(data.containerNumber)
   const result = validateContainerNumber(resolved)

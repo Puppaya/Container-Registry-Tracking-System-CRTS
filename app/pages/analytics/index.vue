@@ -42,6 +42,7 @@ async function handleRefresh() {
         </template>
 
         <template #right>
+          <LocaleSwitcher />
           <UButton
             :label="t('reports.title')"
             icon="i-lucide-file-bar-chart"
@@ -99,7 +100,7 @@ async function handleRefresh() {
           />
 
           <AnalyticsBreakdownChart
-            title="Status Distribution"
+            :title="t('analytics.charts.statusDistribution')"
             icon="i-lucide-pie-chart"
             :items="overview?.statusBreakdown"
             :loading="loading"
@@ -109,7 +110,7 @@ async function handleRefresh() {
 
         <div class="grid gap-6 xl:grid-cols-2">
           <AnalyticsBreakdownChart
-            title="Container Size Distribution"
+            :title="t('analytics.charts.sizeDistribution')"
             icon="i-lucide-ruler"
             :items="overview?.sizeBreakdown"
             :loading="loading"
@@ -117,7 +118,7 @@ async function handleRefresh() {
           />
 
           <AnalyticsBreakdownChart
-            title="Category Distribution"
+            :title="t('analytics.charts.categoryDistribution')"
             icon="i-lucide-layers"
             :items="overview?.categoryBreakdown"
             :loading="loading"
@@ -132,7 +133,7 @@ async function handleRefresh() {
           />
 
           <AnalyticsBreakdownChart
-            title="Survey Results"
+            :title="t('analytics.charts.surveyResults')"
             icon="i-lucide-clipboard-check"
             :items="overview?.surveyResults"
             :loading="loading"

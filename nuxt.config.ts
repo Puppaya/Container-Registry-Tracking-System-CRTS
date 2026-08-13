@@ -70,6 +70,13 @@ export default defineNuxtConfig({
     s3Region: process.env.S3_REGION || 'us-east-1',
     s3PublicUrl: process.env.S3_PUBLIC_URL || process.env.MINIO_RETURN_PATH || '',
     storageLocalPath: process.env.STORAGE_LOCAL_PATH || '',
+    hubPublicUrl: process.env.HUB_PUBLIC_URL || 'http://localhost:3000',
+    hubModuleId: process.env.HUB_MODULE_ID || 'crts',
+    hubIntegrationSecret: process.env.HUB_INTEGRATION_SECRET || '',
+    hubDefaultProvisionRole: process.env.HUB_DEFAULT_PROVISION_ROLE || 'SurveyTeam',
+    onexIdentityJwtKey: process.env.ONEX_IDENTITY_JWT_KEY || '',
+    onexIdentityIssuer: process.env.ONEX_IDENTITY_ISSUER || 'onex-identity-api',
+    onexIdentityAudience: process.env.ONEX_IDENTITY_AUDIENCE || 'onex-clients',
     session: {
       password: process.env.NUXT_SESSION_PASSWORD || '',
       cookie: {

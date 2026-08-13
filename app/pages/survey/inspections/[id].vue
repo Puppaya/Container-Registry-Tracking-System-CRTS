@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SurveyInspectionRecord } from '~/types'
-import { formatSurveyDate, getSurveyResultColor } from '~/utils/survey-inspection'
+import { formatSurveyDate, getSurveyResultColor, surveyResultLabel } from '~/utils/survey-inspection'
 
 definePageMeta({
   layout: 'default',
@@ -41,7 +41,7 @@ const record = computed(() => recordRes.value?.data)
           <div class="flex flex-wrap items-center gap-2">
             <UBadge v-if="record.isMock" color="neutral" variant="subtle">{{ t('survey.mockData') }}</UBadge>
             <UBadge :color="getSurveyResultColor(record.result)" variant="subtle">
-              {{ record.result }}
+              {{ surveyResultLabel(record.result, t) }}
             </UBadge>
           </div>
 
@@ -74,7 +74,7 @@ const record = computed(() => recordRes.value?.data)
 
           <div>
             <p class="text-xs text-muted mb-1">{{ t('survey.fields.damageSummary') }}</p>
-            <p class="text-sm">{{ record.damageSummary || 'No damage reported' }}</p>
+            <p class="text-sm">{{ record.damageSummary || t('survey.noDamageReported') }}</p>
           </div>
 
           <div class="flex flex-wrap gap-2 border-t border-default pt-4">
