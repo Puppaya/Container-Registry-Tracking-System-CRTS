@@ -1,6 +1,6 @@
 export type CrtsRole = 'Administrator' | 'RegistryOfficer' | 'SurveyTeam' | 'Management'
 
-export type ContainerStatus = 'Active' | 'Inactive'
+export type ContainerStatus = 'Active' | 'Inactive' | 'Pending'
 
 export type ContainerEventType =
   | 'Registration'
@@ -87,6 +87,34 @@ export interface ContainerProfile {
   documents: ContainerDocument[]
   documentCount: number
   eventCount: number
+}
+
+export interface PublicContainerTrackResponse {
+  container: {
+    containerNumber: string
+    isoType: string
+    containerSize: string
+    containerCategory: string
+    owner: string
+    manufacturer?: string | null
+    yearBuilt?: number | null
+    registrationDate: string
+    status: string
+    qrCode?: string | null
+  }
+  currentStatus: ContainerCurrentStatus
+  latestSurvey: { surveyDate: string, result: string } | null
+  recentMovements: Array<{
+    eventType: string
+    eventDate: string
+    eventDescription?: string | null
+  }>
+  timeline: Array<{
+    eventType: string
+    eventDate: string
+    eventDescription?: string | null
+  }>
+  registrationReference?: string | null
 }
 
 export interface DashboardSummary {

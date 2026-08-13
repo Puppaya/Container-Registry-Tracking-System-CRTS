@@ -328,7 +328,7 @@ export function containerToRegistrationState(container: {
   registryLocation?: string | null
   cscExpiryDate?: string | null
   registrationDate: string
-  status: 'Active' | 'Inactive'
+  status: 'Active' | 'Inactive' | 'Pending'
 }): ContainerRegistrationFormState {
   const normalized = normalizeContainerNumber(container.containerNumber)
   const containerPrefix = normalized.slice(0, 10)
