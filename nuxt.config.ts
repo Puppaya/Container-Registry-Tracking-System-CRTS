@@ -38,8 +38,12 @@ export default defineNuxtConfig({
   routeRules: {
     '/**': {
       headers: {
-        'Content-Security-Policy': "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data:;",
-        'X-Frame-Options': 'DENY',
+        'Content-Security-Policy': [
+          "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'",
+          "img-src 'self' https: data: blob:",
+          "font-src 'self' https: data:",
+          `frame-ancestors ${process.env.FRAME_ANCESTORS || "'self' https://*.sdplao.com https://sdplao.com"}`
+        ].join('; '),
         'X-Content-Type-Options': 'nosniff',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
