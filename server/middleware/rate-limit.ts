@@ -6,8 +6,8 @@ const WINDOW = 60 * 1000 // 1 minute
 export default defineEventHandler((event) => {
   const path = getRequestPath(event)
   
-  // Only apply to sensitive routes (login, register, etc.)
-  if (path.startsWith('/api/auth/')) {
+  // Apply to sensitive routes (login, register, public portal)
+  if (path.startsWith('/api/auth/') || path.startsWith('/api/public/')) {
     const ip = getRequestIP(event, { xForwardedFor: true }) || 'unknown'
     const now = Date.now()
     

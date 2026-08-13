@@ -77,7 +77,8 @@ watch(page, () => {
 const statusOptions = computed(() => [
   { label: t('common.allStatuses'), value: 'all' },
   { label: t('common.active'), value: 'Active' },
-  { label: t('common.inactive'), value: 'Inactive' }
+  { label: t('common.inactive'), value: 'Inactive' },
+  { label: t('public.statusPending'), value: 'Pending' }
 ])
 
 const sizeOptions = computed(() => [
