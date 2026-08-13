@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { LifecycleEvent, ContainerEventType } from '~/types'
-import { EVENT_TYPE_COLORS, formatEventDate } from '~/utils/container-events'
+import type { LifecycleEvent } from '~/types'
+import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, formatEventDate } from '~/utils/container-events'
 
 defineProps<{
   events: LifecycleEvent[]
@@ -9,11 +9,6 @@ defineProps<{
 }>()
 
 const { t } = useI18n()
-
-const eventTypeLabel = (type: ContainerEventType | string): string => {
-  const key = `movements.types.${type.charAt(0).toLowerCase() + type.slice(1)}`
-  return t(key)
-}
 </script>
 
 <template>
@@ -30,11 +25,11 @@ const eventTypeLabel = (type: ContainerEventType | string): string => {
       :data="events"
       :loading="loading"
       :columns="[
-        { accessorKey: 'eventDate', header: t('containers.events.eventDate') },
-        ...(showContainer ? [{ accessorKey: 'containerNumber', header: t('movements.columns.container') }] : []),
-        { accessorKey: 'eventType', header: t('containers.events.eventType') },
-        { accessorKey: 'eventDescription', header: t('containers.events.description') },
-        { accessorKey: 'createdBy', header: t('movements.columns.recordedBy') },
+        { accessorKey: 'eventDate', header: 'Date' },
+        ...(showContainer ? [{ accessorKey: 'containerNumber', header: 'Container' }] : []),
+        { accessorKey: 'eventType', header: 'Event' },
+        { accessorKey: 'eventDescription', header: 'Description' },
+        { accessorKey: 'createdBy', header: 'Recorded By' },
         { id: 'actions', header: '' }
       ]"
       :ui="{
@@ -67,7 +62,7 @@ const eventTypeLabel = (type: ContainerEventType | string): string => {
           variant="subtle"
           size="sm"
         >
-          {{ eventTypeLabel((row.original as unknown as LifecycleEvent).eventType) }}
+          {{ EVENT_TYPE_LABELS[(row.original as unknown as LifecycleEvent).eventType] }}
         </UBadge>
       </template>
 

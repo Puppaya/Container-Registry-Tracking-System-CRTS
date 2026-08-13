@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n()
-
 const emit = defineEmits<{
   export: [format: 'xlsx' | 'pdf']
 }>()
@@ -9,14 +7,14 @@ const emit = defineEmits<{
 <template>
   <div class="flex flex-wrap gap-2">
     <UButton
-      :label="t('reports.exportExcel')"
+      label="Excel"
       icon="i-lucide-file-spreadsheet"
       color="success"
       variant="outline"
       @click="emit('export', 'xlsx')"
     />
     <UButton
-      :label="t('reports.exportPdf')"
+      label="PDF"
       icon="i-lucide-file-text"
       color="neutral"
       variant="outline"

@@ -17,8 +17,7 @@ vi.mock('../../../server/utils/repositories', () => ({
 
 vi.mock('../../../server/utils/crypto', () => ({
     hashPassword: vi.fn().mockImplementation((p) => Promise.resolve(`hashed_${p}`)),
-    comparePassword: vi.fn().mockImplementation((p, h) => Promise.resolve(h === `hashed_${p}`)),
-    verifyPassword: vi.fn().mockImplementation((h, p) => Promise.resolve(h === `hashed_${p}`))
+    comparePassword: vi.fn().mockImplementation((p, h) => Promise.resolve(h === `hashed_${p}`))
 }))
 
 describe('UserService', () => {
@@ -44,12 +43,12 @@ describe('UserService', () => {
         it('should return user if credentials are correct (hashed password)', async () => {
             const mockUser = { username: 'testuser', password: '$2hashed_password123' }
             vi.mocked(userRepository.findByUsername).mockResolvedValue(mockUser as any)
-            vi.mocked(cryptoUtils.verifyPassword).mockResolvedValue(true)
+            vi.mocked(cryptoUtils.comparePassword).mockResolvedValue(true)
 
             const result = await userService.authenticate('testuser', 'password123')
 
             expect(result).toEqual(mockUser)
-            expect(cryptoUtils.verifyPassword).toHaveBeenCalledWith('$2hashed_password123', 'password123')
+            expect(cryptoUtils.comparePassword).toHaveBeenCalledWith('password123', '$2hashed_password123')
         })
 
         it('should return user if credentials are correct (plain password fallback)', async () => {

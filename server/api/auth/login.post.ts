@@ -17,8 +17,6 @@ export default defineEventHandler(async (event) => {
     // 2. Authenticate via Service
     const user = await userService.authenticate(username, password)
 
-    console.log(password)
-
     if (!user) {
         throw createError({
             statusCode: 401,

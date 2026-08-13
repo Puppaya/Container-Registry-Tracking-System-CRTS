@@ -193,7 +193,7 @@ export function buildCommandPaletteGroups(t: (key: string) => string, role: stri
 
   return [{
     id: 'modules',
-    label: t('nav.modulesLabel'),
+    label: t('nav.modules'),
     items: flatItems
   }]
 }

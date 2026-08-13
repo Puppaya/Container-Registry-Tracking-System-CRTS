@@ -10,13 +10,6 @@ definePageMeta({
 const { t } = useI18n()
 const route = useRoute()
 
-const reportKeyToi18n: Record<string, string> = {
-  'registry': 'reports.registry',
-  'lifecycle': 'reports.lifecycle',
-  'survey-coverage': 'reports.surveyCoverage',
-  'status-summary': 'reports.statusSummary'
-}
-
 const {
   filters,
   activeReport,
@@ -54,10 +47,6 @@ onMounted(() => {
             />
           </div>
         </template>
-
-        <template #right>
-          <LocaleSwitcher />
-        </template>
       </UDashboardNavbar>
     </template>
 
@@ -76,9 +65,9 @@ onMounted(() => {
         <div class="ds-card">
           <div class="ds-card-header flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 class="ds-section-title">{{ t(reportKeyToi18n[activeConfig.key] + '.title') }}</h2>
+              <h2 class="ds-section-title">{{ activeConfig.title }}</h2>
               <p class="ds-body-sm mt-0.5">
-                {{ t('reports.previewNote', { date: preview?.generatedAt ? formatDisplayDateTime(preview.generatedAt) : '—' }) }}
+                Preview and export — generated {{ preview?.generatedAt ? formatDisplayDateTime(preview.generatedAt) : '—' }}
               </p>
             </div>
 

@@ -179,33 +179,6 @@ export const ContainerQrLookupSchema = z.object({
   code: z.string().min(3)
 })
 
-export const PublicContainerRegisterSchema = z.object({
-  containerPrefix: z.string().min(10).max(10),
-  checkDigit: z.string().length(1).regex(/^\d$/),
-  isoType: z.string().min(1),
-  containerSize: z.string().min(1),
-  containerCategory: z.string().min(1),
-  owner: z.string().min(1),
-  manufacturer: z.string().optional(),
-  yearBuilt: z.coerce.number().int().min(1900).max(new Date().getFullYear()).optional(),
-  tareWeight: z.coerce.number().positive().optional(),
-  maxPayload: z.coerce.number().positive().optional(),
-  internalVolume: z.coerce.number().positive().optional(),
-  leaseProvider: z.string().optional(),
-  registryLocation: z.string().optional(),
-  cscExpiryDate: z.coerce.date().optional(),
-  registrationDate: z.coerce.date(),
-  submitterName: z.string().min(1).max(100),
-  submitterEmail: z.string().email(),
-  submitterPhone: z.string().min(6).max(30).optional(),
-  certified: z.literal(true, { message: 'Certification confirmation is required' })
-})
-
-export const PublicContainerTrackSchema = z.object({
-  containerNumber: z.string().min(11).max(11),
-  checkDigit: z.string().length(1).regex(/^\d$/)
-})
-
 export const ContainerDocumentTypeSchema = z.enum([
   'Registration',
   'Survey',
@@ -217,12 +190,6 @@ export const ContainerDocumentTypeSchema = z.enum([
 
 export const ContainerDocumentUploadSchema = z.object({
   documentType: ContainerDocumentTypeSchema
-})
-
-export const PublicContainerDocumentSchema = z.object({
-  containerNumber: z.string().min(11).max(11),
-  checkDigit: z.string().length(1).regex(/^\d$/),
-  documentType: ContainerDocumentTypeSchema.default('Certificate')
 })
 
 export const ReportQuerySchema = z.object({
@@ -244,9 +211,6 @@ export const AuditLogListQuerySchema = z.object({
 
 export type ReportQueryInput = z.infer<typeof ReportQuerySchema>
 export type AuditLogListQuery = z.infer<typeof AuditLogListQuerySchema>
-
-export type PublicContainerRegisterInput = z.infer<typeof PublicContainerRegisterSchema>
-export type PublicContainerTrackInput = z.infer<typeof PublicContainerTrackSchema>
 
 export type ContainerListQuery = z.infer<typeof ContainerListQuerySchema>
 export type CreateContainerInput = z.infer<typeof ContainerSchema>

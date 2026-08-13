@@ -63,7 +63,7 @@ const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>((
     <template #body>
       <UDashboardPanelContent class="space-y-6 p-4 md:p-6">
         <p class="text-sm text-muted">
-          {{ t('containers.lifecyclePage.desc') }}
+          Track registration, surveys, repairs, maintenance, relocations, and gate movements across all containers.
         </p>
 
         <ContainersLifecycleContainerLifecycleSummary
@@ -79,7 +79,7 @@ const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>((
 
         <div class="flex flex-wrap items-center justify-between gap-3">
           <p class="text-sm text-muted">
-            {{ t('containers.lifecyclePage.eventCount', { n: eventsRes?.data?.meta?.total || 0 }) }}
+            {{ eventsRes?.data?.meta?.total || 0 }} event(s)
           </p>
           <UPagination
             v-model:page="page"

@@ -2,8 +2,6 @@
 import type { ReportFilters } from '~/composables/useReports'
 import type { ReportKey } from '~/utils/reports'
 
-const { t } = useI18n()
-
 defineProps<{
   filters: ReportFilters
   activeReport: ReportKey
@@ -15,22 +13,22 @@ defineProps<{
     v-if="activeReport === 'registry' || activeReport === 'lifecycle'"
     class="grid gap-4 md:grid-cols-3"
   >
-    <UFormField v-if="activeReport === 'registry'" :label="t('reports.filters.status')">
+    <UFormField v-if="activeReport === 'registry'" label="Status">
       <USelect
         v-model="filters.status"
         :items="[
-          { label: t('common.all'), value: 'all' },
-          { label: t('common.active'), value: 'Active' },
-          { label: t('common.inactive'), value: 'Inactive' }
+          { label: 'All', value: 'all' },
+          { label: 'Active', value: 'Active' },
+          { label: 'Inactive', value: 'Inactive' }
         ]"
       />
     </UFormField>
 
-    <UFormField :label="t('reports.filters.dateFrom')">
+    <UFormField label="Date from">
       <AppDateInput v-model="filters.dateFrom" />
     </UFormField>
 
-    <UFormField :label="t('reports.filters.dateTo')">
+    <UFormField label="Date to">
       <AppDateInput v-model="filters.dateTo" />
     </UFormField>
   </div>
