@@ -48,12 +48,23 @@ jobs:
       - name: Load build env from ecosystem.config.cjs
         shell: powershell
         run: |
-          $serverEcoPath = 'C:/inetpub/wwwroot/CRTS/ecosystem.config.cjs'
-          $ecoPath = if (Test-Path $serverEcoPath) { $serverEcoPath } else { "$env:GITHUB_WORKSPACE/ecosystem.config.cjs" }
-          $eco = require($ecoPath).apps[0].env_production
-          Add-Content -Path $env:GITHUB_ENV -Value "SECRET_KEY=$($eco.SECRET_KEY)"
-          Add-Content -Path $env:GITHUB_ENV -Value "HUB_PUBLIC_URL=$($eco.HUB_PUBLIC_URL)"
-          Add-Content -Path $env:GITHUB_ENV -Value "HUB_INTEGRATION_SECRET=$($eco.HUB_INTEGRATION_SECRET)"
+          $serverEcoPath = 'C:\inetpub\wwwroot\CRTS\ecosystem.config.cjs'
+          $repoEcoPath = Join-Path $env:GITHUB_WORKSPACE 'ecosystem.config.cjs'
+          $ecoPath = if (Test-Path $serverEcoPath) { $serverEcoPath } else { $repoEcoPath }
+          if (-not (Test-Path $ecoPath)) {
+            throw "ecosystem.config.cjs not found at $serverEcoPath or $repoEcoPath"
+          }
+          $json = & bun -e "const cfg=require(process.argv[1]); const env=cfg?.apps?.[0]?.env_production; if(!env){process.exit(1)}; process.stdout.write(JSON.stringify(env))" $ecoPath
+          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($json)) {
+            throw "Failed to read apps[0].env_production from $ecoPath"
+          }
+          $eco = $json | ConvertFrom-Json
+          foreach ($key in @('SECRET_KEY', 'HUB_PUBLIC_URL', 'HUB_INTEGRATION_SECRET')) {
+            $value = $eco.$key
+            if ($value) {
+              "$key=$value" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+            }
+          }
       - name: Stop PM2 (Production)
         if: github.ref_name == 'Deploy'
         shell: cmd
