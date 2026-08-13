@@ -8,10 +8,10 @@ defineProps<{
 
 <template>
   <UBadge
-    :color="status === 'Active' ? 'success' : status === 'Pending' ? 'warning' : 'neutral'"
+    :color="status === 'Active' ? 'success' : 'neutral'"
     variant="subtle"
     size="sm"
   >
-    {{ status === 'Active' ? 'Active' : status === 'Pending' ? 'Pending' : 'Inactive' }}
+    {{ status === 'Active' ? 'Active' : 'Inactive' }}
   </UBadge>
 </template>

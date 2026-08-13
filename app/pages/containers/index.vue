@@ -65,7 +65,7 @@ const ownerOptions = computed(() => {
   }
 
   return [
-    { label: t('common.allOwners'), value: 'all' },
+    { label: 'All Owners', value: 'all' },
     ...Array.from(owners).sort().map(owner => ({ label: owner, value: owner }))
   ]
 })
@@ -80,21 +80,21 @@ const columns = computed(() => [
           : tableApi.getIsAllPageRowsSelected(),
         'onUpdate:modelValue': (value: boolean | 'indeterminate') =>
           tableApi.toggleAllPageRowsSelected(!!value),
-        'ariaLabel': t('common.selectAll')
+        'ariaLabel': 'Select all'
       }),
     cell: ({ row }: any) =>
       h(UCheckbox as any, {
         'modelValue': row.getIsSelected(),
         'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
-        'ariaLabel': t('common.selectRow')
+        'ariaLabel': 'Select row'
       })
   },
-  { accessorKey: 'containerNumber', header: t('containers.columns.containerNumber') },
-  { accessorKey: 'isoType', header: t('containers.columns.isoType') },
-  { accessorKey: 'containerSize', header: t('containers.columns.size') },
-  { accessorKey: 'containerCategory', header: t('containers.columns.category') },
-  { accessorKey: 'owner', header: t('containers.columns.owner') },
-  { accessorKey: 'status', header: t('containers.columns.status') },
+  { accessorKey: 'containerNumber', header: 'Container Number' },
+  { accessorKey: 'isoType', header: 'ISO Type' },
+  { accessorKey: 'containerSize', header: 'Size' },
+  { accessorKey: 'containerCategory', header: 'Category' },
+  { accessorKey: 'owner', header: 'Owner' },
+  { accessorKey: 'status', header: 'Status' },
   { id: 'actions', header: '' }
 ])
 
@@ -118,13 +118,13 @@ function getOwnerInitials(owner: string) {
 function getStatusPresentation(status: Container['status']) {
   if (status === 'Active') {
     return {
-      label: t('common.available'),
+      label: 'Available',
       class: 'bg-success-50 text-success-700 ring-success-100'
     }
   }
 
   return {
-    label: t('common.inactive'),
+    label: 'Inactive',
     class: 'bg-error-50 text-error-700 ring-error-100'
   }
 }
@@ -153,14 +153,7 @@ async function exportCsv() {
     const response = await $fetch<{ data: { data: Container[] } }>(`/api/containers?${params.toString()}`)
     const rows = response.data?.data || []
 
-    const headers = [
-      t('containers.columns.containerNumber'),
-      t('containers.columns.isoType'),
-      t('containers.columns.size'),
-      t('containers.columns.category'),
-      t('containers.columns.owner'),
-      t('containers.columns.status')
-    ]
+    const headers = ['Container Number', 'ISO Type', 'Size', 'Category', 'Owner', 'Status']
     const csvLines = [
       headers.join(','),
       ...rows.map(row => [
@@ -198,8 +191,8 @@ async function toggleStatus(container: Container) {
     }) as Promise<any>,
     {
       successMessage: nextStatus === 'Active'
-        ? t('containers.activated')
-        : t('containers.deactivated')
+        ? 'Container activated successfully'
+        : 'Container deactivated successfully'
     }
   )
   if (!error) refresh()
@@ -216,7 +209,7 @@ async function onConfirmAction() {
   const { container } = confirmTarget.value
   const { error } = await runAction(
     () => $fetch(`/api/containers/${container.containerId}`, { method: 'DELETE' }) as Promise<any>,
-    { successMessage: t('containers.deleted') }
+    { successMessage: 'Container deleted successfully' }
   )
 
   if (!error) refresh()
@@ -226,24 +219,24 @@ async function onConfirmAction() {
 function getRowItems(container: Container) {
   return [[
     {
-      label: t('containers.rowActions.profile'),
+      label: 'Profile',
       icon: 'i-lucide-layout-panel-top',
       onSelect: () => navigateTo(`/containers/${container.containerId}`)
     },
     {
-      label: t('containers.rowActions.edit'),
+      label: 'Edit',
       icon: 'i-lucide-pencil',
       onSelect: () => openEdit(container),
       disabled: !canWrite.value
     },
     {
-      label: container.status === 'Active' ? t('containers.rowActions.deactivate') : t('containers.rowActions.activate'),
+      label: container.status === 'Active' ? 'Deactivate' : 'Activate',
       icon: container.status === 'Active' ? 'i-lucide-circle-off' : 'i-lucide-circle-check',
       onSelect: () => toggleStatus(container),
       disabled: !canWrite.value
     },
     {
-      label: t('containers.rowActions.delete'),
+      label: 'Delete',
       icon: 'i-lucide-trash',
       color: 'error' as const,
       onSelect: () => startDelete(container),
@@ -276,7 +269,7 @@ function getRowItems(container: Container) {
             icon="i-lucide-bell"
             color="neutral"
             variant="ghost"
-            :aria-label="t('common.notifications')"
+            aria-label="Notifications"
             class="relative"
           >
             <span class="absolute top-2 right-2 size-2 rounded-full bg-error-500" />
@@ -417,7 +410,7 @@ function getRowItems(container: Container) {
                   <div class="flex items-center gap-2 font-mono text-sm text-on-surface-variant">
                     <UIcon name="i-lucide-box" class="size-4" />
                     <span>
-                      {{ t('common.showing', { n: tableRows.length.toLocaleString(), total: totalCount.toLocaleString() }) }}
+                      Showing {{ tableRows.length.toLocaleString() }} of {{ totalCount.toLocaleString() }} total containers
                     </span>
                   </div>
                 </div>
@@ -428,10 +421,10 @@ function getRowItems(container: Container) {
 
         <footer class="registry-page-footer">
           <div class="registry-page-footer__status">
-            <span>{{ t('common.systemStatus') }}</span>
+            <span>System Status:</span>
             <span class="inline-flex items-center gap-1.5 text-success">
               <span class="size-1.5 rounded-full bg-success" />
-              {{ t('common.operational') }}
+              Operational
             </span>
             <span class="text-[color-mix(in_srgb,var(--ds-border)_100%,transparent)]">|</span>
             <span>{{ CRTS_DASHBOARD_VERSION }}</span>
@@ -444,11 +437,11 @@ function getRowItems(container: Container) {
               variant="ghost"
               size="xs"
               :disabled="page <= 1"
-              :aria-label="t('common.previousPage')"
+              aria-label="Previous page"
               @click="page = Math.max(1, page - 1)"
             />
             <span class="font-mono text-xs text-on-surface-variant">
-              {{ t('common.pageOf', { page: page.toLocaleString(), total: totalPages.toLocaleString() }) }}
+              Page {{ page }} of {{ totalPages.toLocaleString() }}
             </span>
             <UButton
               icon="i-lucide-chevron-right"
@@ -456,17 +449,17 @@ function getRowItems(container: Container) {
               variant="ghost"
               size="xs"
               :disabled="page >= totalPages"
-              :aria-label="t('common.nextPage')"
+              aria-label="Next page"
               @click="page = Math.min(totalPages, page + 1)"
             />
           </div>
 
           <div class="registry-page-footer__links">
             <NuxtLink to="/reports" class="registry-page-footer__link">
-              {{ t('common.documentation') }}
+              Documentation
             </NuxtLink>
             <NuxtLink to="/settings" class="registry-page-footer__link">
-              {{ t('common.support') }}
+              Support
             </NuxtLink>
           </div>
         </footer>

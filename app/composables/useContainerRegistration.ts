@@ -3,7 +3,7 @@ import type { Container } from '~/types'
 import {
   autoFillCheckDigit,
   buildContainerPayload,
-  createContainerRegistrationSchema,
+  containerRegistrationSchema,
   containerToRegistrationState,
   createDefaultRegistrationState,
   DRAFT_STORAGE_KEY,
@@ -27,8 +27,6 @@ export function useContainerRegistration(options: UseContainerRegistrationOption
 
   const toast = useToast()
   const router = useRouter()
-  const { t } = useI18n()
-  const schema = createContainerRegistrationSchema(t)
   const { execute: runAction, loading: submitting } = useApiAction()
 
   const state = reactive<ContainerRegistrationFormState>(createDefaultRegistrationState())
@@ -305,7 +303,7 @@ export function useContainerRegistration(options: UseContainerRegistrationOption
   return {
     isEditMode,
     state,
-    schema,
+    schema: containerRegistrationSchema,
     bicDocuments,
     containerValidated,
     validationMessage,

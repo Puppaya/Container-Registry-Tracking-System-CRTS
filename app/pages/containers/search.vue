@@ -73,39 +73,6 @@ function resetFilters() {
 watch(page, () => {
   router.replace({ query: Object.fromEntries(new URLSearchParams(buildQueryParams())) })
 })
-
-const statusOptions = computed(() => [
-  { label: t('common.allStatuses'), value: 'all' },
-  { label: t('common.active'), value: 'Active' },
-  { label: t('common.inactive'), value: 'Inactive' },
-  { label: t('public.statusPending'), value: 'Pending' }
-])
-
-const sizeOptions = computed(() => [
-  { label: t('containers.searchPage.allSizes'), value: 'all' },
-  { label: '20', value: '20' },
-  { label: '40', value: '40' },
-  { label: '45', value: '45' }
-])
-
-const surveyOptions = computed(() => [
-  { label: t('common.all'), value: 'all' },
-  { label: t('containers.filters.surveyed'), value: 'surveyed' },
-  { label: t('containers.filters.notSurveyed'), value: 'not_surveyed' },
-  { label: t('survey.filters.pass'), value: 'pass' },
-  { label: t('survey.filters.conditional'), value: 'conditional' }
-])
-
-const tableColumns = computed(() => [
-  { accessorKey: 'containerNumber', header: () => t('containers.columns.containerNumber') },
-  { accessorKey: 'isoType', header: () => t('containers.columns.isoType') },
-  { accessorKey: 'containerSize', header: () => t('containers.columns.size') },
-  { accessorKey: 'owner', header: () => t('containers.columns.owner') },
-  { accessorKey: 'status', header: () => t('containers.columns.status') },
-  { accessorKey: 'registrationDate', header: () => t('containers.columns.registrationDate') }
-])
-
-const totalCount = computed(() => containers.value?.data?.meta?.total || 0)
 </script>
 
 <template>
@@ -117,7 +84,6 @@ const totalCount = computed(() => containers.value?.data?.meta?.total || 0)
         </template>
 
         <template #right>
-          <LocaleSwitcher />
           <UButton
             :label="t('nav.items.qrScan')"
             icon="i-lucide-qr-code"
@@ -144,8 +110,7 @@ const totalCount = computed(() => containers.value?.data?.meta?.total || 0)
               <UInput
                 v-model="filters.search"
                 icon="i-lucide-search"
-                :placeholder="t('containers.searchPage.placeholder')"
-                class="w-full"
+                placeholder="ເລກຕູ / ເຈົ້າຂອງ / QR..."
                 @keyup.enter="applyFilters"
               />
             </UFormField>
@@ -153,57 +118,57 @@ const totalCount = computed(() => containers.value?.data?.meta?.total || 0)
             <UFormField :label="t('containers.filters.status')">
               <USelect
                 v-model="filters.status"
-                :items="statusOptions"
-                class="w-full"
+                :items="[
+                  { label: 'ທຸກສະຖານະ', value: 'all' },
+                  { label: 'Active', value: 'Active' },
+                  { label: 'Inactive', value: 'Inactive' }
+                ]"
               />
             </UFormField>
 
             <UFormField :label="t('containers.filters.owner')">
-              <UInput
-                v-model="filters.owner"
-                :placeholder="t('containers.searchPage.ownerPlaceholder')"
-                class="w-full"
-              />
+              <UInput v-model="filters.owner" placeholder="Owner name" />
             </UFormField>
 
             <UFormField :label="t('containers.columns.isoType')">
-              <UInput
-                v-model="filters.isoType"
-                :placeholder="t('containers.searchPage.isoTypePlaceholder')"
-                class="w-full"
-              />
+              <UInput v-model="filters.isoType" placeholder="22G1" />
             </UFormField>
 
             <UFormField :label="t('containers.columns.category')">
-              <UInput
-                v-model="filters.containerCategory"
-                :placeholder="t('containers.searchPage.categoryPlaceholder')"
-                class="w-full"
-              />
+              <UInput v-model="filters.containerCategory" placeholder="Dry, Reefer..." />
             </UFormField>
 
             <UFormField :label="t('containers.columns.size')">
               <USelect
                 v-model="filters.containerSize"
-                :items="sizeOptions"
-                class="w-full"
+                :items="[
+                  { label: 'ທຸກຂະໜາດ', value: 'all' },
+                  { label: '20', value: '20' },
+                  { label: '40', value: '40' },
+                  { label: '45', value: '45' }
+                ]"
               />
             </UFormField>
 
             <UFormField :label="t('containers.filters.survey')">
               <USelect
                 v-model="filters.surveyStatus"
-                :items="surveyOptions"
-                class="w-full"
+                :items="[
+                  { label: 'ທັງໝົດ', value: 'all' },
+                  { label: 'ມີ Survey', value: 'surveyed' },
+                  { label: 'ຍັງບໍ່ Survey', value: 'not_surveyed' },
+                  { label: 'Pass', value: 'pass' },
+                  { label: 'Conditional', value: 'conditional' }
+                ]"
               />
             </UFormField>
 
             <UFormField :label="t('containers.filters.regFrom')">
-              <AppDateInput v-model="filters.registrationDateFrom" class="w-full" />
+              <AppDateInput v-model="filters.registrationDateFrom" />
             </UFormField>
 
             <UFormField :label="t('containers.filters.regTo')">
-              <AppDateInput v-model="filters.registrationDateTo" class="w-full" />
+              <AppDateInput v-model="filters.registrationDateTo" />
             </UFormField>
           </div>
 
@@ -225,7 +190,14 @@ const totalCount = computed(() => containers.value?.data?.meta?.total || 0)
             v-else
             :data="containers?.data?.data || []"
             :loading="pending"
-            :columns="tableColumns"
+            :columns="[
+              { accessorKey: 'containerNumber', header: 'Container No.' },
+              { accessorKey: 'isoType', header: 'ISO' },
+              { accessorKey: 'containerSize', header: 'Size' },
+              { accessorKey: 'owner', header: 'Owner' },
+              { accessorKey: 'status', header: 'Status' },
+              { accessorKey: 'registrationDate', header: 'Registered' }
+            ]"
             :ui="{
               base: 'table-fixed border-separate border-spacing-0',
               thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
@@ -256,12 +228,12 @@ const totalCount = computed(() => containers.value?.data?.meta?.total || 0)
 
           <div class="flex items-center justify-between gap-3 border-t border-default p-4 text-sm">
             <div class="text-neutral-500">
-              {{ t('containers.searchPage.resultCount', { n: totalCount }) }}
+              {{ containers?.data?.meta?.total || 0 }} container(s)
             </div>
 
             <UPagination
               v-model:page="page"
-              :total="totalCount"
+              :total="containers?.data?.meta?.total || 0"
               :items-per-page="pageSize"
             />
           </div>

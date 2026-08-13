@@ -26,7 +26,7 @@ const eventColors: Record<string, string> = {
       <div class="ds-icon-badge">
         <UIcon name="i-lucide-activity" class="size-4 text-white" />
       </div>
-      <h2 class="ds-section-title">{{ t('analytics.charts.lifecycleByType') }}</h2>
+      <h2 class="ds-section-title">Lifecycle Events by Type</h2>
     </div>
 
     <div class="ds-card-body">

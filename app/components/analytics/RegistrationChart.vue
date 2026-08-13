@@ -20,7 +20,7 @@ const maxCount = computed(() => {
       <div class="ds-icon-badge">
         <UIcon name="i-lucide-chart-column" class="size-4 text-white" />
       </div>
-      <h2 class="ds-section-title">{{ t('analytics.charts.registrationTrend') }}</h2>
+      <h2 class="ds-section-title">Registration Trend (6 months)</h2>
     </div>
 
     <div class="ds-card-body">

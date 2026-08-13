@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { MovementTrackResult, ContainerEventType } from '~/types'
-import { EVENT_TYPE_COLORS, formatEventDate } from '~/utils/container-events'
-
-const { t } = useI18n()
+import type { MovementTrackResult } from '~/types'
+import { EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, formatEventDate } from '~/utils/container-events'
+import { getMovementStatusHint } from '~/utils/movements'
 
 const trackQuery = defineModel<string>('trackQuery', { default: '' })
 
@@ -15,33 +14,21 @@ defineProps<{
   loading?: boolean
   error?: boolean
 }>()
-
-const eventTypeLabel = (type: ContainerEventType | string): string => {
-  const key = `movements.types.${type.charAt(0).toLowerCase() + type.slice(1)}`
-  return t(key)
-}
-
-const movementStatusHint = (type: ContainerEventType | string | null | undefined): string => {
-  if (type === 'GateIn') return t('containers.statusCard.inYard')
-  if (type === 'GateOut') return t('containers.statusCard.departed')
-  if (type === 'Relocation') return t('containers.statusCard.relocated')
-  return t('containers.statusCard.noMovement')
-}
 </script>
 
 <template>
   <UCard>
     <div class="flex flex-wrap items-end gap-3">
-      <UFormField :label="$t('movements.trackContainer')" class="min-w-80 flex-1">
+      <UFormField label="Track Container" class="min-w-80 flex-1">
         <UInput
           v-model="trackQuery"
           icon="i-lucide-locate-fixed"
-          :placeholder="$t('movements.trackPlaceholder')"
+          placeholder="Container number or prefix..."
           @keyup.enter="emit('track')"
         />
       </UFormField>
       <UButton
-        :label="$t('common.track')"
+        label="Track"
         icon="i-lucide-radar"
         :loading="loading"
         @click="emit('track')"
@@ -57,14 +44,14 @@ const movementStatusHint = (type: ContainerEventType | string | null | undefined
       class="mt-4"
       color="warning"
       icon="i-lucide-search-x"
-      :title="$t('movements.notFound')"
-      :description="$t('movements.notFoundDesc')"
+      title="Container not found"
+      description="Try a full container number or a unique prefix."
     />
 
     <div v-else-if="result" class="mt-6 space-y-4">
       <div class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-default bg-elevated/30 p-4">
         <div>
-          <p class="text-sm text-muted">{{ $t('movements.trackingResult') }}</p>
+          <p class="text-sm text-muted">Tracking Result</p>
           <p class="text-xl font-mono font-semibold">{{ result.container.containerNumber }}</p>
           <p class="text-sm text-muted mt-1">
             {{ result.container.isoType }} · {{ result.container.containerSize }}ft · {{ result.container.owner }}
@@ -73,19 +60,19 @@ const movementStatusHint = (type: ContainerEventType | string | null | undefined
         <div class="text-right">
           <ContainersContainerStatusBadge :status="result.container.status as any" />
           <p class="text-xs text-muted mt-2">
-            {{ movementStatusHint(result.latestMovement?.eventType) }}
+            {{ getMovementStatusHint(result.latestMovement?.eventType) }}
           </p>
         </div>
       </div>
 
       <div v-if="result.latestMovement" class="rounded-lg border border-default p-4">
-        <p class="text-sm text-muted mb-2">{{ $t('movements.latestMovement') }}</p>
+        <p class="text-sm text-muted mb-2">Latest Movement</p>
         <div class="flex flex-wrap items-center gap-2">
           <UBadge
             :color="EVENT_TYPE_COLORS[result.latestMovement.eventType]"
             variant="subtle"
           >
-            {{ eventTypeLabel(result.latestMovement.eventType) }}
+            {{ EVENT_TYPE_LABELS[result.latestMovement.eventType] }}
           </UBadge>
           <span class="text-sm">{{ formatEventDate(result.latestMovement.eventDate) }}</span>
         </div>
@@ -95,7 +82,7 @@ const movementStatusHint = (type: ContainerEventType | string | null | undefined
       </div>
 
       <div v-if="result.recentMovements.length > 0">
-        <p class="text-sm font-medium mb-2">{{ $t('movements.recentMovements') }}</p>
+        <p class="text-sm font-medium mb-2">Recent Movements</p>
         <ul class="space-y-2">
           <li
             v-for="movement in result.recentMovements"
@@ -104,7 +91,7 @@ const movementStatusHint = (type: ContainerEventType | string | null | undefined
           >
             <div class="flex items-center gap-2">
               <UBadge :color="EVENT_TYPE_COLORS[movement.eventType]" variant="subtle" size="sm">
-                {{ eventTypeLabel(movement.eventType) }}
+                {{ EVENT_TYPE_LABELS[movement.eventType] }}
               </UBadge>
               <span class="text-muted">{{ movement.eventDescription || '—' }}</span>
             </div>
@@ -115,13 +102,13 @@ const movementStatusHint = (type: ContainerEventType | string | null | undefined
 
       <div class="flex flex-wrap gap-2">
         <UButton
-          :label="$t('common.viewProfile')"
+          label="View Profile"
           icon="i-lucide-container"
           variant="outline"
           :to="`/containers/${result.container.containerId}`"
         />
         <UButton
-          :label="$t('movements.movementHistory')"
+          label="Movement History"
           icon="i-lucide-truck"
           variant="ghost"
           :to="`/containers/${result.container.containerId}/movements`"

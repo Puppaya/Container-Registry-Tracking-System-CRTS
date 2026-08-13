@@ -1,5 +1,5 @@
 import { userRepository } from '../utils/repositories'
-import { hashPassword, verifyPassword } from '../utils/crypto'
+import { hashPassword, comparePassword } from '../utils/crypto'
 
 export class UserService {
     async getUsers(params: { page: number; pageSize: number; search?: string; role?: string }) {
@@ -64,7 +64,7 @@ export class UserService {
 
         let isMatch = false
         if (user.password.startsWith('$2')) {
-            isMatch = await verifyPassword(user.password, passwordFromClient)
+            isMatch = await comparePassword(passwordFromClient, user.password)
         } else {
             isMatch = user.password === passwordFromClient
         }

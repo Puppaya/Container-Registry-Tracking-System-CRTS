@@ -1,14 +1,5 @@
 <script setup lang="ts">
 import { REPORTS } from '~/utils/reports'
-
-const { t } = useI18n()
-
-const reportKeyToi18n: Record<string, string> = {
-  'registry': 'reports.registry',
-  'lifecycle': 'reports.lifecycle',
-  'survey-coverage': 'reports.surveyCoverage',
-  'status-summary': 'reports.statusSummary'
-}
 </script>
 
 <template>
@@ -18,10 +9,10 @@ const reportKeyToi18n: Record<string, string> = {
         <div class="ds-icon-badge">
           <UIcon name="i-lucide-file-bar-chart" class="size-4 text-white" />
         </div>
-        <h2 class="ds-section-title">{{ t('analytics.reportCatalog') }}</h2>
+        <h2 class="ds-section-title">Report Catalog</h2>
       </div>
       <UButton
-        :label="t('analytics.reportWorkspace')"
+        label="Open Report Workspace"
         icon="i-lucide-arrow-right"
         color="primary"
         size="sm"
@@ -37,8 +28,8 @@ const reportKeyToi18n: Record<string, string> = {
           :to="`/analytics/reports?report=${report.key}`"
           class="ds-report-tile block"
         >
-          <div class="font-display font-semibold text-on-surface">{{ t(reportKeyToi18n[report.key] + '.title') }}</div>
-          <p class="mt-1 ds-body-sm">{{ t(reportKeyToi18n[report.key] + '.desc') }}</p>
+          <div class="font-display font-semibold text-on-surface">{{ report.title }}</div>
+          <p class="mt-1 ds-body-sm">{{ report.description }}</p>
           <div class="mt-3 flex gap-2">
             <UBadge color="success" variant="subtle" size="sm" class="font-mono">Excel</UBadge>
             <UBadge color="primary" variant="subtle" size="sm" class="font-mono">PDF</UBadge>

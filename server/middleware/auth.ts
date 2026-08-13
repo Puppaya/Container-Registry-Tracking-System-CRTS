@@ -5,16 +5,13 @@ export default defineEventHandler(async (event) => {
   const publicRoutes = [
     '/api/auth/login',
     '/api/auth/register',
-    '/api/auth/hub-exchange',
     '/api/health'
   ]
-
-  const isPublicRoute = publicRoutes.includes(path) || path.startsWith('/api/public/')
 
   const isIntegrationRoute = path.startsWith('/api/integrations/')
 
   // Only protect /api routes
-  if (path.startsWith('/api/') && !isPublicRoute && !isIntegrationRoute) {
+  if (path.startsWith('/api/') && !publicRoutes.includes(path) && !isIntegrationRoute) {
     const session = await getUserSession(event)
     
     if (!session.user) {
