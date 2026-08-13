@@ -1,11 +1,15 @@
 <script setup lang="ts">
 const { navGroups, commandGroups } = useAppNavigation()
+const { isHubMode } = useHubMode()
 
 const open = ref(false)
 </script>
 
 <template>
-  <UDashboardGroup unit="rem">
+  <UDashboardGroup
+    unit="rem"
+    :class="{ 'crts-layout--hub': isHubMode }"
+  >
     <UDashboardSidebar
       id="default"
       v-model:open="open"
@@ -45,3 +49,10 @@ const open = ref(false)
     <slot />
   </UDashboardGroup>
 </template>
+
+<style scoped>
+:global(.crts-layout--hub) {
+  min-height: 100%;
+  height: 100%;
+}
+</style>

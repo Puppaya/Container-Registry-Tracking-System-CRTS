@@ -45,18 +45,15 @@ jobs:
           bun install
       - name: prisma generate
         run: bunx prisma generate
-      - name: Load SECRET_KEY from ecosystem.config.cjs
+      - name: Load build env from ecosystem.config.cjs
         shell: powershell
         run: |
-          $ecoPath = 'C:\inetpub\wwwroot\CRTS\ecosystem.config.cjs'
-          if (-not (Test-Path $ecoPath)) {
-            throw "ecosystem.config.cjs not found at $ecoPath"
-          }
-          $secret = & bun -e "const cfg=require(process.argv[1]); const env=cfg?.apps?.[0]?.env_production; if(!env?.SECRET_KEY){process.exit(1)}; process.stdout.write(env.SECRET_KEY)" $ecoPath
-          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($secret)) {
-            throw "Failed to read SECRET_KEY from $ecoPath (check apps[0].env_production.SECRET_KEY)"
-          }
-          "SECRET_KEY=$secret" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          $serverEcoPath = 'C:/inetpub/wwwroot/CRTS/ecosystem.config.cjs'
+          $ecoPath = if (Test-Path $serverEcoPath) { $serverEcoPath } else { "$env:GITHUB_WORKSPACE/ecosystem.config.cjs" }
+          $eco = require($ecoPath).apps[0].env_production
+          Add-Content -Path $env:GITHUB_ENV -Value "SECRET_KEY=$($eco.SECRET_KEY)"
+          Add-Content -Path $env:GITHUB_ENV -Value "HUB_PUBLIC_URL=$($eco.HUB_PUBLIC_URL)"
+          Add-Content -Path $env:GITHUB_ENV -Value "HUB_INTEGRATION_SECRET=$($eco.HUB_INTEGRATION_SECRET)"
       - name: Stop PM2 (Production)
         if: github.ref_name == 'Deploy'
         shell: cmd
@@ -68,7 +65,15 @@ jobs:
         env:
           NITRO_OUTPUT_DIR: ${{ env.DEPLOY_DIR }}
           SECRET_KEY: ${{ env.SECRET_KEY }}
+          HUB_PUBLIC_URL: ${{ env.HUB_PUBLIC_URL }}
+          HUB_INTEGRATION_SECRET: ${{ env.HUB_INTEGRATION_SECRET }}
         run: bun run build
+      - name: Copy ecosystem to server root
+        if: github.ref_name == 'Deploy'
+        shell: cmd
+        run: |
+          copy /Y "%GITHUB_WORKSPACE%\ecosystem.config.cjs" "C:\inetpub\wwwroot\CRTS\ecosystem.config.cjs"
+          exit /b 0
 
   pm2_restart:
     needs: call-deploy

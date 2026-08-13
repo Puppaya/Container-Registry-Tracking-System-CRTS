@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { SurveyInspectionRecord } from '~/types'
-import { formatSurveyDate, getSurveyResultColor } from '~/utils/survey-inspection'
+import { formatSurveyDate, getSurveyResultColor, surveyResultLabel } from '~/utils/survey-inspection'
+
+const { t } = useI18n()
 
 defineProps<{
   records: SurveyInspectionRecord[]
@@ -10,8 +12,6 @@ defineProps<{
 const emit = defineEmits<{
   view: [record: SurveyInspectionRecord]
 }>()
-
-const { t } = useI18n()
 </script>
 
 <template>
@@ -28,12 +28,12 @@ const { t } = useI18n()
       :data="records"
       :loading="loading"
       :columns="[
-        { accessorKey: 'surveyReferenceNo', header: 'Reference No.' },
-        { accessorKey: 'containerNumber', header: 'Container' },
-        { accessorKey: 'surveyDate', header: 'Inspection Date' },
-        { accessorKey: 'inspector', header: 'Inspector' },
-        { accessorKey: 'result', header: 'Result' },
-        { accessorKey: 'damageSummary', header: 'Damage' },
+        { accessorKey: 'surveyReferenceNo', header: t('survey.columns.reference') },
+        { accessorKey: 'containerNumber', header: t('survey.columns.container') },
+        { accessorKey: 'surveyDate', header: t('survey.columns.inspectionDate') },
+        { accessorKey: 'inspector', header: t('survey.columns.inspector') },
+        { accessorKey: 'result', header: t('survey.columns.result') },
+        { accessorKey: 'damageSummary', header: t('survey.columns.damage') },
         { id: 'actions', header: '' }
       ]"
       :ui="{
@@ -54,7 +54,7 @@ const { t } = useI18n()
             variant="subtle"
             size="sm"
           >
-            Mock
+            {{ t('survey.mockBadge') }}
           </UBadge>
         </div>
       </template>
@@ -84,7 +84,7 @@ const { t } = useI18n()
           variant="subtle"
           size="sm"
         >
-          {{ (row.original as unknown as SurveyInspectionRecord).result }}
+          {{ surveyResultLabel((row.original as unknown as SurveyInspectionRecord).result, t) }}
         </UBadge>
       </template>
 

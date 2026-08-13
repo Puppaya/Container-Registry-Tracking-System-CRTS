@@ -8,24 +8,25 @@ const props = defineProps<{
 
 const emit = defineEmits(['success', 'cancel'])
 
+const { t } = useI18n()
 const isEdit = computed(() => !!props.user)
 
-const roleOptions = [
-  { label: 'Administrator', value: 'Administrator' },
-  { label: 'Registry Officer', value: 'RegistryOfficer' },
-  { label: 'Survey Team', value: 'SurveyTeam' },
-  { label: 'Management', value: 'Management' }
-]
+const roleOptions = computed(() => [
+  { label: t('users.roles.administrator'), value: 'Administrator' },
+  { label: t('users.roles.registryOfficer'), value: 'RegistryOfficer' },
+  { label: t('users.roles.surveyTeam'), value: 'SurveyTeam' },
+  { label: t('users.roles.management'), value: 'Management' }
+])
 
-const schema = z.object({
-  username: z.string().min(3, 'Username ຕ້ອງມີຢ່າງໜ້ອຍ 3 ຕົວອັກສອນ'),
-  name: z.string().min(2, 'ຊື່ສັ້ນເກີນໄປ'),
-  email: z.string().email('ອີເມວບໍ່ຖືກຕ້ອງ'),
-  password: z.string().min(6, 'Password ຕ້ອງມີຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ').optional().or(z.literal('')),
+const schema = computed(() => z.object({
+  username: z.string().min(3, t('users.form.validation.usernameMin')),
+  name: z.string().min(2, t('users.form.validation.nameMin')),
+  email: z.string().email(t('users.form.validation.emailInvalid')),
+  password: z.string().min(6, t('users.form.validation.passwordMin')).optional().or(z.literal('')),
   role: z.enum(['Administrator', 'RegistryOfficer', 'SurveyTeam', 'Management'])
-})
+}))
 
-type Schema = z.infer<typeof schema>
+type Schema = z.infer<typeof schema.value>
 
 const defaultState = (): Schema => ({
   username: '',
@@ -54,7 +55,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
   const { error } = await saveUser(
     () => $fetch(url as any, { method: method as any, body }) as any,
-    { successMessage: props.user ? 'ແກ້ໄຂຂໍ້ມູນສຳເລັດ' : 'ສ້າງ User ສຳເລັດ' }
+    { successMessage: props.user ? t('users.success.update') : t('users.success.create') }
   )
 
   if (!error) {
@@ -85,41 +86,41 @@ watch(() => props.user, (newVal) => {
     @submit="onSubmit"
   >
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <UFormField label="Username" name="username" required>
+      <UFormField :label="t('users.form.username')" name="username" required>
         <UInput
           v-model="state.username"
           icon="i-lucide-at-sign"
-          placeholder="username"
+          :placeholder="t('users.form.placeholders.username')"
           class="w-full"
           :disabled="isEdit"
         />
       </UFormField>
 
-      <UFormField label="ຊື່-ນາມສະກຸນ" name="name" required>
+      <UFormField :label="t('users.form.name')" name="name" required>
         <UInput
           v-model="state.name"
           icon="i-lucide-user"
-          placeholder="Full Name"
+          :placeholder="t('users.form.placeholders.name')"
           class="w-full"
         />
       </UFormField>
     </div>
 
-    <UFormField label="ອີເມວ" name="email" required>
+    <UFormField :label="t('users.form.email')" name="email" required>
       <UInput
         v-model="state.email"
         type="email"
         icon="i-lucide-mail"
-        placeholder="email@example.com"
+        :placeholder="t('users.form.placeholders.email')"
         class="w-full"
       />
     </UFormField>
 
     <UFormField
-      :label="isEdit ? 'ລະຫັດຜ່ານໃໝ່ (ບໍ່ບັງຄັບ)' : 'ລະຫັດຜ່ານ'"
+      :label="isEdit ? t('users.form.passwordOptional') : t('users.form.password')"
       name="password"
       :required="!isEdit"
-      :help="isEdit ? 'ປ່ອຍວ່າງຖ້າບໍ່ຕ້ອງການປ່ຽນ' : 'ຢ່າງໜ້ອຍ 6 ຕົວອັກສອນ'"
+      :help="isEdit ? t('users.form.passwordHelpEdit') : t('users.form.passwordHelpCreate')"
     >
       <UInput
         v-model="state.password"
@@ -134,14 +135,14 @@ watch(() => props.user, (newVal) => {
             variant="ghost"
             size="xs"
             :icon="showPassword ? 'i-lucide-eye-off' : 'i-lucide-eye'"
-            :aria-label="showPassword ? 'Hide password' : 'Show password'"
+            :aria-label="showPassword ? t('users.form.hidePassword') : t('users.form.showPassword')"
             @click="showPassword = !showPassword"
           />
         </template>
       </UInput>
     </UFormField>
 
-    <UFormField label="ບົດບາດ" name="role" required>
+    <UFormField :label="t('users.form.role')" name="role" required>
       <USelect
         v-model="state.role"
         :items="roleOptions"
@@ -151,14 +152,14 @@ watch(() => props.user, (newVal) => {
 
     <div class="flex justify-end gap-3 pt-6 border-t border-default">
       <UButton
-        label="ຍົກເລີກ"
+        :label="t('common.cancel')"
         color="neutral"
         variant="ghost"
         @click="$emit('cancel')"
       />
       <UButton
         type="submit"
-        :label="isEdit ? 'ບັນທຶກ' : 'ເພີ່ມຜູ້ໃຊ້'"
+        :label="isEdit ? t('users.form.submitEdit') : t('users.form.submitCreate')"
         :loading="loading"
         icon="i-lucide-save"
       />
