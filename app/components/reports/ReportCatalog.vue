@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { REPORTS, type ReportKey } from '~/utils/reports'
 
+const { t } = useI18n()
+
 defineProps<{
   activeReport: ReportKey
 }>()
@@ -8,6 +10,13 @@ defineProps<{
 const emit = defineEmits<{
   select: [key: ReportKey]
 }>()
+
+const reportKeyToi18n: Record<string, string> = {
+  'registry': 'reports.registry',
+  'lifecycle': 'reports.lifecycle',
+  'survey-coverage': 'reports.surveyCoverage',
+  'status-summary': 'reports.statusSummary'
+}
 </script>
 
 <template>
@@ -20,8 +29,8 @@ const emit = defineEmits<{
       :class="{ 'ds-report-tile--active': activeReport === report.key }"
       @click="emit('select', report.key)"
     >
-      <div class="font-display font-semibold text-on-surface">{{ report.title }}</div>
-      <p class="mt-1 ds-body-sm">{{ report.description }}</p>
+      <div class="font-display font-semibold text-on-surface">{{ t(reportKeyToi18n[report.key] + '.title') }}</div>
+      <p class="mt-1 ds-body-sm">{{ t(reportKeyToi18n[report.key] + '.desc') }}</p>
     </button>
   </div>
 </template>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { REGISTRATION_STEPS } from '~/utils/container-registration'
 
+const { t } = useI18n()
+
 const props = defineProps<{
   activeStep: string
 }>()
@@ -23,7 +25,7 @@ function scrollToSection(sectionId: string) {
 
 <template>
   <div class="space-y-6">
-    <nav aria-label="Registration steps" class="space-y-1">
+    <nav :aria-label="t('containers.registration.steps.registration')" class="space-y-1">
       <button
         v-for="(step, index) in stepItems"
         :key="step.value"
@@ -52,7 +54,7 @@ function scrollToSection(sectionId: string) {
             class="text-sm font-semibold font-mono tracking-tight"
             :class="activeStep === step.value ? 'text-primary' : 'text-default'"
           >
-            {{ step.title }}
+            {{ t(`containers.registration.steps.${step.value}`) }}
           </p>
         </div>
       </button>
@@ -62,8 +64,8 @@ function scrollToSection(sectionId: string) {
       color="info"
       variant="subtle"
       icon="i-lucide-info"
-      title="Need Help?"
-      description="The check digit is the 7th digit of the container number, calculated per ISO 6346 using the first 10 characters."
+      :title="t('containers.registration.helpTitle')"
+      :description="t('containers.registration.helpDesc')"
       :ui="{ root: 'text-xs' }"
     />
   </div>

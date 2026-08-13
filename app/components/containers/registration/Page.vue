@@ -2,6 +2,8 @@
 import type { Container } from '~/types'
 import { REGISTRATION_STEPS, getRegistrationStepForField } from '~/utils/container-registration'
 
+const { t } = useI18n()
+
 const props = withDefaults(defineProps<{
   mode?: 'create' | 'edit'
   containerId?: number
@@ -39,42 +41,42 @@ const {
   containerId: computed(() => props.containerId)
 })
 
-const formRef = useTemplateRef<{ sectionIds: Record<string, string> }>('formRef')
+const formRef = useTemplateRef<{ sectionIds: Record<string, string>; scrollToField: (name: string) => void }>('formRef')
 const scrollContainer = useTemplateRef<HTMLElement>('scrollContainer')
 
 const breadcrumbItems = computed(() => {
   if (isEditMode.value) {
     return [
-      { label: 'Registry', to: '/containers' },
+      { label: t('common.registry'), to: '/containers' },
       {
-        label: props.container?.containerNumber || 'Container',
+        label: props.container?.containerNumber || t('containers.title'),
         to: props.containerId ? `/containers/${props.containerId}` : undefined
       },
-      { label: 'Edit' }
+      { label: t('common.edit') }
     ]
   }
 
   return [
-    { label: 'Registry', to: '/containers' },
-    { label: 'New Registration' }
+    { label: t('common.registry'), to: '/containers' },
+    { label: t('containers.registerNew') }
   ]
 })
 
 const pageTitle = computed(() =>
-  isEditMode.value ? 'Edit Container' : 'Register New Container'
+  isEditMode.value ? t('containers.edit') : t('containers.registerNew')
 )
 
 const pageDescription = computed(() =>
   isEditMode.value
-    ? 'Update technical specifications and ownership details for this registered unit.'
-    : 'Ensure all technical specifications match the ISO BIC certification plate.'
+    ? t('containers.editDesc')
+    : t('containers.registerDesc')
 )
 
 const navbarTitle = computed(() => {
   if (isEditMode.value && props.container) {
-    return `Edit — ${props.container.containerNumber}`
+    return `${t('common.edit')} — ${props.container.containerNumber}`
   }
-  return isEditMode.value ? 'Edit Container' : 'Register New Container'
+  return isEditMode.value ? t('containers.edit') : t('containers.registerNew')
 })
 
 const backTo = computed(() =>
@@ -96,10 +98,19 @@ function scrollToSection(sectionId: string) {
   })
 }
 
+function scrollToField(fieldName: string) {
+  nextTick(() => formRef.value?.scrollToField(fieldName))
+}
+
+function onValidationError(fieldName: string) {
+  scrollToSection(getRegistrationStepForField(fieldName))
+  scrollToField(fieldName)
+}
+
 async function handleAttemptRegistration() {
   const failedField = await attemptRegistration()
   if (failedField) {
-    scrollToSection(getRegistrationStepForField(String(failedField)))
+    onValidationError(String(failedField))
   }
 }
 
@@ -182,14 +193,14 @@ onBeforeUnmount(() => {
         <template #right>
           <UBadge color="success" variant="subtle" class="font-mono hidden sm:inline-flex">
             <span class="size-1.5 rounded-full bg-success mr-1.5" />
-            ACTIVE
+            {{ t('common.active') }}
           </UBadge>
           <UBadge color="neutral" variant="outline" class="font-mono hidden md:inline-flex">
             BIC-ISO 6346
           </UBadge>
           <UButton
             v-if="!isEditMode"
-            label="Quick Entry"
+            :label="t('common.quickEntry')"
             icon="i-lucide-plus"
             to="/containers/scan"
           />
@@ -203,7 +214,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div v-else-if="isEditMode && !container" class="p-6">
-        <UAlert color="error" icon="i-lucide-alert-circle" title="Container not found" />
+        <UAlert color="error" icon="i-lucide-alert-circle" :title="t('containers.notFound')" />
       </div>
 
       <div v-else class="flex min-h-full flex-col">
@@ -233,7 +244,7 @@ onBeforeUnmount(() => {
 
                 <div class="flex flex-wrap gap-2 lg:justify-end">
                   <UBadge color="success" variant="subtle" class="font-mono sm:hidden">
-                    ACTIVE
+                    {{ t('common.active') }}
                   </UBadge>
                   <UBadge color="neutral" variant="outline" class="font-mono md:hidden">
                     BIC-ISO 6346
@@ -253,7 +264,7 @@ onBeforeUnmount(() => {
                   class="shrink-0 font-mono"
                   @click="scrollToSection(step.value)"
                 >
-                  {{ index + 1 }}. {{ step.title }}
+                  {{ index + 1 }}. {{ t(`containers.registration.steps.${step.value}`) }}
                 </UButton>
               </div>
             </div>
@@ -275,19 +286,20 @@ onBeforeUnmount(() => {
                   :mode="mode"
                   :state="state"
                   :schema="schema"
-                  :bic-documents="bicDocuments"
                   :container-validated="containerValidated"
                   :validation-message="validationMessage"
                   :validation-error="validationError"
                   :validating="validating"
                   :submitting="submitting"
                   :check-digit-auto="checkDigitAuto"
+                  :bic-documents="bicDocuments"
                   @validate="validateContainerNumberField"
                   @normalize-prefix="normalizePrefixInput"
                   @save-draft="saveDraft"
-                  @bic-documents="onBicDocumentsChange"
                   @attempt-submit="handleAttemptRegistration"
                   @submit="handleAttemptRegistration"
+                  @validation-error="onValidationError($event)"
+                  @bic-documents-change="onBicDocumentsChange"
                 />
               </div>
             </div>

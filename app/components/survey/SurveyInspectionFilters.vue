@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { SURVEY_RESULT_OPTIONS } from '~/utils/survey-inspection'
+const { t } = useI18n()
 
 const search = defineModel<string>('search', { default: '' })
 const result = defineModel<string>('result', { default: 'all' })
 const dateFrom = defineModel<string>('dateFrom', { default: '' })
 const dateTo = defineModel<string>('dateTo', { default: '' })
+
+const resultOptions = computed(() => [
+  { label: t('survey.filters.allResults'), value: 'all' },
+  { label: t('survey.filters.pass'), value: 'pass' },
+  { label: t('survey.filters.conditional'), value: 'conditional' },
+  { label: t('survey.filters.fail'), value: 'fail' }
+])
 </script>
 
 <template>
@@ -12,12 +19,12 @@ const dateTo = defineModel<string>('dateTo', { default: '' })
     <UInput
       v-model="search"
       icon="i-lucide-search"
-      placeholder="Reference, container, inspector..."
+      :placeholder="t('survey.filters.placeholder')"
       class="min-w-64"
     />
     <USelect
       v-model="result"
-      :items="SURVEY_RESULT_OPTIONS"
+      :items="resultOptions"
       class="min-w-40"
     />
     <AppDateInput v-model="dateFrom" class="min-w-36" />
