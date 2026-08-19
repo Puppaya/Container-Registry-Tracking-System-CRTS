@@ -10,6 +10,7 @@ export const ALL_AUDIT_ACTIONS = [
   'document.upload',
   'document.delete',
   'survey.sync',
+  'gate.sync',
   'master_data.create',
   'master_data.update',
   'master_data.delete'

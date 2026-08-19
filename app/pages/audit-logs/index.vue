@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { AuditLog } from '~/types'
-import { AUDIT_ACTIONS, AUDIT_ENTITY_TYPES, getAuditActionColor, getAuditActionLabel } from '~/utils/audit-actions'
+import { AUDIT_ACTIONS, AUDIT_ENTITY_TYPES, getAuditActionColor, getAuditActionLabel, getAuditEntityTypeLabel } from '~/utils/audit-actions'
 import { formatDisplayDateTime } from '~/utils/date-format'
 
 definePageMeta({
@@ -49,12 +49,12 @@ function openDetail(log: AuditLog) {
 }
 
 const actionOptions = computed(() => [{ label: t('audit.allActions'), value: 'all' }, ...AUDIT_ACTIONS.map(item => ({
-  label: item.label,
+  label: t(item.labelKey),
   value: item.value
 }))])
 
 const entityTypeOptions = computed(() => [{ label: t('audit.allEntities'), value: 'all' }, ...AUDIT_ENTITY_TYPES.map(item => ({
-  label: item.label,
+  label: t(item.labelKey),
   value: item.value
 }))])
 </script>
@@ -123,8 +123,12 @@ const entityTypeOptions = computed(() => [{ label: t('audit.allEntities'), value
 
           <template #action-cell="{ row }">
             <UBadge :color="getAuditActionColor((row.original as unknown as AuditLog).action)" variant="subtle">
-              {{ getAuditActionLabel((row.original as unknown as AuditLog).action) }}
+              {{ getAuditActionLabel((row.original as unknown as AuditLog).action, t) }}
             </UBadge>
+          </template>
+
+          <template #entityType-cell="{ row }">
+            {{ getAuditEntityTypeLabel((row.original as unknown as AuditLog).entityType, t) }}
           </template>
 
           <template #entityId-cell="{ row }">

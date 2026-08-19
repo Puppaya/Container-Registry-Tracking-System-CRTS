@@ -11,7 +11,9 @@ export function isHubEntryPath(path: string): boolean {
 }
 
 export function shouldRedirectLoggedInFromPublicPath(path: string): boolean {
-  return isPublicPath(path) && !isHubEntryPath(path)
+  // Only bounce authenticated users off the staff login page.
+  // Keep /public and /hub/entry reachable while logged in.
+  return path === '/login' || path.startsWith('/login/')
 }
 
 export function resolveHubEntryRedirect(path?: string | null): string {

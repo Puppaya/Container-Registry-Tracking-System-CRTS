@@ -19,18 +19,27 @@ const eventType = ref('all')
 const dateFrom = ref('')
 const dateTo = ref('')
 
-const timelineRef = useTemplateRef<{ refresh: () => void }>('timeline')
+const { data: containerRes, pending } = useApi<Container>(() =>
+  `/api/containers/${containerId.value}`
+)
 
-const { data: timelineRes, pending: containerPending } = useApi<{
-  container: Container
-  events: unknown[]
-}>(() => `/api/containers/${containerId.value}/timeline`)
-
-const container = computed(() => timelineRes.value?.data?.container)
+const container = computed(() => containerRes.value?.data)
 
 const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>(() =>
   `/api/lifecycle/summary?containerId=${containerId.value}`
 )
+
+const eventTypeItems = computed(() => [
+  { label: t('movements.types.all'), value: 'all' },
+  { label: t('movements.types.registration'), value: 'Registration' },
+  { label: t('movements.types.survey'), value: 'Survey' },
+  { label: t('movements.types.repair'), value: 'Repair' },
+  { label: t('movements.types.maintenance'), value: 'Maintenance' },
+  { label: t('movements.types.relocation'), value: 'Relocation' },
+  { label: t('movements.types.gateIn'), value: 'GateIn' },
+  { label: t('movements.types.gateOut'), value: 'GateOut' },
+  { label: t('movements.types.statusChange'), value: 'StatusChange' }
+])
 </script>
 
 <template>
@@ -68,9 +77,14 @@ const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>((
     </template>
 
     <template #body>
-      <UDashboardPanelContent class="space-y-6 p-4 md:p-6">
-        <div v-if="containerPending" class="flex justify-center py-12">
-          <UIcon name="i-lucide-loader-circle" class="size-8 animate-spin text-muted" />
+      <div class="space-y-6 p-4 md:p-6">
+        <div v-if="!container && !pending" class="py-12">
+          <UAlert
+            color="error"
+            icon="i-lucide-alert-circle"
+            :title="t('containers.notFound')"
+            :description="t('containers.notFoundDesc')"
+          />
         </div>
 
         <template v-else-if="container">
@@ -80,20 +94,10 @@ const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>((
           />
 
           <UCard>
-            <div class="flex flex-wrap items-end gap-3 mb-6">
+            <div class="mb-6 flex flex-wrap items-end gap-3">
               <USelect
                 v-model="eventType"
-                :items="[
-                  { label: 'All event types', value: 'all' },
-                  { label: 'Registration', value: 'Registration' },
-                  { label: 'Survey', value: 'Survey' },
-                  { label: 'Repair', value: 'Repair' },
-                  { label: 'Maintenance', value: 'Maintenance' },
-                  { label: 'Relocation', value: 'Relocation' },
-                  { label: 'Gate In', value: 'GateIn' },
-                  { label: 'Gate Out', value: 'GateOut' },
-                  { label: 'Status Change', value: 'StatusChange' }
-                ]"
+                :items="eventTypeItems"
                 class="min-w-44"
               />
               <AppDateInput v-model="dateFrom" class="min-w-36" />
@@ -101,7 +105,6 @@ const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>((
             </div>
 
             <ContainersContainerTimeline
-              ref="timeline"
               :container-id="container.containerId"
               :can-write="canWrite"
               :event-type="eventType"
@@ -110,15 +113,7 @@ const { data: summaryRes, pending: summaryPending } = useApi<LifecycleSummary>((
             />
           </UCard>
         </template>
-
-        <UAlert
-          v-else
-          color="error"
-          icon="i-lucide-alert-circle"
-          :title="t('containers.notFound')"
-          :description="t('containers.notFoundDesc')"
-        />
-      </UDashboardPanelContent>
+      </div>
     </template>
   </UDashboardPanel>
 </template>

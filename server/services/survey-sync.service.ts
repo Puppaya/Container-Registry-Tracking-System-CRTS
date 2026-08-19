@@ -123,7 +123,8 @@ export class SurveySyncService {
         total: summary.total,
         created: summary.created,
         skipped: summary.skipped,
-        failed: summary.failed
+        failed: summary.failed,
+        items: summary.items
       }
     })
 
@@ -148,7 +149,8 @@ export class SurveySyncService {
         total: summary.total,
         created: summary.created,
         skipped: summary.skipped,
-        failed: summary.failed
+        failed: summary.failed,
+        items: summary.items
       }
     })
 

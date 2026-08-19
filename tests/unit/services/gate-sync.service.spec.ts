@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { gateSyncService } from '../../../server/services/gate-sync.service'
 import { containerRepository, containerEventRepository } from '../../../server/utils/repositories'
+import { logAudit } from '../../../server/utils/audit-log'
 
 vi.mock('../../../server/utils/repositories', () => ({
   containerRepository: {
@@ -83,6 +84,32 @@ describe('GateSyncService', () => {
 
       expect(summary.total).toBe(1)
       expect(summary.created).toBe(1)
+    })
+
+    it('should persist audit log with item breakdown', async () => {
+      vi.mocked(containerRepository.findByContainerNumber).mockResolvedValue(null)
+
+      const summary = await gateSyncService.syncInbound([sampleRecord])
+
+      expect(summary.skipped).toBe(1)
+      expect(logAudit).toHaveBeenCalledWith(expect.objectContaining({
+        action: 'gate.sync',
+        actor: 'smart-gate-integration',
+        entityType: 'gate_sync',
+        entityId: 'GTE-2026-0001',
+        details: expect.objectContaining({
+          source: 'inbound',
+          total: 1,
+          created: 0,
+          skipped: 1,
+          failed: 0,
+          items: [expect.objectContaining({
+            gateReferenceNo: 'GTE-2026-0001',
+            status: 'skipped',
+            reason: 'container_not_found'
+          })]
+        })
+      }))
     })
   })
 })

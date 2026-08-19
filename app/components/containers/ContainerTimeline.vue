@@ -25,6 +25,8 @@ const { data: timeline, refresh, pending } = useApi<{
   if (props.dateTo) params.set('dateTo', props.dateTo)
   const qs = params.toString()
   return `/api/containers/${props.containerId}/timeline${qs ? `?${qs}` : ''}`
+}, {
+  key: () => `container-timeline-${props.containerId}-${props.eventType || 'all'}-${props.dateFrom || ''}-${props.dateTo || ''}`
 })
 
 const events = computed(() => timeline.value?.data?.events || [])
