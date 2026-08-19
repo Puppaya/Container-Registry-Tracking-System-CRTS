@@ -48,9 +48,19 @@ jobs:
       - name: Load build env from ecosystem.config.cjs
         shell: powershell
         run: |
-          $serverEcoPath = 'C:/inetpub/wwwroot/CRTS/ecosystem.config.cjs'
-          $ecoPath = if (Test-Path $serverEcoPath) { $serverEcoPath } else { "$env:GITHUB_WORKSPACE/ecosystem.config.cjs" }
-          $eco = require($ecoPath).apps[0].env_production
+          $workspaceEco = Join-Path $env:GITHUB_WORKSPACE 'ecosystem.config.cjs'
+          $serverEco = 'C:/inetpub/wwwroot/CRTS/ecosystem.config.cjs'
+          if (Test-Path $workspaceEco) {
+            $ecoPath = $workspaceEco
+          } elseif (Test-Path $serverEco) {
+            $ecoPath = $serverEco
+          } else {
+            throw "ecosystem.config.cjs not found in workspace or server path"
+          }
+          $ecoPathNormalized = ($ecoPath -replace '\\', '/')
+          $ecoJson = node -p "JSON.stringify(require('$ecoPathNormalized').apps[0].env_production)"
+          if (-not $ecoJson) { throw "Failed to read env_production from $ecoPath" }
+          $eco = $ecoJson | ConvertFrom-Json
           Add-Content -Path $env:GITHUB_ENV -Value "SECRET_KEY=$($eco.SECRET_KEY)"
           Add-Content -Path $env:GITHUB_ENV -Value "HUB_PUBLIC_URL=$($eco.HUB_PUBLIC_URL)"
           Add-Content -Path $env:GITHUB_ENV -Value "HUB_INTEGRATION_SECRET=$($eco.HUB_INTEGRATION_SECRET)"
