@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { AuditLog } from '~/types'
-import { formatAuditDetails, getAuditActionColor, getAuditActionLabel } from '~/utils/audit-actions'
+import { getAuditActionColor, getAuditActionLabel, getAuditEntityTypeLabel } from '~/utils/audit-actions'
 import { formatDisplayDateTime } from '~/utils/date-format'
 
 definePageMeta({
@@ -51,7 +51,7 @@ const log = computed(() => logRes.value?.data)
             <div>
               <p class="text-xs text-muted">{{ t('audit.detailFields.action') }}</p>
               <UBadge :color="getAuditActionColor(log.action)" variant="subtle">
-                {{ getAuditActionLabel(log.action) }}
+                {{ getAuditActionLabel(log.action, t) }}
               </UBadge>
             </div>
             <div>
@@ -60,7 +60,7 @@ const log = computed(() => logRes.value?.data)
             </div>
             <div>
               <p class="text-xs text-muted">{{ t('audit.detailFields.entityType') }}</p>
-              <p class="font-medium">{{ log.entityType }}</p>
+              <p class="font-medium">{{ getAuditEntityTypeLabel(log.entityType, t) }}</p>
             </div>
             <div>
               <p class="text-xs text-muted">{{ t('audit.detailFields.entityId') }}</p>
@@ -70,7 +70,7 @@ const log = computed(() => logRes.value?.data)
 
           <div>
             <p class="mb-2 text-xs text-muted">{{ t('audit.detailFields.details') }}</p>
-            <pre class="max-h-96 overflow-auto rounded-lg bg-elevated p-4 text-xs">{{ formatAuditDetails(log.details) }}</pre>
+            <AuditLogDetailsPanel :details="log.details" />
           </div>
         </UCard>
       </div>

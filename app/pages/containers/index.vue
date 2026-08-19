@@ -272,15 +272,7 @@ function getRowItems(container: Container) {
         </template>
 
         <template #right>
-          <UButton
-            icon="i-lucide-bell"
-            color="neutral"
-            variant="ghost"
-            :aria-label="t('common.notifications')"
-            class="relative"
-          >
-            <span class="absolute top-2 right-2 size-2 rounded-full bg-error-500" />
-          </UButton>
+          <NotificationBell />
         </template>
       </UDashboardNavbar>
     </template>

@@ -101,13 +101,15 @@ export class GateSyncService {
     await logAudit({
       action: 'gate.sync',
       actor,
-      entityType: 'container_event',
+      entityType: 'gate_sync',
+      entityId: summary.items.length === 1 ? summary.items[0].gateReferenceNo : null,
       details: {
         source: 'inbound',
         total: summary.total,
         created: summary.created,
         skipped: summary.skipped,
-        failed: summary.failed
+        failed: summary.failed,
+        items: summary.items
       }
     })
 

@@ -59,18 +59,24 @@
   --color-error-600: #c42e0a;
   --color-error-700: #a32608;
 
-  /* ── Spacing (4px unit) ── */
-  --spacing-unit: 4px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 40px;
-
   /* ── Radius ── */
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
+}
+
+/**
+ * Spacing tokens stay outside @theme: registering `md`/`lg`/`xl`/`2xl` in
+ * Tailwind's spacing namespace would override the container scale, making
+ * `max-w-lg` resolve to 24px instead of 32rem.
+ */
+:root {
+  --spacing-unit: 4px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 40px;
 }
 
 @layer base {

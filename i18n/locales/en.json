@@ -633,6 +633,58 @@
       "entityType": "Entity Type",
       "entityId": "Entity ID",
       "details": "Details"
+    },
+    "actions": {
+      "containerCreate": "Container Created",
+      "containerUpdate": "Container Updated",
+      "containerDelete": "Container Deleted",
+      "containerStatusChange": "Status Changed",
+      "containerEventCreate": "Event Created",
+      "documentUpload": "Document Uploaded",
+      "documentDelete": "Document Deleted",
+      "surveySync": "Survey Synced",
+      "gateSync": "Gate Synced",
+      "masterDataCreate": "Master Data Created",
+      "masterDataUpdate": "Master Data Updated",
+      "masterDataDelete": "Master Data Deleted"
+    },
+    "entities": {
+      "container": "Container",
+      "containerEvent": "Container Event",
+      "document": "Document",
+      "survey": "Survey",
+      "gateSync": "Gate Sync",
+      "masterData": "Master Data"
+    },
+    "detailValues": {
+      "total": "Total",
+      "created": "Created",
+      "skipped": "Skipped",
+      "failed": "Failed",
+      "sourceLabel": "Source",
+      "containerNumber": "Container Number",
+      "referenceNo": "Reference No.",
+      "status": "Status",
+      "reason": "Reason",
+      "noItemBreakdown": "Item-level details were not stored for this record.",
+      "from": "Previous Value",
+      "to": "New Value",
+      "eventType": "Event Type",
+      "containerId": "Container ID",
+      "source": {
+        "inbound": "Inbound Integration",
+        "external_api": "External API"
+      }
+    },
+    "syncStatuses": {
+      "created": "Created",
+      "skipped": "Skipped",
+      "failed": "Failed"
+    },
+    "syncReasons": {
+      "container_not_found": "Container not registered in CRTS",
+      "already_synced": "Already synced",
+      "unknown_error": "Unknown error"
     }
   },
   "survey": {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { MOVEMENT_TYPES } from '~/utils/movements'
+import { toDateTimeLocalValue } from '~/utils/date-format'
 
 const { t } = useI18n()
 
@@ -9,13 +9,16 @@ const props = defineProps<{
   containerId: number
 }>()
 
-const emit = defineEmits(['success', 'cancel'])
+const emit = defineEmits<{
+  success: []
+  cancel: []
+}>()
 
-const typeLabels: Record<string, string> = {
-  GateIn: t('movements.types.gateIn'),
-  GateOut: t('movements.types.gateOut'),
-  Relocation: t('movements.types.relocation')
-}
+const typeItems = computed(() => [
+  { label: t('movements.types.gateIn'), value: 'GateIn' },
+  { label: t('movements.types.gateOut'), value: 'GateOut' },
+  { label: t('movements.types.relocation'), value: 'Relocation' }
+])
 
 const schema = z.object({
   eventType: z.enum(['Relocation', 'GateIn', 'GateOut']),
@@ -28,7 +31,7 @@ type Schema = z.infer<typeof schema>
 const state = reactive<Schema>({
   eventType: 'GateIn',
   eventDescription: '',
-  eventDate: new Date().toISOString().slice(0, 16)
+  eventDate: toDateTimeLocalValue(new Date())
 })
 
 const { execute: saveMovement, loading } = useApiAction()
@@ -52,11 +55,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
+  <UForm :schema="schema" :state="state" class="w-full space-y-5" @submit="onSubmit">
     <UFormField :label="$t('movements.form.type')" name="eventType">
       <USelect
         v-model="state.eventType"
-        :items="MOVEMENT_TYPES.map(item => ({ label: typeLabels[item.value], value: item.value }))"
+        :items="typeItems"
         class="w-full"
       />
     </UFormField>
@@ -74,9 +77,20 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <AppDateTimeInput v-model="state.eventDate" class="w-full" />
     </UFormField>
 
-    <div class="flex justify-end gap-3 border-t border-default pt-6">
-      <UButton :label="$t('common.cancel')" color="neutral" variant="ghost" @click="$emit('cancel')" />
-      <UButton type="submit" :label="$t('common.save')" :loading="loading" icon="i-lucide-save" />
+    <div class="flex justify-end gap-3 pt-2">
+      <UButton
+        :label="$t('common.cancel')"
+        color="neutral"
+        variant="ghost"
+        :disabled="loading"
+        @click="$emit('cancel')"
+      />
+      <UButton
+        type="submit"
+        :label="$t('common.save')"
+        :loading="loading"
+        icon="i-lucide-save"
+      />
     </div>
   </UForm>
 </template>

@@ -633,6 +633,58 @@
       "entityType": "Entity Type",
       "entityId": "Entity ID",
       "details": "ລາຍລະອຽດ"
+    },
+    "actions": {
+      "containerCreate": "ສ້າງຕູ້ຄອນເທນເນີ",
+      "containerUpdate": "ແກ້ໄຂຕູ້ຄອນເທນເນີ",
+      "containerDelete": "ລຶບຕູ້ຄອນເທນເນີ",
+      "containerStatusChange": "ປ່ຽນສະຖານະ",
+      "containerEventCreate": "ສ້າງ Event",
+      "documentUpload": "ອັບໂຫຼດເອກະສານ",
+      "documentDelete": "ລຶບເອກະສານ",
+      "surveySync": "Sync Survey",
+      "gateSync": "Sync Gate",
+      "masterDataCreate": "ສ້າງ Master Data",
+      "masterDataUpdate": "ແກ້ໄຂ Master Data",
+      "masterDataDelete": "ລຶບ Master Data"
+    },
+    "entities": {
+      "container": "ຕູ້ຄອນເທນເນີ",
+      "containerEvent": "Container Event",
+      "document": "ເອກະສານ",
+      "survey": "Survey",
+      "gateSync": "Gate Sync",
+      "masterData": "Master Data"
+    },
+    "detailValues": {
+      "total": "ທັງໝົດ",
+      "created": "ສ້າງແລ້ວ",
+      "skipped": "ຂ້າມ",
+      "failed": "ລົ້ມເຫຼວ",
+      "sourceLabel": "ແຫຼ່ງຂໍ້ມູນ",
+      "containerNumber": "ເລກຕູ້ຄອນເທນເນີ",
+      "referenceNo": "ເລກອ້າງອີງ",
+      "status": "ສະຖານະ",
+      "reason": "ເຫດຜົນ",
+      "noItemBreakdown": "ບັນທຶກນີ້ບໍ່ມີລາຍລະອຽດລາຍການຍ່ອຍ.",
+      "from": "ຄ່າເກົ່າ",
+      "to": "ຄ່າໃໝ່",
+      "eventType": "ປະເພດ Event",
+      "containerId": "Container ID",
+      "source": {
+        "inbound": "Inbound Integration",
+        "external_api": "External API"
+      }
+    },
+    "syncStatuses": {
+      "created": "ສ້າງແລ້ວ",
+      "skipped": "ຂ້າມ",
+      "failed": "ລົ້ມເຫຼວ"
+    },
+    "syncReasons": {
+      "container_not_found": "ບໍ່ພົບຕູ້ຄອນເທນເນີໃນ CRTS",
+      "already_synced": "Sync ແລ້ວ",
+      "unknown_error": "ຂໍ້ຜິດພາດບໍ່ຮູ້ຈັກ"
     }
   },
   "survey": {

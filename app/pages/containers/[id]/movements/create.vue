@@ -11,7 +11,7 @@ const route = useRoute()
 const router = useRouter()
 const containerId = computed(() => Number(route.params.id))
 
-const { data: containerRes } = useApi<Container>(() =>
+const { data: containerRes, pending } = useApi<Container>(() =>
   `/api/containers/${containerId.value}`
 )
 
@@ -53,7 +53,12 @@ function onCancel() {
 
     <template #body>
       <div class="mx-auto max-w-2xl p-4 md:p-6">
-        <UCard>
+        <div v-if="pending" class="space-y-4">
+          <USkeleton class="h-10 w-full" />
+          <USkeleton class="h-24 w-full" />
+          <USkeleton class="h-10 w-full" />
+        </div>
+        <UCard v-else>
           <MovementsMovementForm
             :container-id="containerId"
             @success="onSuccess"

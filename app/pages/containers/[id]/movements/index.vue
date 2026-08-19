@@ -15,6 +15,8 @@ const canWrite = computed(() =>
   ['Administrator', 'RegistryOfficer'].includes((user.value as { role?: string })?.role || '')
 )
 
+const showModal = ref(false)
+
 const page = ref(1)
 const pageSize = ref(20)
 const movementType = ref('all')
@@ -31,7 +33,7 @@ const { data: containerRes } = useApi<Container>(() =>
 
 const container = computed(() => containerRes.value?.data)
 
-const { data: movementsRes, pending, refresh } = useApi<{
+const { data: movementsRes, pending, refresh: refreshMovements } = useApi<{
   data: MovementEvent[]
   meta: { total: number }
 }>(() => {
@@ -45,9 +47,26 @@ const { data: movementsRes, pending, refresh } = useApi<{
   return `/api/containers/${containerId.value}/movements?${params.toString()}`
 })
 
-const { data: summaryRes, pending: summaryPending } = useApi<MovementSummary>(() =>
+const { data: summaryRes, pending: summaryPending, refresh: refreshSummary } = useApi<MovementSummary>(() =>
   `/api/movements/summary?containerId=${containerId.value}`
 )
+
+function openMovementModal() {
+  showModal.value = true
+}
+
+function onMovementSuccess() {
+  showModal.value = false
+  refreshMovements()
+  refreshSummary()
+}
+
+const typeFilterItems = computed(() => [
+  { label: t('movements.types.all'), value: 'all' },
+  { label: t('movements.types.gateIn'), value: 'GateIn' },
+  { label: t('movements.types.gateOut'), value: 'GateOut' },
+  { label: t('movements.types.relocation'), value: 'Relocation' }
+])
 </script>
 
 <template>
@@ -71,7 +90,7 @@ const { data: summaryRes, pending: summaryPending } = useApi<MovementSummary>(()
             v-if="canWrite && container"
             :label="t('common.recordMovement')"
             icon="i-lucide-plus"
-            :to="`/containers/${container.containerId}/movements/create`"
+            @click="openMovementModal"
           />
         </template>
       </UDashboardNavbar>
@@ -103,12 +122,7 @@ const { data: summaryRes, pending: summaryPending } = useApi<MovementSummary>(()
           <div class="flex flex-wrap items-end gap-3">
             <USelect
               v-model="movementType"
-              :items="[
-                { label: 'All movements', value: 'all' },
-                { label: 'Gate In', value: 'GateIn' },
-                { label: 'Gate Out', value: 'GateOut' },
-                { label: 'Relocation', value: 'Relocation' }
-              ]"
+              :items="typeFilterItems"
               class="min-w-40"
             />
             <AppDateInput v-model="dateFrom" class="min-w-36" />
@@ -134,4 +148,18 @@ const { data: summaryRes, pending: summaryPending } = useApi<MovementSummary>(()
       </UDashboardPanelContent>
     </template>
   </UDashboardPanel>
+
+  <UModal
+    v-model:open="showModal"
+    :title="container ? `${t('common.recordMovement')} — ${container.containerNumber}` : t('common.recordMovement')"
+    :close="true"
+  >
+    <template #body>
+      <MovementsMovementForm
+        :container-id="containerId"
+        @success="onMovementSuccess"
+        @cancel="showModal = false"
+      />
+    </template>
+  </UModal>
 </template>

@@ -22,8 +22,10 @@ describe('auth-routing', () => {
     expect(isHubEntryPath('/login')).toBe(false)
   })
 
-  it('should not redirect logged-in users away from /hub/entry', () => {
+  it('should not redirect logged-in users away from /hub/entry or /public', () => {
     expect(shouldRedirectLoggedInFromPublicPath('/hub/entry')).toBe(false)
+    expect(shouldRedirectLoggedInFromPublicPath('/public')).toBe(false)
+    expect(shouldRedirectLoggedInFromPublicPath('/public/track')).toBe(false)
     expect(shouldRedirectLoggedInFromPublicPath('/login')).toBe(true)
   })
 
